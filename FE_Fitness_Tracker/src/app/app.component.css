@@ -1,0 +1,46 @@
+.header {
+    background-color: #053B50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .header img {
+    width: 120px; 
+    margin-right: 10px; 
+    margin-left: 20px;
+  }
+
+  .footer {
+    background-color: #777777;
+    color: white;
+    text-align: right;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+  #title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 45px;
+    color: #ffffff;
+  }
+
+  .header {
+    background: linear-gradient(to right, #053B50, #00A896);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .float-end{
+    font-family: 'Roboto', sans-serif;
+    margin-right: 50px;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+  }
