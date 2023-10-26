@@ -4,8 +4,8 @@ import { AboutComponent } from './about/about.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 const routes: Routes = [
@@ -16,7 +16,7 @@ const routes: Routes = [
     component: DashboardComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'profile', component: ProfileComponent },
   // Weitere Routen, wenn vorhanden
 ];
 
