@@ -6,6 +6,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NewWorkoutComponent } from './components/new-workout/new-workout.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'about', component: AboutComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'new-workout', component: NewWorkoutComponent },
   // Weitere Routen, wenn vorhanden
 ];
 

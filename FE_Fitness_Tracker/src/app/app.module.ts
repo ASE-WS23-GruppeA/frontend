@@ -9,6 +9,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NewWorkoutComponent } from './components/new-workout/new-workout.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'new-workout', component: NewWorkoutComponent },
   // Füge weitere Routen hinzu, wenn nötig
 ];
 
@@ -30,6 +32,7 @@ const routes: Routes = [
     DashboardComponent,
     ForgotPasswordComponent,
     ProfileComponent,
+    NewWorkoutComponent,
   ],
   imports: [
     BrowserModule,
