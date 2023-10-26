@@ -1,1 +1,175 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  width: 100%;
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+.displayTable {
+  display: table;
+  width: 100%;
+  height: 80%;
+}
+
+.displayTableCell {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+}
+
+h3 {
+  text-align: center;
+  font-size: 22px;
+  margin: 0 0 20px;
+}
+
+.authBlock {
+  margin: 0 auto;
+  max-width: 400px;
+  background: #00a8973d;
+  padding: 30px 40px 10px;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 30px; /* You can adjust the radius as needed */
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  padding-bottom: 5px;
+  font-weight: 600;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+  float: left;
+  width: 100%;
+}
+
+.formControl {
+  width: 100%;
+  display: block;
+  padding: 15px 15px 14px;
+  border: 2px solid #e7e7e7;
+  outline: none;
+  font-size: 15px;
+  color: #444444;
+  background: #fcfcfc;
+}
+
+.formControl:focus {
+  border: 2px solid #d3d3d6;
+}
+
+input::-webkit-input-placeholder {
+  color: #bbbbbb;
+}
+
+input::-moz-placeholder {
+  color: #bbbbbb;
+}
+
+input:-ms-input-placeholder {
+  color: #bbbbbb;
+}
+
+input:-moz-placeholder {
+  color: #bbbbbb;
+}
+
+.displayTable .btn {
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 15px 0;
+  background: #053B50;
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+}
+
+.displayTable .btn:hover {
+  opacity: 0.88;
+}
+
+.displayTable .btnSecondary {
+  background: #eeeeee;
+  color: #404040;
+}
+
+.forgotPassword {
+  text-align: center;
+  margin: -12px 0 15px 0;
+  float: left;
+  width: 100%;
+}
+
+.forgotPassword span {
+  color: #2495c2;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-block;
+  padding-top: 20px;
+}
+
+.redirectToLogin {
+  padding: 15px 0 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  display: block;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.redirectToLogin .redirect {
+  cursor: pointer;
+  color: #2495c2;
+  font-weight:600;
+  text-decoration: underline;
+}
+
+/* * Content */
+.btn-primary.focus,
+.btn-primary:focus {
+  box-shadow: none;
+}
+
+/* Form */
+label {
+  font-weight: 500;
+}
+
+.form-control {
+  padding: 1.375rem 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .sidebar {
+    position: static;
+    padding: 40px 0 10px;
+    height: auto;
+  }
+}
