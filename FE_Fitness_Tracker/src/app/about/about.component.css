@@ -6,7 +6,13 @@
     align-items: center;
     background: #053B50;
     height: 100%;
+    transition: transform 0.3s;
 }
+
+.card:hover {
+    transform: scale(1.2); 
+}
+
 
 .card-body {
     flex: 1;

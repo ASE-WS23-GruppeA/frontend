@@ -6,7 +6,7 @@
       <img src="./assets/FITJourney_logo2.png" class="img-fluid rounded" alt="Fitness App Image">
     </div>
     <div class="col-lg-6">
-      <h2 class="mb-4">About Us</h2>
+      <h2 class="mb-4 about-link">About Us</h2>
       <p>
         Welcome to the FitJourney – your ultimate solution for organizing and tracking your fitness journey.
         Our platform is designed to provide you with a robust, scalable, and secure environment
@@ -16,7 +16,7 @@
   </div>
   <div class="space">
   <div class="row mt-5">
-    <div class="col-lg-3">
+    <div class="col-lg-3 container-card">
       <div class="card mb-3 bg-gray">
         <div class="card-body">
           <h5 class="card-title">User Profile Management</h5>
@@ -26,7 +26,7 @@
       </div>
     </div>
     
-    <div class="col-lg-3">
+    <div class="col-lg-3 container-card">
       <div class="card mb-3 bg-gray">
         <div class="card-body">
           <h5 class="card-title">Workout and Exercise Tracking</h5>
@@ -36,7 +36,7 @@
       </div>
     </div>
     
-    <div class="col-lg-3">
+    <div class="col-lg-3 container-card">
       <div class="card mb-3 bg-gray">
         <div class="card-body">
           <h5 class="card-title">Analytics and Progress Reports</h5>
@@ -46,7 +46,7 @@
       </div>
     </div>
     
-    <div class="col-lg-3">
+    <div class="col-lg-3 container-card">
       <div class="card mb-3 bg-gray">
         <div class="card-body">
           <h5 class="card-title">Notifications and Alerts</h5>
@@ -62,3 +62,11 @@
 
 
 
+<script>
+  document.querySelector('.about-link').addEventListener('click', () => {
+      const containers = document.querySelectorAll('.container-card');
+      containers.forEach(container => {
+          container.classList.add('animated');
+      });
+  });
+</script>
