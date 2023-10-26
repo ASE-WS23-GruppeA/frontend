@@ -17,9 +17,7 @@
     color: white;
     text-align: right;
     padding: 10px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+  
 }
 
   #title {
@@ -59,3 +57,28 @@
     transform: scale(1.2); 
     transition: transform 0.2s; 
   }
+  .footer {
+    background-color: #777777;
+    color: white;
+    text-align: right;
+    padding: 10px;
+  }
+  
+  .applContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .routerContainer {
+    flex: 1;
+    overflow: auto; 
+  }
+
+  .header {
+    background-color: #053B50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
