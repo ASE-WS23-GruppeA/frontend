@@ -1,9 +1,18 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-
-<div class="header p-3 d-flex align-items-center">
-  <img src="/assets/FITJourney_logo.png" alt="Logo" class="logo" style="max-width: 300px;">
-  <h1 id="title" class="text-center m-0 flex-grow-1">FitJourney</h1>
-  <i id="icon" class="fa fa-user icon-large"></i>
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body id="body">
+  <div class="applContainer">
+    <div class="header p-3 d-flex align-items-center">
+      <img src="/assets/FITJourney_logo.png" alt="Logo" class="logo" style="max-width: 300px;">
+     <h1 id="title" class="text-center m-0 flex-grow-1">FitJourney</h1>
+   <i routerLink="/dashboard" id="icon" class="bi bi-house-fill icon-large"></i>
+    <i routerLink="/dashboard" id="icon" class="fa fa-user icon-large"></i>
+  </div>
+<div class="routerContainer">
+  <router-outlet></router-outlet>
 </div>
 
 <div>
@@ -13,4 +22,7 @@
 <div class="footer">
   <a routerLink="/about" class="float-end text-white">About</a>
 </div>
-<router-outlet></router-outlet>
+</div>
+
+</body>
+</html>
