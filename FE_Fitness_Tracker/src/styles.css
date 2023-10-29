@@ -173,3 +173,17 @@ label {
     height: auto;
   }
 }
+
+.btnPrimary {
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 15px 0;
+  background: #053B50;
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+  width: 200px;
+}
+

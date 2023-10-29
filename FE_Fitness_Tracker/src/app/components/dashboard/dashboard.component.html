@@ -1,15 +1,28 @@
-<h3>Welcome</h3>
-<h3>Click here for the newWorkout page<h3>
-<div class="formGroup">
-    <input
-      type="button"
-      class="btn btnPrimary"
-      value="Add new Workout"
-      routerLink="/new-workout"
-    />
+<div class="card">
+  <div class="card-header">
+    <h3>Welcome!</h3>
   </div>
+  <div class="card-body">
+    <h3>Click here to add a new Workout:</h3>
+    <div class="formGroup text-center"> <!-- Die 'text-center' Klasse zentriert den Button -->
+      <input
+        type="button"
+        class="btn btnPrimary"
+        value="Add new Workout"
+        routerLink="/new-workout"
+      />
+    </div>
+  </div>
+</div>
 
-<!-- EXAMPLE CHART -->
-  <div class="chart-container" style="height:200px">
-    <canvas  id="MyChart" >{{ chart }}</canvas>
+<div class="card">
+  <div class="card-header">
+    <h3>Your Statistics</h3>
+  </div>
+  <div class="card-body">
+    <!-- Beispiel-Charts hier einfügen -->
+    <div class="chart-container" style="height: 200px; max-height: 200px;">
+      <canvas id="MyChart">{{ chart }}</canvas>
+    </div>
+  </div>
 </div>
