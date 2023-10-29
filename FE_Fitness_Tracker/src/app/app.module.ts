@@ -33,10 +33,11 @@ const routes: Routes = [
     ForgotPasswordComponent,
     ProfileComponent,
     NewWorkoutComponent,
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
