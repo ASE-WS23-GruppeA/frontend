@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale } from 'chart.js';
+import { Chart, LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale } from 'chart.js/auto';
 
 @Component({
   selector: 'app-dashboard',
