@@ -37,13 +37,6 @@ describe('AppComponent', () => {
     expect(dashboard).toBeTruthy();
   });
 
-  it('should have a link for the profile page', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const app = fixture.nativeElement as HTMLElement;
-    const profile = app.querySelector('[routerLink="/profile"]');
-    expect(profile).toBeTruthy();
-  });
   
   it('should have a link for about page', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -68,4 +61,50 @@ describe('AppComponent', () => {
     const footer = app.querySelector('.footer');
     expect(footer).toBeTruthy();
   });
+
+  it('should have link to the profile', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+
+    const app = fixture.nativeElement as HTMLElement;
+    const dropdown = app.querySelector('.fa-user') as HTMLElement;
+    dropdown.click();
+    fixture.detectChanges();
+    const myProfileLink = app.querySelector('[routerLink="/profile"]');
+    expect(myProfileLink).toBeTruthy();
+  });
+
+  it('should have link to logout', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+
+    const app = fixture.nativeElement as HTMLElement;
+    const dropdown = app.querySelector('.fa-user') as HTMLElement;
+    dropdown.click();
+    fixture.detectChanges();
+    const logOutLink = app.querySelector('[routerLink="/sign-in"]');
+    expect(logOutLink).toBeTruthy();
+  });
+
+  it('should have a dropdown', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+
+    fixture.detectChanges();
+    const app = fixture.nativeElement as HTMLElement;
+    const dropdown = app.querySelector('.dropdown');
+    expect(dropdown).toBeTruthy();
+  });
+
+
+  it('should open when dropdown is clicked', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+
+    fixture.detectChanges();
+    const app = fixture.nativeElement as HTMLElement;
+    const dropdown = app.querySelector('.fa-user') as HTMLElement;
+    
+    dropdown.click();
+    fixture.detectChanges();
+    const content = app.querySelector('.dropdown-content');
+    expect(content).toBeTruthy();
+  });
+  
 });
