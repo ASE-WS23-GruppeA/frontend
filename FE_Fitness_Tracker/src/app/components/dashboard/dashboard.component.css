@@ -1,3 +1,23 @@
-.card-body{
+*{
+    outline: white;
+    border: white;
+}
+.card-header{
     background-color: rgb(228, 231, 231);
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.card-body{
+    background-color:white;
+}
+
+#MyChart{
+    background-color:#053B50;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.card{
+    outline: none;
 }
