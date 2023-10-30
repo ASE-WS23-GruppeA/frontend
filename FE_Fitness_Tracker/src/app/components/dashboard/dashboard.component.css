@@ -4,16 +4,16 @@
 }
 .card-header{
     background-color: rgb(228, 231, 231);
-    border-radius: 20px;
-    margin-top: 10px;
+    border-radius: 30px;
+    margin-top: 5px;
 }
 
 .card-body{
     background-color:white;
 }
 
-#MyChart{
-    background-color:#053B50;
+#DonutChart, #MyBarChart{
+    background-color:#ffffff;
     padding: 20px;
     border-radius: 10px;
 }
