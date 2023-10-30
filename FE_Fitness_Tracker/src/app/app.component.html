@@ -4,7 +4,13 @@
   <img src="/assets/FITJourney_logo.png" alt="Logo" class="logo" style="max-width: 300px;">
   <h1 id="title" class="text-center m-0 flex-grow-1">FitJourney</h1>
   <i routerLink="/dashboard" id="icon" class="bi bi-house-fill icon-large"></i>
-  <i routerLink="/profile" id="icon" class="fa fa-user icon-large"></i>
+  <div class="dropdown">
+    <i id="icon" class="fa fa-user icon-large"></i>
+    <div class="dropdown-content" >
+      <a routerLink="/profile">My Profile</a>
+      <a routerLink="/sign-in">LogOut</a>
+    </div>
+  </div>
 </div>
 
 <div>

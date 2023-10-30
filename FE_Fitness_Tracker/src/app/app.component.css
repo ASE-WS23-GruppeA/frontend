@@ -53,3 +53,38 @@
     transform: scale(1.2); 
     transition: transform 0.2s; 
   }
+/*Dropdown profile: */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 200px;
+  z-index: 1;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  top: 100%; 
+  right: 40%;
+  font-size: 16px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
