@@ -14,7 +14,7 @@ To enhance a user-friendly UI, we use Bootstrap [Bootstrap](https://getbootstrap
 
 ### Color Palette:
 
-![palette](./src/assets/colorpalette.png)
+![colorpalette](https://github.com/ASE-WS23-GruppeA/frontend/assets/56191285/a0457a3a-99b0-4ce8-b4bc-a0731568713e)
 
 ### UI Testing:
 
