@@ -69,5 +69,17 @@ describe('ProfileComponent', () => {
     expect(female).toBeTruthy();
     expect(female.textContent).toContain('Female');
   });
- 
+
+  it('should have two options in the select menu', () => {
+    fixture.detectChanges();
+    const options = fixture.nativeElement.querySelectorAll('div.formGroup .column select option');
+    expect(options.length).toBe(2); 
+  });
+  
+  it('should have authBlock as container', () => {
+    fixture.detectChanges();
+    const authBlock = fixture.nativeElement.querySelector('div.authBlock');
+    expect(authBlock).toBeTruthy();
+  });
+
 });
