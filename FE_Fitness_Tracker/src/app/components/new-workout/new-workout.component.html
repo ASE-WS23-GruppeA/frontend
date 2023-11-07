@@ -1,1 +1,18 @@
-<p>new-workout works!</p>
+<div class="card-container">
+    <div class="cards">
+      <div class="card" *ngFor="let muscleGroup of muscleGroups; let i = index" (click)="showExercises(i)">
+        <img [src]="muscleGroup.image" alt="{{ muscleGroup.name }}">
+        {{ muscleGroup.name }}
+      </div>
+    </div>
+  </div>
+  
+  <div class="exercise-list" *ngIf="selectedMuscleGroup">
+    <h3>{{ selectedMuscleGroup.name }} Exercises</h3>
+    <ul>
+      <li *ngFor="let exercise of selectedMuscleGroup.exercises">
+        {{ exercise }}
+      </li>
+    </ul>
+  </div>
+  
