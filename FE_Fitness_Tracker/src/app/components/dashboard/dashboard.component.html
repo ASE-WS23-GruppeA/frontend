@@ -1,28 +1,32 @@
 <div class="card">
   <div class="card-header">
-    <h3>Welcome!</h3>
+    <h2>Your Dashboard</h2>
   </div>
   <div class="card-body">
-    <h3>Click here to add a new Workout:</h3>
-    <div class="formGroup text-center"> <!-- Die 'text-center' Klasse zentriert den Button -->
-      <input
-        type="button"
-        class="btn btnPrimary"
-        value="Add new Workout"
-        routerLink="/new-workout"
-      />
+    <div class="formGroup text-center"> 
+      <a class="btn btnPrimary btn-lg" routerLink="/new-workout">
+        Add Workout <i class="bi bi-plus bi-4x" style="font-size: 24px;"></i> 
+      </a>
     </div>
   </div>
 </div>
 
 <div class="card">
   <div class="card-header">
-    <h3>Your Statistics</h3>
+    <h2>Your Statistics</h2>
   </div>
   <div class="card-body">
-    <!-- Beispiel-Charts hier einfügen -->
-    <div class="chart-container" style="height: 200px; max-height: 200px;">
-      <canvas id="MyChart">{{ chart }}</canvas>
+    <div class="row">
+      <div class="col-md-4"> 
+        <div class="chart-container" style="height: 400px; max-height: 400px;">
+          <canvas id="MyBarChart">{{ barChart }}</canvas>
+        </div>
+      </div>
+      <div class="col-md-4 mt-0">
+        <div class="chart-container" style="height: 400px; max-height: 400px;">
+          <canvas id="DonutChart">{{ donutChart }}</canvas>
+        </div>
+      </div>
     </div>
   </div>
 </div>

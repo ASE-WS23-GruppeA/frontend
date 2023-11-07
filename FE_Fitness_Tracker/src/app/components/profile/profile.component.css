@@ -1,0 +1,30 @@
+.authBlock label {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.authBlock p {
+    font-size: 20px;
+}
+
+.btnPrimary {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+.formControl{
+    font-size: 20px;
+}

@@ -1,3 +1,23 @@
-.card-body{
+*{
+    outline: white;
+    border: white;
+}
+.card-header{
     background-color: rgb(228, 231, 231);
+    border-radius: 30px;
+    margin-top: 5px;
+}
+
+.card-body{
+    background-color:white;
+}
+
+#DonutChart, #MyBarChart{
+    background-color:#ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.card{
+    outline: none;
 }

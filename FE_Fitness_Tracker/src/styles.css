@@ -180,10 +180,22 @@ label {
   font-size: 16px;
   font-weight: 600;
   padding: 15px 0;
-  background: #053B50;
+  background: #037272;
   color: #ffffff;
   cursor: pointer;
   outline: none;
   width: 200px;
+  font-size: 18px;
 }
 
+.btn.btnPrimary:hover {
+  background-color: #053B50; 
+  color: white;
+  font-size: 18px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 30px;
+  margin: 0 0 20px;
+}
