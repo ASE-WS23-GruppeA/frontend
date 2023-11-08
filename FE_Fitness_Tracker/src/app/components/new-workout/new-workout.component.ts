@@ -20,9 +20,28 @@ export class NewWorkoutComponent {
     // Add more muscle groups and exercises as needed
   ];
   
-  selectedMuscleGroup: { name: string, exercises: string[], image: string } | null = null;
+  selectedMuscleGroup: { name: string, exercises: string[] } | null = null;
+  selectedExercise: string | null = null;
+  sets: { reps: number, kilos: number }[] = [];
 
   showExercises(index: number) {
     this.selectedMuscleGroup = this.muscleGroups[index];
+    this.selectedExercise = null;
+    this.sets = [];
+  }
+
+  showSets(exerciseIndex: number) {
+    if (this.selectedMuscleGroup) {
+      this.selectedExercise = this.selectedMuscleGroup.exercises[exerciseIndex];
+      this.sets = [{ reps: 0, kilos: 0 }, { reps: 0, kilos: 0 }, { reps: 0, kilos: 0 }];
+    }
+  }
+
+  addSet() {
+    this.sets.push({ reps: 0, kilos: 0 });
+  }
+
+  deleteSet(index: number) {
+    this.sets.splice(index, 1);
   }
 }

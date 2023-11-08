@@ -1,53 +1,142 @@
-/* Style for the new-workout component */
-.card-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+/* Default styles for all screen sizes */
+
+div {
+  display: block;
+}
+
+.muscle-groups-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.card {
+  width: 150px;
+  background-color: #f0f0f0;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.card:hover {
+  background-color: #ccc;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  border-color: gray;
+  display: table;
+  border-spacing: 0;
+  text-indent: initial;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  color: #434343;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+}
+
+.counter {
+  padding: 0;
+  vertical-align: middle;
+  width: 15px;
+}
+
+th {
+  display: table-cell;
+  text-align: center;
+  line-height: 16px;
+  color: #757575;
+  font-weight: 400;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+  border-collapse: collapse;
+  color: #434343;
+}
+
+td, .rep-weight-set {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+td {
+  display: table-cell;
+  line-height: 28px;
+  padding: 4px;
+  vertical-align: top;
+}
+
+.exercise {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 10px;
+}
+
+.exercise-list-container {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.exercise-sets-container {
+  grid-column: span 6;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding-right: 15px;
+  line-height: 16px;
+}
+
+/* Media queries for responsiveness */
+
+@media screen and (max-width: 768px) {
   .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 100%;
+    justify-content: space-between; /* Adjust card alignment for smaller screens */
   }
-  
+
   .card {
-    width: 150px;
-    max-width: 100%; /* Make the cards full-width on smaller screens */
-    background-color: #f0f0f0;
-    margin: 10px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 100%; /* Make cards take up the full width on smaller screens */
+    margin: 10px 0;
   }
-  
-  .card img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-bottom: 10px;
+
+  .exercise {
+    grid-template-columns: 1fr; /* Change to a single column layout for small screens */
   }
-  
-  .card:hover {
-    background-color: #ccc;
+
+  .exercise-list-container, .exercise-sets-container {
+    grid-column: span 12; /* Take up the full width on small screens */
   }
-  
-  /* Media query for smaller screens (e.g., mobile devices) */
-  @media screen and (max-width: 768px) {
-    .card-container {
-      padding: 10px; /* Add some padding for better mobile display */
-    }
-  
-    .card {
-      width: 100%; /* Make the cards take the full width of the screen */
-    }
-  
-    .controls {
-      flex-direction: column; /* Stack the navigation buttons for smaller screens */
-    }
-  }
-  
+}
