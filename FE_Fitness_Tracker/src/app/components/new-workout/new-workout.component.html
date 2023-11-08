@@ -1,4 +1,6 @@
-<div class="card-container">
+<div class="page-container">
+  <!-- First Container: Muscle Group Cards -->
+  <div class="muscle-groups-container">
     <div class="cards">
       <div class="card" *ngFor="let muscleGroup of muscleGroups; let i = index" (click)="showExercises(i)">
         <img [src]="muscleGroup.image" alt="{{ muscleGroup.name }}">
@@ -6,13 +8,39 @@
       </div>
     </div>
   </div>
-  
-  <div class="exercise-list" *ngIf="selectedMuscleGroup">
-    <h3>{{ selectedMuscleGroup.name }} Exercises</h3>
-    <ul>
-      <li *ngFor="let exercise of selectedMuscleGroup.exercises">
-        {{ exercise }}
-      </li>
-    </ul>
+
+  <div class="exercise">
+    <!-- Second Container: Exercise List -->
+    <div class="exercise-list-container" *ngIf="selectedMuscleGroup">
+      <h3>{{ selectedMuscleGroup.name }} Exercises</h3>
+      <ul>
+        <li *ngFor="let exercise of selectedMuscleGroup.exercises; let j = index" (click)="showSets(j)">
+          {{ exercise }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Third Container: Exercise Sets -->
+    <div class="exercise-sets-container" *ngIf="selectedExercise">
+      <h3>{{ selectedExercise }} Sets</h3>
+      <table>
+        <thead>
+          <tr>
+            <th class="counter"></th>
+            <th>Repetitions</th>
+            <th>Kilos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rep-weight-set" *ngFor="let set of sets; let k = index">
+            <td>{{ k + 1 }}</td>
+            <td><input type="number" [(ngModel)]="set.reps"></td>
+            <td><input type="number" [(ngModel)]="set.kilos"></td>
+            <td><button (click)="deleteSet(k)">Delete Set</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="addSet()">Add Set</button>
+    </div>
   </div>
-  
+</div>
