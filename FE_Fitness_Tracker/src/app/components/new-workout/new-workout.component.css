@@ -4,6 +4,10 @@ div {
   display: block;
 }
 
+.row .exercise {
+  min-height: 300px;
+}
+
 .muscle-groups-container {
   display: flex;
   flex-direction: column;
@@ -37,12 +41,12 @@ div {
 }
 
 .card:hover {
-  background-color: #ccc;
+  background-color: #00a89775;
 }
 
 table {
   border-collapse: collapse;
-  width: 100%;
+  width: 70%;
   table-layout: fixed;
   border-color: gray;
   display: table;
@@ -103,14 +107,48 @@ td {
 }
 
 .exercise-list-container {
-  grid-column: span 4;
+  grid-column: span 6;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 300px;
+}
+
+h3 {
+  padding-top: 70px;
+  cursor:default;
+}
+
+li {
+  list-style: none;
+  font-size: 22px;
+  font-family: inherit;
+}
+
+li:hover {
+  background-color: #00a89744;
+  cursor: pointer;
+}
+
+.btn-addSet {
+  position: relative;
+  top: 15px;
+  background-color: #00a89775;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 70px 0 rgba(0,0,0,0.19);
+}
+
+.btn-addSet:hover {
+  cursor: pointer;
+  background-color: #a5e6e081;
 }
 
 .exercise-sets-container {
+  display: flex;
   grid-column: span 6;
   flex-direction: column;
   justify-content: center;
@@ -122,7 +160,7 @@ td {
 
 /* Media queries for responsiveness */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 630px) {
   .cards {
     justify-content: space-between; /* Adjust card alignment for smaller screens */
   }
@@ -131,12 +169,24 @@ td {
     width: 100%; /* Make cards take up the full width on smaller screens */
     margin: 10px 0;
   }
+}
 
+@media screen and (max-width: 800px) {
   .exercise {
     grid-template-columns: 1fr; /* Change to a single column layout for small screens */
   }
 
   .exercise-list-container, .exercise-sets-container {
     grid-column: span 12; /* Take up the full width on small screens */
+  }
+}
+
+@media screen and (max-width: 1100px) {
+.exercise-sets-container{
+  padding: 40px;
+}
+
+  table {
+    width: 100%;
   }
 }
