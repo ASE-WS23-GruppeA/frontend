@@ -9,9 +9,9 @@
     </div>
   </div>
 
-  <div class="exercise">
+  <div class="row exercise">
     <!-- Second Container: Exercise List -->
-    <div class="exercise-list-container" *ngIf="selectedMuscleGroup">
+    <div class="exercise-list-container col" *ngIf="selectedMuscleGroup">
       <h3>{{ selectedMuscleGroup.name }} Exercises</h3>
       <ul>
         <li *ngFor="let exercise of selectedMuscleGroup.exercises; let j = index" (click)="showSets(j)">
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Third Container: Exercise Sets -->
-    <div class="exercise-sets-container" *ngIf="selectedExercise">
+    <div class="exercise-sets-container col" *ngIf="selectedExercise">
       <h3>{{ selectedExercise }} Sets</h3>
       <table>
         <thead>
@@ -40,7 +40,7 @@
           </tr>
         </tbody>
       </table>
-      <button (click)="addSet()">Add Set</button>
+      <button class="btn-addSet" (click)="addSet()">Add Set</button>
     </div>
   </div>
 </div>
