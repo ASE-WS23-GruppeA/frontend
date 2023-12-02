@@ -1,0 +1,43 @@
+<div class="displayTable">
+    <div class="displayTableCell">
+      <div class="authBlock">
+        <h3>Sign In</h3>
+        <form #formLogin="ngForm" (ngSubmit)="onSubmitLogin(formLogin)">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email Address" ngModel #email="ngModel"
+              name="email" required email>
+            <div *ngIf="email.errors && formLogin.submitted" class="text-danger">
+              Email is required!
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" ngModel #password="ngModel"
+              name="password" required minlength="6">
+            <div *ngIf="password.errors && formLogin.submitted" class="text-danger">
+              <div *ngIf="password.errors['required']">Password is required</div>
+              <div *ngIf="password.errors['minlength']">
+                Password must be at least 6 characters
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+      <div class="forgotPassword">
+        <span routerLink="/forgot-password">Forgot Password?</span>
+      </div>
+      <div class="redirectToLogin">
+        <span
+          >Don't have an account?<span
+            class="redirect"
+            routerLink="/sign-up"
+          >
+            Sign Up</span
+          ></span
+        >
+      </div>
+    </div>
+  </div>
+  

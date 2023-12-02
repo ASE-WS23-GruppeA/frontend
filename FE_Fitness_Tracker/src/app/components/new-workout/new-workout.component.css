@@ -4,6 +4,11 @@ div {
   display: block;
 }
 
+h3 {
+  padding-top: 70px;
+  cursor: default;
+}
+
 .row .exercise {
   min-height: 300px;
 }
@@ -13,6 +18,8 @@ div {
   flex-direction: column;
   align-items: center;
 }
+
+/* Cards */
 
 .cards {
   display: flex;
@@ -44,6 +51,8 @@ div {
   background-color: #00a89775;
 }
 
+/* Tables and lists */
+
 table {
   border-collapse: collapse;
   width: 70%;
@@ -63,6 +72,17 @@ thead {
 tr {
   display: table-row;
   vertical-align: inherit;
+}
+
+li {
+  list-style: none;
+  font-size: 22px;
+  font-family: inherit;
+}
+
+li:hover {
+  background-color: #00a89744;
+  cursor: pointer;
 }
 
 .counter {
@@ -96,9 +116,15 @@ td, .rep-weight-set {
 td {
   display: table-cell;
   line-height: 28px;
-  padding: 4px;
+  padding: 10px;
   vertical-align: top;
 }
+
+.ng-untouched {
+  width: 90%;
+}
+
+/* Exercises and Sets */
 
 .exercise {
   display: grid;
@@ -115,38 +141,6 @@ td {
   min-height: 300px;
 }
 
-h3 {
-  padding-top: 70px;
-  cursor:default;
-}
-
-li {
-  list-style: none;
-  font-size: 22px;
-  font-family: inherit;
-}
-
-li:hover {
-  background-color: #00a89744;
-  cursor: pointer;
-}
-
-.btn-addSet {
-  position: relative;
-  top: 15px;
-  background-color: #00a89775;
-  font-size: 14px;
-  padding: 5px;
-  border-radius: 4px;
-  border: 1px solid gray;
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 70px 0 rgba(0,0,0,0.19);
-}
-
-.btn-addSet:hover {
-  cursor: pointer;
-  background-color: #a5e6e081;
-}
-
 .exercise-sets-container {
   display: flex;
   grid-column: span 6;
@@ -156,6 +150,36 @@ li:hover {
   align-content: center;
   padding-right: 15px;
   line-height: 16px;
+}
+
+/* Buttons */
+
+.btn-addSet,
+.btn-save {
+  background-color: #00a89775;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid gray;
+  margin-top: 15px;
+  top: 15px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 70px 0 rgba(0,0,0,0.19);
+}
+
+.btn-addSet {
+  margin-right: 50px;
+}
+
+.btn-addSet:hover,
+.btn-save:hover {
+  cursor: pointer;
+  background-color: #a5e6e081;
+}
+
+.btn-deleteSet {
+  background-color: #00a8974a;
+  font-size: 16px;
+  padding: 5px;
 }
 
 /* Media queries for responsiveness */
@@ -179,6 +203,7 @@ li:hover {
   .exercise-list-container, .exercise-sets-container {
     grid-column: span 12; /* Take up the full width on small screens */
   }
+
 }
 
 @media screen and (max-width: 1100px) {
