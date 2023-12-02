@@ -44,4 +44,15 @@ export class NewWorkoutComponent {
   deleteSet(index: number) {
     this.sets.splice(index, 1);
   }
+
+  saveWorkout() {
+    // You can implement the logic for saving the workout here
+    // For example, you can send the workout data to a server
+    // or save it in a local storage, depending on your application's requirements.
+    console.log('Workout saved:', {
+      muscleGroup: this.selectedMuscleGroup,
+      exercise: this.selectedExercise,
+      sets: this.sets
+    });
+}
 }
