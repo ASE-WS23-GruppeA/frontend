@@ -4,19 +4,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
+import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NewWorkoutComponent } from './components/new-workout/new-workout.component';
 import { FormsModule } from '@angular/forms';
-
-
+import { AccessDeniedComponent } from './errors/access-denied/access-denied.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptor } from "./_helpers/http.interceptor";
+import { UserService } from './_services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: 'about', component: AboutComponent },
-  { path: 'sign-in', component: SignInComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'dashboard', component: DashboardComponent },
@@ -28,20 +32,26 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     AboutComponent,
-    SignInComponent,
+    LoginComponent,
     SignUpComponent,
     DashboardComponent,
     ForgotPasswordComponent,
     ProfileComponent,
     NewWorkoutComponent,
+    AccessDeniedComponent,
+    AdminComponent,
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    UserService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
