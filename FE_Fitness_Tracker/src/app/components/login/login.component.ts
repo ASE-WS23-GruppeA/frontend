@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
       next: user => {
         if (user) {
-          this.router.navigate(['home']);
+          this.router.navigate(['dashboard']);
         }
       }
     })
@@ -31,12 +31,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (!formLogin.valid) {
       return;
     }
-    const email = formLogin.value.email;
+    const username = formLogin.value.username;
     const password = formLogin.value.password;
 
-    this.authService.login(email, password).subscribe({
+    this.authService.login(username, password).subscribe({
       next: userData => {
-        this.router.navigate(['home']);
+        this.router.navigate(['dashboard']);
       },
       error: err => {
         this.errorMessage = err;
