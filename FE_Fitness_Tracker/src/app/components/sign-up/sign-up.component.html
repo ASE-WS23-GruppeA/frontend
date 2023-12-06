@@ -1,48 +1,40 @@
 <div class="displayTable">
-    <div class="displayTableCell">
-      <div class="authBlock">
-        <h3>Sign Up</h3>
-        <div class="formGroup">
-          <input
-            type="email"
-            class="formControl"
-            placeholder="Email Address"
-            #userEmail
-            required
-          />
+  <div class="displayTableCell">
+    <div class="authBlock">
+      <h3>Sign Up</h3>
+      <form #formSignUp="ngForm" (ngSubmit)="onSubmitSignUp(formSignUp)">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" placeholder="Email Address" ngModel
+            #email="ngModel" name="email" required email>
+          <div *ngIf="email.errors && formSignUp.submitted" class="text-danger">
+            Email is required!
+          </div>
         </div>
-        <div class="formGroup">
-          <input
-            type="text"
-            class="formControl"
-            placeholder="Username"
-            #userName
-            required
-          />
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Username" ngModel #username="ngModel"
+            name="username" required>
+          <div *ngIf="username.errors && formSignUp.submitted" class="text-danger">
+            Username is required!
+          </div>
         </div>
-        <div class="formGroup">
-          <input
-            type="password"
-            class="formControl"
-            placeholder="Password"
-            #userPwd
-            required
-          />
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" ngModel #password="ngModel"
+            name="password" required minlength="6">
+          <div *ngIf="password.errors && formSignUp.submitted" class="text-danger">
+            <div *ngIf="password.errors['required']">Password is required</div>
+            <div *ngIf="password.errors['minlength']">
+              Password must be at least 6 characters
+            </div>
+          </div>
         </div>
-        <div class="formGroup">
-          <input
-            type="button"
-            class="btn btnPrimary"
-            value="Sign Up"
-          />
-        </div>
-      </div>
-      <div class="redirectToLogin">
-        <span
-          >Already have an account?
-          <span class="redirect" routerLink="/log-in">Log In</span></span
-        >
-      </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </form>
+    </div>
+    <div class="redirectToLogin">
+      <span>Already have an account?<span class="redirect" routerLink="/log-in">Log In</span></span>
     </div>
   </div>
-  
+</div>
