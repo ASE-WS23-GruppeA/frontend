@@ -13,8 +13,8 @@ import { AdminComponent } from "./components/admin/admin.component";
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-  { path: 'sign-in', component: LoginComponent },
+  { path: '', redirectTo: '/log-in', pathMatch: 'full' },
+  { path: 'log-in', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] } },
   { path: 'dashboard', component: DashboardComponent },
