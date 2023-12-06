@@ -80,7 +80,7 @@ describe('AppComponent', () => {
     const dropdown = app.querySelector('.fa-user') as HTMLElement;
     dropdown.click();
     fixture.detectChanges();
-    const logOutLink = app.querySelector('[routerLink="/sign-in"]');
+    const logOutLink = app.querySelector('[routerLink="/log-in"]');
     expect(logOutLink).toBeTruthy();
   });
 
