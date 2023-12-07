@@ -18,13 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.AuthUserSub = this.authService.AuthenticatedUser$.subscribe({
-      next: user => {
-        if (user) {
-          this.router.navigate(['dashboard']);
-        }
-      }
-    })
+    this.authService.autoLogin();
   }
 
   onSubmitLogin(formLogin: NgForm) {
@@ -42,9 +36,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.errorMessage = err;
         console.log(err);
       }
-
-    })
+    });
   }
+
   ngOnDestroy() {
     this.AuthUserSub.unsubscribe();
   }
