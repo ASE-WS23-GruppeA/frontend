@@ -37,4 +37,21 @@ export class DashboardService {
     return this.http.get(`${this.url}/total-volume/${userId}`);
   }
 
+  //GET /progress-by-date/{userId}
+  getProgressByDate(userId: string, startDate: string, endDate: string): Observable<any> {
+    let params = new HttpParams()
+
+      .set('startDate', startDate)
+      .set('endDate', endDate);
+    return this.http.get(`${this.url}/progress-by-date/${userId}`, { params });
+  }
+
+  //GET /progress-by-muscle-group/{userId}
+  getProgressByMuscleGroup(userId: string, muscleGroup: string): Observable<any> {
+    let params = new HttpParams().set('muscleGroup', muscleGroup);
+
+    return this.http.get(`${this.url}/progress-by-muscle-group/${userId}`, { params });
+  }
+
+
 }
