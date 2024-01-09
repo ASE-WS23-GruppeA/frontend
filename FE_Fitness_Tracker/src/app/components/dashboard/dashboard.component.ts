@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors } from 'chart.js/auto';
 import { ArcElement } from 'chart.js/auto';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,7 @@ export class DashboardComponent implements OnInit {
   public barChart: any;
   public donutChart: any;
 
-  constructor() { }
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
     Chart.register(LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors, ArcElement);
