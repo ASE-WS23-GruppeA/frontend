@@ -4,9 +4,10 @@ import {
     HttpHandler,
     HttpEvent, HttpErrorResponse,
 } from '@angular/common/http';
-import { catchError, concatMap, map, Observable, switchMap, take, throwError } from 'rxjs';
+import { catchError, concatMap, switchMap, take } from 'rxjs/operators';
 import { AuthService } from "../_services/auth.service";
 import { Router } from "@angular/router";
+import { Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class HttpInterceptor implements HttpInterceptor {
@@ -28,7 +29,7 @@ export class HttpInterceptor implements HttpInterceptor {
                                 case 403:
                                     this.router.navigate(['forbidden']);
                                     break;
-                                case 401: // handle 401 unauthorized error : try to refresh JWT
+                                case 401:
                                     return this.authService.refreshToken().pipe(
                                         concatMap(() => next.handle(request)),
                                         catchError(err => {

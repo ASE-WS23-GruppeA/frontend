@@ -17,11 +17,11 @@ const routes: Routes = [
   { path: 'log-in', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard], data: { roles: ['ROLE_ADMIN'] } },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'forbidden', component: AccessDeniedComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'new-workout', component: NewWorkoutComponent },
   // Weitere Routen, wenn vorhanden
 ];
