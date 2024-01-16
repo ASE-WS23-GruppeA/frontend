@@ -1,86 +1,89 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
-import { User } from "../_models/user.model";
-import { StorageService } from "./storage.service";
-import { Router } from "@angular/router";
+// auth.service.ts
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
+import {StorageService} from './storage.service';
+import {Router} from '@angular/router';
+import {User} from '../_models/user.model';
+import {MessageService} from "./message.service";
 
-
-export interface AuthResponseData {
-    id: number,
-    email: string,
-    roles: string[],
+interface AuthResponseData {
+  id: number;
+  email: string;
+  jwtToken: string;
 }
 
-
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AuthService {
+  private jwtToken = new BehaviorSubject<string | null>(null);
+  AuthenticatedUser$ = new BehaviorSubject<User | null>(null);
 
-    AuthenticatedUser$ = new BehaviorSubject<User | null>(null);
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService,
+    private router: Router,
+    private messageService: MessageService // Inject the MessageService
+  ) { }
 
-    constructor(
-        private http: HttpClient,
-        private storageService: StorageService,
-        private router: Router
-    ) { }
-
-    login(email: string, password: string) {
-        return this.http.request<AuthResponseData>('post', 'http://localhost:8086/api/v1/auth/authenticate',
-            {
-                body: { email, password },
-                withCredentials: true
-            }).pipe(
-                catchError(err => {
-                    console.log(err);
-                    let errorMessage = 'An unknown error occurred!';
-                    if (err.error.message === 'Bad credentials') {
-                        errorMessage = 'The email address or password you entered is invalid'
-                    }
-                    return throwError(() => new Error(errorMessage))
-                }),
-                tap(
-                    user => {
-                        const extractedUser: User = {
-                            email: user.email,
-                            id: user.id,
-                            role: {
-                                name: user.roles.find(role => role.includes('ROLE')) || '',
-                                permissions: user.roles.filter(permission => !permission.includes('ROLE'))
-                            }
-                        }
-                        this.storageService.saveUser(extractedUser);
-                        this.AuthenticatedUser$.next(extractedUser);
-                    }
-                )
-            );
+  storeJwtToken(token: string | null) {
+    if (token !== null) {
+      this.jwtToken.next(token);
     }
+  }
 
-    autoLogin() {
-        const userData = this.storageService.getSavedUser();
-        if (!userData) {
-            return;
-        }
-        this.AuthenticatedUser$.next(userData);
-    }
+  getJwtToken(): Observable<string | null> {
+    return this.jwtToken.asObservable();
+  }
 
-    logout() {
-        this.http.request('post', 'http://localhost:8086/api/v1/auth/logout', {
-            withCredentials: true
-        }).subscribe({
-            next: () => {
-                this.storageService.clean();
-                this.AuthenticatedUser$.next(null);
-                this.router.navigate(['/login']);
-            }
+  login(username: string, password: string) {
+    return this.http.post<AuthResponseData>('http://localhost:8443/api/auth/login', {
+      username,
+      password
+    }, {withCredentials: true})
+      .pipe(
+        catchError(err => {
+          let errorMessage = 'An unknown error occurred!';
+
+          if (err.status === 401) {
+            errorMessage = 'Incorrect username or password.';
+
+            this.messageService.changeMessage(errorMessage); // Use MessageService to set the error message
+          }
+
+          return throwError(() => new Error(errorMessage));
+        }),
+        tap(user => {
+          const extractedUser: User = {
+            email: user.email,
+            id: user.id,
+            role: {name: 'UserRole', permissions: []} // Adjust role details as needed
+          };
+          this.storeJwtToken(user.jwtToken);
+          this.storageService.saveUser(extractedUser);
+          this.AuthenticatedUser$.next(extractedUser);
         })
+      );
+  }
 
+  autoLogin() {
+    const userData = this.storageService.getSavedUser();
+    if (userData) {
+      this.AuthenticatedUser$.next(userData);
     }
+  }
 
-    refreshToken() {
-        return this.http.request('post', 'http://localhost:8086/api/v1/auth/refresh-token-cookie', {
-            withCredentials: true
-        })
-    }
+  logout() {
+    this.storeJwtToken(null);
+    this.storageService.clean();
+    this.AuthenticatedUser$.next(null);
+    this.router.navigate(['/log-in']);
+    this.messageService.clearMessage();
+  }
+
+  refreshToken() {
+    return this.http.post('http://localhost:8443/api/auth/refresh-token-cookie', {}, {withCredentials: true});
+  }
 }
