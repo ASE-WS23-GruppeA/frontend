@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @Injectable({
@@ -7,5 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AnalyticsService {
 
-  constructor() { }
+  private url = 'url';
+  constructor(private http: HttpClient) { }
+ 
 }

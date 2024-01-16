@@ -40,7 +40,7 @@ const routes: Routes = [
     NewWorkoutComponent,
     AccessDeniedComponent,
     AdminComponent,
-    HttpClientModule
+ 
     
   ],
   imports: [
