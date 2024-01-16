@@ -53,6 +53,15 @@ h3 {
 
 /* Tables and lists */
 
+input[type="number"] {
+  width: 100%;
+  /* Make input fields take up the full cell width */
+  box-sizing: border-box;
+  /* Include padding and borders in the input width */
+  max-width: none;
+  /* Override any potential max-width */
+}
+
 table {
   border-collapse: collapse;
   width: 70%;
