@@ -84,6 +84,13 @@ export class NewWorkoutComponent {
     return this.sets.some(set => set.reps === null || set.kilos === null || set.reps <= 0 || set.kilos <= 0);
   }
 
+  deleteSavedExercise(exerciseIndex: number) {
+    if (this.workout.exercises[exerciseIndex]) {
+      this.workout.exercises.splice(exerciseIndex, 1);
+    }
+  }
+
+
   finalizeWorkout() {
     if (this.workout && this.workout.name.trim() && this.workout.exercises.length) {
       // Logic to save the workout to a server or local storage

@@ -52,8 +52,15 @@
       <input type="text" [(ngModel)]="workout.name" placeholder="Enter workout name">
       <div class="saved-exercises">
         <!-- Dynamically display saved exercises -->
-        <div *ngFor="let exercise of workout.exercises">
-          <h4>{{ exercise.name }}</h4>
+        <div *ngFor="let exercise of workout.exercises; let exerciseIndex = index">
+          <div class="exercise-item">
+            <div class="exercise-details">
+              <h4>{{ exercise.name }}</h4>
+            </div>
+            <div class="delete-button">
+              <button class="btn-deleteExercise" (click)="deleteSavedExercise(exerciseIndex)">x</button>
+            </div>
+          </div>
           <ul>
             <li *ngFor="let set of exercise.sets">
               {{ set.reps }} reps - {{ set.kilos }} kilos
