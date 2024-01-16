@@ -22,16 +22,16 @@ interface Workout {
 })
 export class NewWorkoutComponent {
   muscleGroups = [
-    { name: 'Legs', exercises: ['Squats', 'Lunges'], image: './assets/muscle_groups/legs.png' },
-    { name: 'Chest', exercises: ['Push-ups', 'Bench press'], image: './assets/muscle_groups/chest.png' },
-    { name: 'Back', exercises: ['Pull-ups', 'Barbell rows'], image: './assets/muscle_groups/back.png' },
-    { name: 'Core', exercises: ['Sit-ups', 'Plank'], image: './assets/muscle_groups/core.png' },
-    { name: 'Triceps', exercises: ['Tricep extensions', 'Skull crushers'], image: './assets/muscle_groups/triceps.png' },
-    { name: 'Calves', exercises: ['Calf raises', 'Calf stretches'], image: './assets/muscle_groups/calves.png' },
-    { name: 'Shoulders', exercises: ['Lateral raises', 'Front raises'], image: './assets/muscle_groups/shoulders.png' },
-    { name: 'Biceps', exercises: ['Cable curls', 'Hammer curls'], image: './assets/muscle_groups/biceps.png' },
-    { name: 'Glutes', exercises: ['Hip thrusts', 'Cable pull-throughs'], image: './assets/muscle_groups/gluteus.png' },
-    { name: 'Obliques', exercises: ['Woodchoppers', 'Russian twist'], image: './assets/muscle_groups/oblique.png' },
+    { name: 'Legs', exercises: ['Squats', 'Lunges', 'Deadlifts', 'Leg Press', 'Leg Curls', 'Leg Extensions', 'Romanian Deadlifts', 'Step-ups', 'Stiff-legged Deadlifts', 'Sissy Squats', 'Hack Squats', 'Hamstring Curls', 'Lunges with Dumbbells', 'Box Jumps'], image: './assets/muscle_groups/legs.png' },
+    { name: 'Chest', exercises: ['Decline Bench Press', 'Push-ups', 'Bench Press', 'Dips', 'Incline Bench Press', 'Dumbbell Bench Press', 'Dumbbell Flyes'], image: './assets/muscle_groups/chest.png' },
+    { name: 'Back', exercises: ['Pull-ups', 'Dumbbell Rows', 'Barbell Rows', 'Deadlifts', 'Pull-Downs', 'Seated Rows', 'Reverse Flyes', 'Romanian Deadlifts', 'Stiff-legged Deadlifts', 'Cable Rows', 'Lat Pulldowns', 'Chin-ups', 'Kettlebell Swings'], image: './assets/muscle_groups/back.png' },
+    { name: 'Core', exercises: ['Sit-ups', 'Planks', 'Russian Twists', 'Hanging Leg Raise', 'Bicycle Crunches', 'Ab Wheel Rollouts', 'Flutter Kicks', 'Dragon Flags', 'Reverse Crunches', 'Leg Raises'], image: './assets/muscle_groups/core.png' },
+    { name: 'Triceps', exercises: ['Tricep extensions', 'Decline Bench Press', 'Skull Crushers', 'Bench Press', 'Dips', 'Shoulder Press', 'Tricep Extensions', 'Incline Bench Press', 'Close-grip Bench Press', 'Dumbbell Bench Press'], image: './assets/muscle_groups/triceps.png' },
+    { name: 'Calves', exercises: ['Calf Raises', 'Calf stretches'], image: './assets/muscle_groups/calves.png' },
+    { name: 'Shoulders', exercises: ['Lateral Raises', 'Front Raises', 'Shoulder Press', 'Reverse Flyes', 'Face Pulls', 'Dumbbell Bench Press'], image: './assets/muscle_groups/shoulders.png' },
+    { name: 'Biceps', exercises: ['Cable Curls', 'Hammer Curls', 'Pull-Downs', 'Bicep Curls', 'Cable Rows', 'Preacher Curls', 'Lat Pulldowns', 'Chin-ups'], image: './assets/muscle_groups/biceps.png' },
+    { name: 'Glutes', exercises: ['Hip Thrusts', 'Cable Pull-throughs', 'Kettlebell Swings'], image: './assets/muscle_groups/gluteus.png' },
+    { name: 'Obliques', exercises: ['Woodchoppers', 'Russian twist', 'Woodchoppers'], image: './assets/muscle_groups/oblique.png' },
     // Add more muscle groups and exercises as needed
   ];
 
