@@ -42,8 +42,33 @@
       </table>
       <div>
       <button class="btn-addSet col" (click)="addSet()">Add Set</button>
-      <button class="btn-save col" (click)="saveWorkout()">Save</button>
+      <button class="btn-save col" (click)="saveSet()" [disabled]="setsHasNullOrZeroOrNegativeValues()">Save Set</button>
       </div>
     </div>
+
+    <!-- Fourth Container: Workout Cart -->
+    <div class="workout-container col" *ngIf="showWorkoutContainer">
+      <h3>Workout</h3>
+      <input type="text" [(ngModel)]="workout.name" placeholder="Enter workout name">
+      <div class="saved-exercises">
+        <!-- Dynamically display saved exercises -->
+        <div *ngFor="let exercise of workout.exercises; let exerciseIndex = index">
+          <div class="exercise-item">
+            <div class="exercise-details">
+              <h4>{{ exercise.name }}</h4>
+            </div>
+            <div class="delete-button">
+              <button class="btn-deleteExercise" (click)="deleteSavedExercise(exerciseIndex)">x</button>
+            </div>
+          </div>
+          <ul>
+            <li *ngFor="let set of exercise.sets">
+              {{ set.reps }} reps - {{ set.kilos }} kilos
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button class="btn-saveWorkout"(click)="finalizeWorkout()">Save Workout</button>
+    </div>
+    </div>
   </div>
-</div>

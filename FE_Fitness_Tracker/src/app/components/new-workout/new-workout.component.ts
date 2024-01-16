@@ -1,5 +1,20 @@
 import { Component } from '@angular/core';
 
+interface ExerciseSet {
+  reps: number;
+  kilos: number;
+}
+
+interface Exercise {
+  name: string;
+  sets: ExerciseSet[];
+}
+
+interface Workout {
+  name: string;
+  exercises: Exercise[];
+}
+
 @Component({
   selector: 'app-new-workout',
   templateUrl: './new-workout.component.html',
@@ -7,22 +22,23 @@ import { Component } from '@angular/core';
 })
 export class NewWorkoutComponent {
   muscleGroups = [
-    { name: 'Legs', exercises: ['Squats', 'Lunges'], image: './assets/muscle_groups/legs.png' },
-    { name: 'Chest', exercises: ['Push-ups', 'Bench press'], image: './assets/muscle_groups/chest.png' },
-    { name: 'Back', exercises: ['Pull-ups', 'Barbell rows'], image: './assets/muscle_groups/back.png' },
-    { name: 'Core', exercises: ['Sit-ups', 'Plank'], image: './assets/muscle_groups/core.png' },
-    { name: 'Triceps', exercises: ['Tricep extensions', 'Skull crushers'], image: './assets/muscle_groups/triceps.png' },
-    { name: 'Calves', exercises: ['Calf raises', 'Calf stretches'], image: './assets/muscle_groups/calves.png' },
-    { name: 'Shoulders', exercises: ['Lateral raises', 'Front raises'], image: './assets/muscle_groups/shoulders.png' },
-    { name: 'Biceps', exercises: ['Cable curls', 'Hammer curls'], image: './assets/muscle_groups/biceps.png' },
-    { name: 'Glutes', exercises: ['Hip thrusts', 'Cable pull-throughs'], image: './assets/muscle_groups/gluteus.png' },
-    { name: 'Obliques', exercises: ['Woodchoppers', 'Russian twist'], image: './assets/muscle_groups/oblique.png' },
+    { name: 'Legs', exercises: ['Squats', 'Lunges', 'Deadlifts', 'Leg Press', 'Leg Curls', 'Leg Extensions', 'Romanian Deadlifts', 'Step-ups', 'Stiff-legged Deadlifts', 'Sissy Squats', 'Hack Squats', 'Hamstring Curls', 'Lunges with Dumbbells', 'Box Jumps'], image: './assets/muscle_groups/legs.png' },
+    { name: 'Chest', exercises: ['Decline Bench Press', 'Push-ups', 'Bench Press', 'Dips', 'Incline Bench Press', 'Dumbbell Bench Press', 'Dumbbell Flyes'], image: './assets/muscle_groups/chest.png' },
+    { name: 'Back', exercises: ['Pull-ups', 'Dumbbell Rows', 'Barbell Rows', 'Deadlifts', 'Pull-Downs', 'Seated Rows', 'Reverse Flyes', 'Romanian Deadlifts', 'Stiff-legged Deadlifts', 'Cable Rows', 'Lat Pulldowns', 'Chin-ups', 'Kettlebell Swings'], image: './assets/muscle_groups/back.png' },
+    { name: 'Core', exercises: ['Sit-ups', 'Planks', 'Russian Twists', 'Hanging Leg Raise', 'Bicycle Crunches', 'Ab Wheel Rollouts', 'Flutter Kicks', 'Dragon Flags', 'Reverse Crunches', 'Leg Raises'], image: './assets/muscle_groups/core.png' },
+    { name: 'Triceps', exercises: ['Tricep extensions', 'Decline Bench Press', 'Skull Crushers', 'Bench Press', 'Dips', 'Shoulder Press', 'Tricep Extensions', 'Incline Bench Press', 'Close-grip Bench Press', 'Dumbbell Bench Press'], image: './assets/muscle_groups/triceps.png' },
+    { name: 'Calves', exercises: ['Calf Raises', 'Calf stretches'], image: './assets/muscle_groups/calves.png' },
+    { name: 'Shoulders', exercises: ['Lateral Raises', 'Front Raises', 'Shoulder Press', 'Reverse Flyes', 'Face Pulls', 'Dumbbell Bench Press'], image: './assets/muscle_groups/shoulders.png' },
+    { name: 'Biceps', exercises: ['Cable Curls', 'Hammer Curls', 'Pull-Downs', 'Bicep Curls', 'Cable Rows', 'Preacher Curls', 'Lat Pulldowns', 'Chin-ups'], image: './assets/muscle_groups/biceps.png' },
+    { name: 'Glutes', exercises: ['Hip Thrusts', 'Cable Pull-throughs', 'Kettlebell Swings'], image: './assets/muscle_groups/gluteus.png' },
+    { name: 'Obliques', exercises: ['Woodchoppers', 'Russian twist', 'Woodchoppers'], image: './assets/muscle_groups/oblique.png' },
     // Add more muscle groups and exercises as needed
   ];
-  
+
+  workout: Workout = { name: '', exercises: [] };
   selectedMuscleGroup: { name: string, exercises: string[] } | null = null;
   selectedExercise: string | null = null;
-  sets: { reps: number, kilos: number }[] = [];
+  sets: ExerciseSet[] = [];
 
   showExercises(index: number) {
     this.selectedMuscleGroup = this.muscleGroups[index];
@@ -45,14 +61,46 @@ export class NewWorkoutComponent {
     this.sets.splice(index, 1);
   }
 
-  saveWorkout() {
-    // You can implement the logic for saving the workout here
-    // For example, you can send the workout data to a server
-    // or save it in a local storage, depending on your application's requirements.
-    console.log('Workout saved:', {
-      muscleGroup: this.selectedMuscleGroup,
-      exercise: this.selectedExercise,
-      sets: this.sets
-    });
-}
+  showWorkoutContainer = false;
+
+  saveSet() {
+    if (this.selectedExercise) {
+      if (this.setsHasNullOrZeroOrNegativeValues()) {
+        alert('Please fill in all the fields in the exercise sets.');
+      } else {
+        const exercise = this.workout.exercises.find(e => e.name === this.selectedExercise);
+        if (exercise) {
+          exercise.sets.push(...this.sets);
+        } else {
+          this.workout.exercises.push({ name: this.selectedExercise, sets: [...this.sets] });
+        }
+        this.sets = []; // Reset the sets
+        this.showWorkoutContainer = true; // Show the workout-container after the first set is saved
+      }
+    }
+  }
+
+  setsHasNullOrZeroOrNegativeValues(): boolean {
+    return this.sets.some(set => set.reps === null || set.kilos === null || set.reps <= 0 || set.kilos <= 0);
+  }
+
+  deleteSavedExercise(exerciseIndex: number) {
+    if (this.workout.exercises[exerciseIndex]) {
+      this.workout.exercises.splice(exerciseIndex, 1);
+    }
+  }
+
+
+  finalizeWorkout() {
+    if (this.workout && this.workout.name.trim() && this.workout.exercises.length) {
+      // Logic to save the workout to a server or local storage
+      console.log('Workout saved:', this.workout);
+      // Reset the workout
+      this.workout = { name: '', exercises: [] };
+    } else {
+      // Error handling
+      alert('Please enter a workout name and add at least one exercise.');
+    }
+  }
+
 }

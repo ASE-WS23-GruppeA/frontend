@@ -53,6 +53,15 @@ h3 {
 
 /* Tables and lists */
 
+input[type="number"] {
+  width: 100%;
+  /* Make input fields take up the full cell width */
+  box-sizing: border-box;
+  /* Include padding and borders in the input width */
+  max-width: none;
+  /* Override any potential max-width */
+}
+
 table {
   border-collapse: collapse;
   width: 70%;
@@ -132,29 +141,10 @@ td {
   gap: 10px;
 }
 
-.exercise-list-container {
-  grid-column: span 6;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 300px;
-}
-
-.exercise-sets-container {
-  display: flex;
-  grid-column: span 6;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  padding-right: 15px;
-  line-height: 16px;
-}
-
 /* Buttons */
 
 .btn-addSet,
+.btn-saveWorkout,
 .btn-save {
   background-color: #00a89775;
   font-size: 14px;
@@ -171,6 +161,7 @@ td {
 }
 
 .btn-addSet:hover,
+.btn-saveWorkout:hover,
 .btn-save:hover {
   cursor: pointer;
   background-color: #a5e6e081;
@@ -180,6 +171,89 @@ td {
   background-color: #00a8974a;
   font-size: 16px;
   padding: 5px;
+}
+
+/* Containers */
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.exercise-sets-container,
+.exercise-list-container,
+.workout-container {
+  flex-basis: 33%;
+  margin: 0 5px;
+  padding: 10px;
+}
+
+.exercise-list-container {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.exercise-sets-container {
+  display: flex;
+  grid-column: span 4;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding-right: 15px;
+  line-height: 16px;
+}
+
+.workout-container {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.saved-exercises {
+  width: 90%;
+}
+
+.workout-column input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.workout-container .saved-exercises {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 5px;
+  height: 200px;
+  /* Adjust as needed */
+  overflow-y: auto;
+  /* For scrolling */
+}
+
+.exercise-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-deleteExercise {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: auto;
+  /* Adjust the margin as needed for spacing */
 }
 
 /* Media queries for responsiveness */
@@ -200,7 +274,7 @@ td {
     grid-template-columns: 1fr; /* Change to a single column layout for small screens */
   }
 
-  .exercise-list-container, .exercise-sets-container {
+  .exercise-list-container, .exercise-sets-container, .workout-container{
     grid-column: span 12; /* Take up the full width on small screens */
   }
 
