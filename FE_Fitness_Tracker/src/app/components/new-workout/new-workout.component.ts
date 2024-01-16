@@ -1,5 +1,20 @@
 import { Component } from '@angular/core';
 
+interface ExerciseSet {
+  reps: number;
+  kilos: number;
+}
+
+interface Exercise {
+  name: string;
+  sets: ExerciseSet[];
+}
+
+interface Workout {
+  name: string;
+  exercises: Exercise[];
+}
+
 @Component({
   selector: 'app-new-workout',
   templateUrl: './new-workout.component.html',
@@ -19,10 +34,12 @@ export class NewWorkoutComponent {
     { name: 'Obliques', exercises: ['Woodchoppers', 'Russian twist'], image: './assets/muscle_groups/oblique.png' },
     // Add more muscle groups and exercises as needed
   ];
-  
+
+  exercises: Exercise[] = []; // Populate with your actual exercises data
+  workout: Workout = { name: '', exercises: [] };
   selectedMuscleGroup: { name: string, exercises: string[] } | null = null;
   selectedExercise: string | null = null;
-  sets: { reps: number, kilos: number }[] = [];
+  sets: ExerciseSet[] = [];
 
   showExercises(index: number) {
     this.selectedMuscleGroup = this.muscleGroups[index];
@@ -45,14 +62,31 @@ export class NewWorkoutComponent {
     this.sets.splice(index, 1);
   }
 
-  saveWorkout() {
-    // You can implement the logic for saving the workout here
-    // For example, you can send the workout data to a server
-    // or save it in a local storage, depending on your application's requirements.
-    console.log('Workout saved:', {
-      muscleGroup: this.selectedMuscleGroup,
-      exercise: this.selectedExercise,
-      sets: this.sets
-    });
-}
-}
+  showWorkoutContainer = false;
+
+  saveSet() {
+    if (this.selectedExercise) {
+      const exercise = this.workout.exercises.find(e => e.name === this.selectedExercise);
+      if (exercise) {
+        exercise.sets.push(...this.sets);
+      } else {
+        this.workout.exercises.push({ name: this.selectedExercise, sets: [...this.sets] });
+      }
+      this.sets = []; // Reset the sets
+      this.showWorkoutContainer = true; // Show the workout-container after the first set is saved
+    }
+  }
+
+  finalizeWorkout() {
+    if (this.workout && this.workout.name.trim() && this.workout.exercises.length) {
+      // Logic to save the workout to a server or local storage
+      console.log('Workout saved:', this.workout);
+      // Reset the workout
+      this.workout = { name: '', exercises: [] };
+    } else {
+      // Error handling
+      alert('Please enter a workout name and add at least one exercise.');
+    }
+  }
+
+  }

@@ -182,6 +182,49 @@ td {
   padding: 5px;
 }
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.exercise-column,
+.sets-column,
+.workout-column {
+  flex-basis: 33%;
+  margin: 0 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.workout-column input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.workout-column .saved-exercises {
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 5px;
+  height: 200px;
+  /* Adjust as needed */
+  overflow-y: auto;
+  /* For scrolling */
+}
+
+.workout-column button {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px #8203;
+}
+
+
 /* Media queries for responsiveness */
 
 @media screen and (max-width: 630px) {
