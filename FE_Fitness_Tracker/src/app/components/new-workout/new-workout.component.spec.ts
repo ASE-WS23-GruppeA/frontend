@@ -47,6 +47,12 @@ describe('NewWorkoutComponent', () => {
     expect(component.sets.length).toBe(1);
   });
 
+  it('should have initial states set correctly', () => {
+    expect(component.selectedMuscleGroup).toBeNull();
+    expect(component.selectedExercise).toBeNull();
+    expect(component.sets).toEqual([]);
+  });
+
   describe('Legs musclegroup', () => {
     const legsIndex = 0;
 
