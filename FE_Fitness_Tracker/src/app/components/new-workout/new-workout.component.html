@@ -42,7 +42,7 @@
       </table>
       <div>
       <button class="btn-addSet col" (click)="addSet()">Add Set</button>
-      <button class="btn-save col" (click)="saveSet()">Save Set</button>
+      <button class="btn-save col" (click)="saveSet()" [disabled]="setsHasNullOrZeroOrNegativeValues()">Save Set</button>
       </div>
     </div>
 

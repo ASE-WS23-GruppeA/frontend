@@ -35,7 +35,6 @@ export class NewWorkoutComponent {
     // Add more muscle groups and exercises as needed
   ];
 
-  exercises: Exercise[] = []; // Populate with your actual exercises data
   workout: Workout = { name: '', exercises: [] };
   selectedMuscleGroup: { name: string, exercises: string[] } | null = null;
   selectedExercise: string | null = null;
@@ -66,15 +65,23 @@ export class NewWorkoutComponent {
 
   saveSet() {
     if (this.selectedExercise) {
-      const exercise = this.workout.exercises.find(e => e.name === this.selectedExercise);
-      if (exercise) {
-        exercise.sets.push(...this.sets);
+      if (this.setsHasNullOrZeroOrNegativeValues()) {
+        alert('Please fill in all the fields in the exercise sets.');
       } else {
-        this.workout.exercises.push({ name: this.selectedExercise, sets: [...this.sets] });
+        const exercise = this.workout.exercises.find(e => e.name === this.selectedExercise);
+        if (exercise) {
+          exercise.sets.push(...this.sets);
+        } else {
+          this.workout.exercises.push({ name: this.selectedExercise, sets: [...this.sets] });
+        }
+        this.sets = []; // Reset the sets
+        this.showWorkoutContainer = true; // Show the workout-container after the first set is saved
       }
-      this.sets = []; // Reset the sets
-      this.showWorkoutContainer = true; // Show the workout-container after the first set is saved
     }
+  }
+
+  setsHasNullOrZeroOrNegativeValues(): boolean {
+    return this.sets.some(set => set.reps === null || set.kilos === null || set.reps <= 0 || set.kilos <= 0);
   }
 
   finalizeWorkout() {
@@ -89,4 +96,4 @@ export class NewWorkoutComponent {
     }
   }
 
-  }
+}
