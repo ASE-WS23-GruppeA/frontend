@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface ExerciseSet {
   reps: number;
@@ -21,6 +22,9 @@ interface Workout {
   styleUrls: ['./new-workout.component.css']
 })
 export class NewWorkoutComponent {
+
+  constructor(private http: HttpClient) { }
+
   muscleGroups = [
     { name: 'Legs', exercises: ['Squats', 'Lunges', 'Deadlifts', 'Leg Press', 'Leg Curls', 'Leg Extensions', 'Romanian Deadlifts', 'Step-ups', 'Stiff-legged Deadlifts', 'Sissy Squats', 'Hack Squats', 'Hamstring Curls', 'Lunges with Dumbbells', 'Box Jumps'], image: './assets/muscle_groups/legs.png' },
     { name: 'Chest', exercises: ['Decline Bench Press', 'Push-ups', 'Bench Press', 'Dips', 'Incline Bench Press', 'Dumbbell Bench Press', 'Dumbbell Flyes'], image: './assets/muscle_groups/chest.png' },
@@ -90,17 +94,23 @@ export class NewWorkoutComponent {
     }
   }
 
-
-  finalizeWorkout() {
+  saveWorkout(): void {
     if (this.workout && this.workout.name.trim() && this.workout.exercises.length) {
-      // Logic to save the workout to a server or local storage
-      console.log('Workout saved:', this.workout);
+      this.http.post('http://localhost:3000/workouts', this.workout)
+        .subscribe({
+          next: (response) => console.log('Workout saved:', response),
+          error: (error) => console.error('Error saving workout:', error)
+        });
+
       // Reset the workout
       this.workout = { name: '', exercises: [] };
     } else {
-      // Error handling
       alert('Please enter a workout name and add at least one exercise.');
     }
+  }
+
+  finalizeWorkout(): void {
+    this.saveWorkout();
   }
 
 }
