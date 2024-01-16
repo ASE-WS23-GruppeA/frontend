@@ -132,29 +132,10 @@ td {
   gap: 10px;
 }
 
-.exercise-list-container {
-  grid-column: span 6;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 300px;
-}
-
-.exercise-sets-container {
-  display: flex;
-  grid-column: span 6;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  padding-right: 15px;
-  line-height: 16px;
-}
-
 /* Buttons */
 
 .btn-addSet,
+.btn-saveWorkout,
 .btn-save {
   background-color: #00a89775;
   font-size: 14px;
@@ -171,6 +152,7 @@ td {
 }
 
 .btn-addSet:hover,
+.btn-saveWorkout:hover,
 .btn-save:hover {
   cursor: pointer;
   background-color: #a5e6e081;
@@ -182,20 +164,53 @@ td {
   padding: 5px;
 }
 
+/* Containers */
+
 .container {
   display: flex;
   justify-content: space-between;
   padding: 10px;
 }
 
-.exercise-column,
-.sets-column,
-.workout-column {
+.exercise-sets-container,
+.exercise-list-container,
+.workout-container {
   flex-basis: 33%;
   margin: 0 5px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+}
+
+.exercise-list-container {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.exercise-sets-container {
+  display: flex;
+  grid-column: span 4;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding-right: 15px;
+  line-height: 16px;
+}
+
+.workout-container {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.saved-exercises {
+  width: 90%;
 }
 
 .workout-column input[type="text"] {
@@ -204,7 +219,7 @@ td {
   margin-bottom: 10px;
 }
 
-.workout-column .saved-exercises {
+.workout-container .saved-exercises {
   border: 1px solid #ddd;
   margin-bottom: 10px;
   padding: 5px;
@@ -213,17 +228,6 @@ td {
   overflow-y: auto;
   /* For scrolling */
 }
-
-.workout-column button {
-  width: 100%;
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px #8203;
-}
-
 
 /* Media queries for responsiveness */
 
@@ -243,7 +247,7 @@ td {
     grid-template-columns: 1fr; /* Change to a single column layout for small screens */
   }
 
-  .exercise-list-container, .exercise-sets-container {
+  .exercise-list-container, .exercise-sets-container, .workout-container{
     grid-column: span 12; /* Take up the full width on small screens */
   }
 
