@@ -20,6 +20,20 @@ describe('FrontendTest', () => {
     cy.visit('http://localhost:4200')
   })
   
+ 
+    //Sign-Up
+  describe('Navigation Test Sign-Up', () => {
+  beforeEach(() => {
+    // Visit login-page before each test
+    cy.visit('http://localhost:4200/sign-up');
+  });
 
+  it('navigates to the About page when About link is clicked', () => {
+
+    cy.get('.footer a').contains('About').click();
+    cy.url().should('include', '/about');
+
+  });
 });
 
+})

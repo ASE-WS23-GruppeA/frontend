@@ -17,10 +17,11 @@ describe('FrontendTest', () => {
     // so we must tell it to visit our website with the `cy.visit()` command.
     // Since we want to visit the same URL at the start of all our tests,
     // we include it in our beforeEach function so that it runs before each test
-    cy.visit('http://localhost:4200/log-in')
+    cy.visit('http://localhost:4200')
   })
-
-  describe('Navigation Tests', () => {
+  
+  //Log-In
+  describe('Navigation Test Login', () => {
     beforeEach(() => {
       // Visit login-page before each test
       cy.visit('http://localhost:4200/log-in');
@@ -29,10 +30,8 @@ describe('FrontendTest', () => {
     it('navigates to the About page when About link is clicked', () => {
       cy.get('.footer a').contains('About').should('be.visible').click();
   
-      // Check if user is navigated to about page
       cy.url().should('include', '/about');
   
     });
   });
-  
-})
+});
