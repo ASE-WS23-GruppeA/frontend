@@ -2,6 +2,7 @@
   <div class="displayTableCell">
     <div class="authBlock">
       <h3>Sign Up</h3>
+      <p *ngIf="message" class="alert alert-warning">{{ message }}</p>
       <form #formSignUp="ngForm" (ngSubmit)="onSubmitSignUp(formSignUp)">
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>

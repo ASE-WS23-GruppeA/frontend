@@ -86,4 +86,37 @@ export class AuthService {
   refreshToken() {
     return this.http.post('http://localhost:8443/api/auth/refresh-token-cookie', {}, {withCredentials: true});
   }
+
+  createUser(email: string, password: string): Promise<AuthResponseData> {
+    return new Promise((resolve, reject) => {
+      this.http.post<AuthResponseData>('http://localhost:8443/api/auth/sign-up', {
+        email,
+        password
+      }, { withCredentials: true })
+        .pipe(
+          catchError(err => {
+            let errorMessage = 'An error occurred during sign up.';
+            if (err.error && err.error.message) {
+              errorMessage = err.error.message;
+            }
+            this.messageService.changeMessage(errorMessage);
+            throw new Error(errorMessage);
+          })
+        )
+        .subscribe({
+          next: (user) => {
+            resolve(user); // Resolve the promise with the user data
+          },
+          error: (error) => {
+            reject(error); // Reject the promise with the error
+          }
+        });
+    });
+  }
+
+
+  getAuthStatusListener(): Observable<User | null> {
+    return this.AuthenticatedUser$.asObservable();
+  }
+
 }
