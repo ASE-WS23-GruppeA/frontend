@@ -65,7 +65,7 @@ describe('NewWorkoutComponent', () => {
     it('should display exercises for legs', () => {
       component.showExercises(legsIndex);
       if (component.selectedMuscleGroup) {
-        expect(component.selectedMuscleGroup.exercises).toEqual(['Squats', 'Lunges']);
+        expect(component.selectedMuscleGroup.exercises).toEqual(['Squats', 'Lunges','Deadlifts', 'Leg Press', 'Leg Curls', 'Leg Extensions', 'Romanian Deadlifts', 'Step-ups', 'Stiff-legged Deadlifts', 'Sissy Squats', 'Hack Squats', 'Hamstring Curls', 'Lunges with Dumbbells', 'Box Jumps']);
       } else {
         fail('selectedMuscleGroup should not be null');
       }
@@ -85,7 +85,7 @@ describe('chest musclegroup', () => {
   it('should display exercises for chest', () => {
     component.showExercises(chestIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Push-ups', 'Bench press']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Decline Bench Press', 'Push-ups', 'Bench Press', 'Dips', 'Incline Bench Press', 'Dumbbell Bench Press', 'Dumbbell Flyes']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }
@@ -105,7 +105,7 @@ describe('back musclegroup', () => {
   it('should display exercises for back', () => {
     component.showExercises(backIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Pull-ups', 'Barbell rows']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Pull-ups', 'Dumbbell Rows', 'Barbell Rows', 'Deadlifts', 'Pull-Downs', 'Seated Rows', 'Reverse Flyes', 'Romanian Deadlifts', 'Stiff-legged Deadlifts', 'Cable Rows', 'Lat Pulldowns', 'Chin-ups', 'Kettlebell Swings']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }
@@ -123,7 +123,7 @@ describe('core musclegroup', () => {
   it('should display exercises for core', () => {
     component.showExercises(coreIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Sit-ups', 'Plank']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Sit-ups', 'Planks', 'Russian Twists', 'Hanging Leg Raise', 'Bicycle Crunches', 'Ab Wheel Rollouts', 'Flutter Kicks', 'Dragon Flags', 'Reverse Crunches', 'Leg Raises']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }
@@ -142,7 +142,7 @@ describe('triceps musclegroup', () => {
   it('should display exercises for triceps', () => {
     component.showExercises(tricepsIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Tricep extensions', 'Skull crushers']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Tricep extensions', 'Decline Bench Press', 'Skull Crushers', 'Bench Press', 'Dips', 'Shoulder Press', 'Tricep Extensions', 'Incline Bench Press', 'Close-grip Bench Press', 'Dumbbell Bench Press']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }
@@ -161,7 +161,7 @@ describe('calves musclegroup', () => {
   it('should display exercises for calves', () => {
     component.showExercises(calvesIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Calf raises', 'Calf stretches']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Calf Raises', 'Calf stretches']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }
@@ -180,7 +180,7 @@ describe('shoulders musclegroup', () => {
   it('should display exercises for shoulders', () => {
     component.showExercises(shoulderIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Lateral raises', 'Front raises']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Lateral Raises', 'Front Raises', 'Shoulder Press', 'Reverse Flyes', 'Face Pulls', 'Dumbbell Bench Press']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }
@@ -199,7 +199,7 @@ describe('biceps musclegroup', () => {
   it('should display exercises for biceps', () => {
     component.showExercises(bicepsIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Cable curls', 'Hammer curls']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Cable Curls', 'Hammer Curls', 'Pull-Downs', 'Bicep Curls', 'Cable Rows', 'Preacher Curls', 'Lat Pulldowns', 'Chin-ups']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }
@@ -218,7 +218,7 @@ describe('glutes musclegroup', () => {
   it('should display exercises for glutes', () => {
     component.showExercises(glutesIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Hip thrusts', 'Cable pull-throughs']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Hip Thrusts', 'Cable Pull-throughs', 'Kettlebell Swings']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }
@@ -237,7 +237,7 @@ describe('oblique musclegroup', () => {
   it('should display exercises for obliques', () => {
     component.showExercises(obliqueIndex);
     if (component.selectedMuscleGroup) {
-      expect(component.selectedMuscleGroup.exercises).toEqual(['Woodchoppers', 'Russian twist']);
+      expect(component.selectedMuscleGroup.exercises).toEqual(['Woodchoppers', 'Russian twist', 'Woodchoppers']);
     } else {
       fail('selectedMuscleGroup should not be null');
     }

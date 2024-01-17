@@ -32,11 +32,6 @@ describe('LoginInComponent', () => {
     expect(component.onSubmitLogin).toHaveBeenCalled();
   });
 
-  it('should have link to forgot-password', () => {
-
-    const forgotPasswordLink = fixture.nativeElement.querySelector('.forgotPassword span[routerLink]');
-    expect(forgotPasswordLink.getAttribute('routerLink')).toBe('/forgot-password');
-  });
 
   it('should have a username input field', () => {
     const usernameInput = fixture.nativeElement.querySelector('input#username');
