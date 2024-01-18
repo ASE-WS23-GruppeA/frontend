@@ -36,13 +36,14 @@
             <td>{{ k + 1 }}</td>
             <td><input type="number" [(ngModel)]="set.reps"></td>
             <td><input type="number" [(ngModel)]="set.kilos"></td>
-            <td><button class="btn-deleteSet"(click)="deleteSet(k)">Delete Set</button></td>
+            <td><button class="btn-deleteSet" (click)="deleteSet(k)">Delete Set</button></td>
           </tr>
         </tbody>
       </table>
       <div>
-      <button class="btn-addSet col" (click)="addSet()">Add Set</button>
-      <button class="btn-save col" (click)="saveSet()" [disabled]="setsHasNullOrZeroOrNegativeValues()">Save Set</button>
+        <button class="btn-addSet col" (click)="addSet()">Add Set</button>
+        <button class="btn-save col" (click)="saveSet()" [disabled]="setsHasNullOrZeroOrNegativeValues()">Save
+          Set</button>
       </div>
     </div>
 
@@ -68,7 +69,7 @@
           </ul>
         </div>
       </div>
-      <button class="btn-saveWorkout"(click)="finalizeWorkout()">Save Workout</button>
-    </div>
+      <button class="btn-saveWorkout" (click)="finalizeWorkout()">Save Workout</button>
     </div>
   </div>
+</div>

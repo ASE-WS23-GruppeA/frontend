@@ -1,20 +1,9 @@
 import { Component } from '@angular/core';
 import { WorkoutService } from 'src/app/_services/workout.service';
-
-interface ExerciseSet {
-  reps: number;
-  kilos: number;
-}
-
-interface Exercise {
-  name: string;
-  sets: ExerciseSet[];
-}
-
-interface Workout {
-  name: string;
-  exercises: Exercise[];
-}
+import { ExerciseService } from 'src/app/_services/exercise.service';
+import { Exercise } from 'src/app/_models/exercise.model';
+import { Workout } from 'src/app/_models/workout.model';
+import { ExerciseSet } from 'src/app/_models/exercise-set.model';
 
 @Component({
   selector: 'app-new-workout',
@@ -22,9 +11,6 @@ interface Workout {
   styleUrls: ['./new-workout.component.css']
 })
 export class NewWorkoutComponent {
-
-  constructor(private WorkoutService: WorkoutService) { }
-
   muscleGroups = [
     { name: 'Legs', exercises: ['Squats', 'Lunges', 'Deadlifts', 'Leg Press', 'Leg Curls', 'Leg Extensions', 'Romanian Deadlifts', 'Step-ups', 'Stiff-legged Deadlifts', 'Sissy Squats', 'Hack Squats', 'Hamstring Curls', 'Lunges with Dumbbells', 'Box Jumps'], image: './assets/muscle_groups/legs.png' },
     { name: 'Chest', exercises: ['Decline Bench Press', 'Push-ups', 'Bench Press', 'Dips', 'Incline Bench Press', 'Dumbbell Bench Press', 'Dumbbell Flyes'], image: './assets/muscle_groups/chest.png' },
@@ -44,10 +30,28 @@ export class NewWorkoutComponent {
   selectedExercise: string | null = null;
   sets: ExerciseSet[] = [];
 
+  showWorkoutContainer = false;
+
+  constructor(
+    private workoutService: WorkoutService,
+    private exerciseService: ExerciseService
+  ) { }
+
   showExercises(index: number) {
-    this.selectedMuscleGroup = this.muscleGroups[index];
-    this.selectedExercise = null;
-    this.sets = [];
+    if (this.muscleGroups[index]) {
+      const muscleGroup = this.muscleGroups[index].name;
+      this.exerciseService.getExercisesByMuscleGroup(muscleGroup).subscribe(
+        (exercises: Exercise[]) => {
+          this.selectedMuscleGroup = this.muscleGroups[index];
+          this.selectedMuscleGroup.exercises = exercises.map((exercise: Exercise) => exercise.name);
+          this.selectedExercise = null;
+          this.sets = [];
+        },
+        (error) => {
+          console.error('Error fetching exercises by muscle group', error);
+        }
+      );
+    }
   }
 
   showSets(exerciseIndex: number) {
@@ -58,14 +62,13 @@ export class NewWorkoutComponent {
   }
 
   addSet() {
-    this.sets.push({ reps: 0, kilos: 0 });
+    const e: ExerciseSet = { reps: 0, kilos: 0 };
+    this.sets.push(e);
   }
 
   deleteSet(index: number) {
     this.sets.splice(index, 1);
   }
-
-  showWorkoutContainer = false;
 
   saveSet() {
     if (this.selectedExercise) {
@@ -76,13 +79,21 @@ export class NewWorkoutComponent {
         if (exercise) {
           exercise.sets.push(...this.sets);
         } else {
-          this.workout.exercises.push({ name: this.selectedExercise, sets: [...this.sets] });
+          // Create a new Exercise object with the correct structure
+          const newExercise: Exercise = {
+            exerciseID: 0, // You can set this to the appropriate value if available
+            name: this.selectedExercise, // Use the selectedExercise as the name
+            muscleGroup: '', // Set the muscle group appropriately
+            sets: [...this.sets]
+          };
+          this.workout.exercises.push(newExercise);
         }
         this.sets = []; // Reset the sets
         this.showWorkoutContainer = true; // Show the workout-container after the first set is saved
       }
     }
   }
+
 
   setsHasNullOrZeroOrNegativeValues(): boolean {
     return this.sets.some(set => set.reps === null || set.kilos === null || set.reps <= 0 || set.kilos <= 0);
@@ -96,12 +107,12 @@ export class NewWorkoutComponent {
 
   finalizeWorkout() {
     if (this.workout && this.workout.name.trim() && this.workout.exercises.length) {
-      this.WorkoutService.saveWorkout(this.workout).subscribe(
-        (response: any) => { // Specify type as any or a more specific type
+      this.workoutService.saveWorkout(this.workout).subscribe(
+        response => {
           console.log('Workout saved successfully', response);
-          this.workout = { name: '', exercises: [] };
+          this.resetWorkout();
         },
-        (error: any) => { // Specify type as any or a more specific type
+        error => {
           console.error('Error saving workout', error);
         }
       );
@@ -110,4 +121,8 @@ export class NewWorkoutComponent {
     }
   }
 
+  private resetWorkout() {
+    this.workout = { name: '', exercises: [] };
+    // any other reset logic if required
+  }
 }
