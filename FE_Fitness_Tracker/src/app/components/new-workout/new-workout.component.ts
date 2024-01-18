@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 interface ExerciseSet {
   reps: number;
@@ -23,7 +22,6 @@ interface Workout {
 })
 export class NewWorkoutComponent {
 
-  constructor(private http: HttpClient) { }
 
   muscleGroups = [
     { name: 'Legs', exercises: ['Squats', 'Lunges', 'Deadlifts', 'Leg Press', 'Leg Curls', 'Leg Extensions', 'Romanian Deadlifts', 'Step-ups', 'Stiff-legged Deadlifts', 'Sissy Squats', 'Hack Squats', 'Hamstring Curls', 'Lunges with Dumbbells', 'Box Jumps'], image: './assets/muscle_groups/legs.png' },
@@ -91,21 +89,6 @@ export class NewWorkoutComponent {
   deleteSavedExercise(exerciseIndex: number) {
     if (this.workout.exercises[exerciseIndex]) {
       this.workout.exercises.splice(exerciseIndex, 1);
-    }
-  }
-
-  saveWorkout(): void {
-    if (this.workout && this.workout.name.trim() && this.workout.exercises.length) {
-      this.http.post('http://localhost:3000/workouts', this.workout)
-        .subscribe({
-          next: (response) => console.log('Workout saved:', response),
-          error: (error) => console.error('Error saving workout:', error)
-        });
-
-      // Reset the workout
-      this.workout = { name: '', exercises: [] };
-    } else {
-      alert('Please enter a workout name and add at least one exercise.');
     }
   }
 
