@@ -1,7 +1,7 @@
 // auth.service.ts
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError, Subject} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {StorageService} from './storage.service';
 import {Router} from '@angular/router';
@@ -87,9 +87,10 @@ export class AuthService {
     return this.http.post('http://localhost:8443/api/auth/refresh-token-cookie', {}, {withCredentials: true});
   }
 
-  createUser(email: string, password: string): Promise<AuthResponseData> {
+  createUser(username: string, email: string, password: string): Promise<AuthResponseData> {
     return new Promise((resolve, reject) => {
-      this.http.post<AuthResponseData>('http://localhost:8443/api/auth/sign-up', {
+      this.http.post<AuthResponseData>('http://localhost:8443/api/auth/register', {
+        username,
         email,
         password
       }, { withCredentials: true })
@@ -100,7 +101,7 @@ export class AuthService {
               errorMessage = err.error.message;
             }
             this.messageService.changeMessage(errorMessage);
-            throw new Error(errorMessage);
+            return throwError(() => new Error(errorMessage));
           })
         )
         .subscribe({
@@ -113,6 +114,7 @@ export class AuthService {
         });
     });
   }
+
 
 
   getAuthStatusListener(): Observable<User | null> {
