@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WorkoutService } from 'src/app/_services/workout.service';
 
 interface ExerciseSet {
   reps: number;
@@ -22,6 +23,7 @@ interface Workout {
 })
 export class NewWorkoutComponent {
 
+  constructor(private WorkoutService: WorkoutService) { }
 
   muscleGroups = [
     { name: 'Legs', exercises: ['Squats', 'Lunges', 'Deadlifts', 'Leg Press', 'Leg Curls', 'Leg Extensions', 'Romanian Deadlifts', 'Step-ups', 'Stiff-legged Deadlifts', 'Sissy Squats', 'Hack Squats', 'Hamstring Curls', 'Lunges with Dumbbells', 'Box Jumps'], image: './assets/muscle_groups/legs.png' },
@@ -89,6 +91,22 @@ export class NewWorkoutComponent {
   deleteSavedExercise(exerciseIndex: number) {
     if (this.workout.exercises[exerciseIndex]) {
       this.workout.exercises.splice(exerciseIndex, 1);
+    }
+  }
+
+  finalizeWorkout() {
+    if (this.workout && this.workout.name.trim() && this.workout.exercises.length) {
+      this.WorkoutService.saveWorkout(this.workout).subscribe(
+        (response: any) => { // Specify type as any or a more specific type
+          console.log('Workout saved successfully', response);
+          this.workout = { name: '', exercises: [] };
+        },
+        (error: any) => { // Specify type as any or a more specific type
+          console.error('Error saving workout', error);
+        }
+      );
+    } else {
+      alert('Please enter a workout name and add at least one exercise.');
     }
   }
 
