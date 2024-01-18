@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors } from 'chart.js/auto';
 import { ArcElement } from 'chart.js/auto';
+import { AnalyticsService } from 'src/app/_services/analytics.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,21 +10,48 @@ import { ArcElement } from 'chart.js/auto';
 })
 export class DashboardComponent implements OnInit {
 
-  public barChart: any;
-  public donutChart: any;
+  totalVolume: any;
+ 
+  //public barChart: any;
+  //public donutChart: any;
 
-  constructor() { }
+  constructor(private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
-    Chart.register(LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors, ArcElement);
+   
+    this.getTotalVolume();
+    
+
+   /* Chart.register(LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors, ArcElement);
     this.createBarChart();
     this.createDonutChart();
     Chart.defaults.backgroundColor = '#000000';
     Chart.defaults.borderColor = '#000000';
-    Chart.defaults.color = '#000000';
+    Chart.defaults.color = '#000000';*/
   }
 
-  createBarChart() {
+
+  getTotalVolume() {
+
+    const userId = 123; // TODO get actual userId
+
+    this.analyticsService.getTotalVolume(userId).subscribe(
+      data => {
+        this.totalVolume = data;
+        this.drawTotalVolumeChart();
+      },
+      error => console.error('Fehler beim Abrufen des Gesamtvolumens', error)
+    );
+  }
+
+  drawTotalVolumeChart() {
+    //TODO implement
+    throw new Error('Method not implemented.');
+  }
+
+ 
+
+  /*createBarChart() {
     this.barChart = new Chart('MyBarChart', {
       type: 'bar',
       data: {
@@ -110,4 +138,5 @@ export class DashboardComponent implements OnInit {
       },
     });
   }
+  */
 }
