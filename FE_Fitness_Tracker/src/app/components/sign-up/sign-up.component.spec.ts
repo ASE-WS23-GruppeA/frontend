@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignUpComponent } from './sign-up.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -9,7 +10,7 @@ describe('SignUpComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientModule],
       declarations: [SignUpComponent]
     });
     fixture = TestBed.createComponent(SignUpComponent);
@@ -32,7 +33,6 @@ describe('SignUpComponent', () => {
     expect(passwordInput).toBeTruthy();
     expect(passwordInput.placeholder).toBe('Password');
   });
-  
   
   it('should have a submit button', () => {
     const submitButton = fixture.nativeElement.querySelector('button[type="submit"]');

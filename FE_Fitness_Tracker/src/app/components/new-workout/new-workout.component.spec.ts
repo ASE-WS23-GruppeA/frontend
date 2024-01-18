@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewWorkoutComponent } from './new-workout.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('NewWorkoutComponent', () => {
   let component: NewWorkoutComponent;
@@ -8,6 +10,7 @@ describe('NewWorkoutComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule, HttpClientModule], 
       declarations: [NewWorkoutComponent]
     });
     fixture = TestBed.createComponent(NewWorkoutComponent);
