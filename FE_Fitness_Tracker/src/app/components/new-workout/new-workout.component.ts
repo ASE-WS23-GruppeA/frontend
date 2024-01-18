@@ -92,8 +92,4 @@ export class NewWorkoutComponent {
     }
   }
 
-  finalizeWorkout(): void {
-    this.saveWorkout();
-  }
-
 }
