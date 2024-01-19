@@ -91,3 +91,21 @@ select:hover {
     background-color: #e0e0e0;
   }
   
+.card-body ul.list-group li:nth-child(even) {
+    background-color: #f0f0f0;
+  }
+  
+  .card-body ul.list-group li:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  .card-body-history {
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2); 
+  }
+  .card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
