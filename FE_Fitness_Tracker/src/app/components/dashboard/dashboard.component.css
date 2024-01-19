@@ -91,27 +91,53 @@ select:hover {
     background-color: #e0e0e0;
   }
   
-.card-body-history ul.list-group li:nth-child(even) {
+  .card-body-history ul.list-group li:nth-child(even) {
     background-color: #f0f0f0;
   }
   
   .card-body-history ul.list-group li:nth-child(odd) {
-    background-color: #ffffff;
+    background-color: #ffffff; 
   }
   
+  .card-body-history ul.list-group li .list-group-item {
+    background-color: inherit; 
+  }
   
   .card-body-history {
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
   }
+  
   .card-header {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
   }
+  
   summary {
     list-style: none;
   }
+  
   summary::-webkit-details-marker {
     display: none;
   }
+  
+  input[type="date"]:hover {
+    background-color: #e0e0e0;
+  }
+
+  .summary-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .summary-icon i {
+    font-size: 1.2em; 
+  }
+  
+  details[open] .summary-icon i {
+    transform: rotate(180deg); 
+  }
+
+  
