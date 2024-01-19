@@ -23,21 +23,22 @@ export class DashboardComponent implements OnInit {
   endDate: string = '';
   //public barChart: any;
   //public donutChart: any;
+    defaultExercise = 'Legs';
+    defaultStartDate = '2022-01-01';
+    defaultEndDate = '2022-01-31';
 
   constructor(private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
-   
-    this.getWeightProgressDataExample();
-    this.selectedExercise = this.exercises[0];
 
-    //this.createChart();
-   /*Chart.register(LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors, ArcElement);
-    this.createBarChart();
-    this.createDonutChart();
-    Chart.defaults.backgroundColor = '#000000';
-    Chart.defaults.borderColor = '#000000';
-    Chart.defaults.color = '#000000';*/
+ 
+      this.selectedExercise = this.defaultExercise;
+      this.startDate = this.defaultStartDate;
+      this.endDate = this.defaultEndDate;
+  
+      // Das Diagramm beim Initialisieren mit den Standardwerten erstellen
+      this.getWeightProgressForExercises();
+
   }
 
 
@@ -55,10 +56,22 @@ export class DashboardComponent implements OnInit {
           });
     }
   }
+
+  onExerciseChange(newExercise: string): void {
+    this.selectedExercise = newExercise;
+    this.getWeightProgressForExercises(); // Aktualisieren des Diagramms
+  }
+   onDateRangeChange(newStartDate: string, newEndDate: string): void {
+    this.startDate = newStartDate;
+    this.endDate = newEndDate;
+    this.getWeightProgressForExercises(); // Aktualisieren des Diagramms
+  }
+
   private updateWeightProgressForExercises(data: any): void {
     if (this.weightProgressForExerciseschart) {
       this.weightProgressForExerciseschart.destroy();
     }
+    
   
     this.weightProgressForExerciseschart = new Chart(this.chartCanvas!.nativeElement, {
       type: 'line',
@@ -83,22 +96,43 @@ export class DashboardComponent implements OnInit {
             title: {
               display: true,
               text: 'Weight (kg)', 
+              font: {
+                size: 16
+              }
             }
           },
           x: {
             title: {
               display: true,
               text: 'Date', 
+              font: {
+                size: 16
+              }
             },
             ticks: {
-              maxRotation: 90,
-              minRotation: 90
+              display: false, // Versteckt alle Ticks (Datenpunkte) auf der X-Achse
+              autoSkip: true,
+              maxRotation: 0,
+              minRotation: 0
             }
           }
         },
         plugins: {
+          title: {
+            display: true,
+            text: 'Your Weight Progress',
+            font: {
+              size: 20,
+            }
+          }, 
           legend: {
             display: true,
+            labels: {
+              font: {
+                size: 18,
+              }
+            }
+            
           },
           tooltip: {
             enabled: true,
