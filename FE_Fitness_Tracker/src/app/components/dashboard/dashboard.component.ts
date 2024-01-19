@@ -11,6 +11,8 @@ import { AnalyticsService } from 'src/app/_services/analytics.service';
 export class DashboardComponent implements OnInit {
 
   totalVolume: any;
+  weightProgress: any;
+  averageWeightProgress: any;
  
   //public barChart: any;
   //public donutChart: any;
@@ -19,7 +21,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
    
-    this.getTotalVolume();
+    //this.getTotalVolume();
+    //this.getweightProgress();
+   // this.getaverageWeightProgress();
+    this.getWeightProgressDataExample();
     
 
    /* Chart.register(LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors, ArcElement);
@@ -31,7 +36,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  getTotalVolume() {
+ getTotalVolume() {
 
     const userId = 123; // TODO get actual userId
 
@@ -44,12 +49,34 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+
+  getWeightProgressDataExample() {
+    const userId = 123; 
+    const exerciseName = 'BenchPress'; 
+    const startDate = '2022-01-01'; 
+    const endDate = '2022-01-31'; 
+  
+    this.analyticsService.getWeightProgress(userId, exerciseName, startDate, endDate)
+        .subscribe(data => {
+            console.log(data); 
+        }, error => {
+            console.error('Fehler beim Abrufen der Daten', error);
+        });
+  }
+
   drawTotalVolumeChart() {
     //TODO implement
     throw new Error('Method not implemented.');
   }
 
- 
+  getweightProgress(){
+
+   
+  }
+
+  getaverageWeightProgress(){
+
+  }
 
   /*createBarChart() {
     this.barChart = new Chart('MyBarChart', {
