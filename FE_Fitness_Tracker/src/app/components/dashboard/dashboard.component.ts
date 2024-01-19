@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadWorkouts(): void {
-    this.workoutHistoryService.getAllWorkouts(1) // Ersetzen Sie 1 durch die tatsächliche UserID
+    this.workoutHistoryService.getAllWorkouts(1) //TODO
       .subscribe(data => {
         this.workouts = data;
       }, error => {
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
   }
   
   loadLastWorkout(): void {
-    this.workoutHistoryService.getLastWorkout(1) // Ersetzen Sie 1 durch die tatsächliche UserID
+    this.workoutHistoryService.getLastWorkout(1) //TODO
       .subscribe(data => {
         this.lastWorkout = data;
       }, error => {

@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="col-md-4 mt-0">
-        <div class="chart-container" style="height: 400px; max-height: 400px; flex-direction: column; align-items: center; text-align: center; margin-top:80px">
+        <div class="chart-container" style="height: 400px; max-height: 400px; flex-direction: column; align-items: center; text-align: center">
           <div>
             <canvas #chartCanvas></canvas>
             <select [(ngModel)]="selectedExercise" (change)="getWeightProgressForExercises()" style="margin-top: 50px; margin-right: 20px;">
@@ -38,15 +38,15 @@
 
    
         <!-- Card for workout-history -->
-        <div class="col-md-4">
+        <div class="col-md-2" style="margin-left: 150px;">
           <div class="card my-4">
             <div class="card-header">
-              <h3>Workout History</h3>
+              <h6>Workout History</h6>
             </div>
             <div class="card-body" style="height: 300px; overflow-y: auto;">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let workout of workouts">
-                  <h4>{{ workout.workoutName }}</h4>
+                  <h6>{{ workout.workoutName }}</h6>
                   <p>{{ workout.createdDate | date }}</p>
                   <!-- TODO: add more details -->
                 </li>
@@ -56,16 +56,18 @@
 
           <div class="card my-4">
             <div class="card-header">
-              <h3>Last Workout</h3>
+              <h6>Last Workout</h6>
             </div>
             <div class="card-body">
-              <h4>{{ lastWorkout.workoutName }}</h4>
+              <h6>{{ lastWorkout.workoutName }}</h6>
               <p>{{ lastWorkout.createdDate | date }}</p>
               <!-- TODO add more details -->
             </div>
           </div>
 
     </div>
+
+    
   </div>
 </div> 
 </div>

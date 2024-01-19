@@ -26,7 +26,6 @@
     flex-direction: column;
     justify-content: center; /* Center vertically */
     align-items: center; /* Center horizontally */
-    margin-top: 100px; /* Add margin-top for spacing */
 }
 
 select {
