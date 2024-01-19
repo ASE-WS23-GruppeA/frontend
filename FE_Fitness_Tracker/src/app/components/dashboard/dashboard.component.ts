@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors } from 'chart.js/auto';
 import { ArcElement } from 'chart.js/auto';
 import { AnalyticsService } from 'src/app/_services/analytics.service';
+import { WorkoutHistoryService } from 'src/app/_services/workout-history.service';
 
 
 @Component({
@@ -27,7 +28,11 @@ export class DashboardComponent implements OnInit {
     defaultStartDate = '2022-01-01';
     defaultEndDate = '2022-01-31';
 
-  constructor(private analyticsService: AnalyticsService) { }
+    workouts: any[] = [];
+    lastWorkout: any;
+
+    constructor( private analyticsService: AnalyticsService,
+    private workoutHistoryService: WorkoutHistoryService) { }
 
   ngOnInit() {
 
@@ -39,9 +44,27 @@ export class DashboardComponent implements OnInit {
       // Das Diagramm beim Initialisieren mit den Standardwerten erstellen
       this.getWeightProgressForExercises();
 
+      this.loadWorkouts();
+      this.loadLastWorkout();
   }
 
-
+  loadWorkouts(): void {
+    this.workoutHistoryService.getAllWorkouts(1) // Ersetzen Sie 1 durch die tatsächliche UserID
+      .subscribe(data => {
+        this.workouts = data;
+      }, error => {
+        console.error('Error loading workouts', error);
+      });
+  }
+  
+  loadLastWorkout(): void {
+    this.workoutHistoryService.getLastWorkout(1) // Ersetzen Sie 1 durch die tatsächliche UserID
+      .subscribe(data => {
+        this.lastWorkout = data;
+      }, error => {
+        console.error('Error loading last workout', error);
+      });
+  }
   getWeightProgressForExercises(): void {
     //TODO CHANGE HARDCODED USERID
     if (this.selectedExercise && this.startDate && this.endDate) {
