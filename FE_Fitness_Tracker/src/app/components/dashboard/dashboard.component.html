@@ -24,18 +24,19 @@
       </div>
 
       <div class="col-md-4 mt-0">
-        <div class="chart-container" style="height: 400px; max-height: 400px;">
+        <div class="chart-container" style="height: 400px; max-height: 400px;  flex-direction: column; align-items: center; text-align: center; margin-top:100px">
           <div>
-            <select [(ngModel)]="selectedExercise" (change)="getWeightProgressForExercises()">
+            <canvas #chartCanvas></canvas>
+            <select [(ngModel)]="selectedExercise" (change)="getWeightProgressForExercises()" style="margin-top: 50px; margin-right: 20px;">
               <option *ngFor="let exercise of exercises" [value]="exercise">{{exercise}}</option>
             </select>
           
-            <input type="date" [(ngModel)]="startDate" (change)="getWeightProgressForExercises()">
+            <input type="date" [(ngModel)]="startDate" (change)="getWeightProgressForExercises()"  style=" margin-right: 20px;">
             <input type="date" [(ngModel)]="endDate" (change)="getWeightProgressForExercises()">
           
-            <canvas #chartCanvas></canvas>
+          
           </div>
-       <canvas #chartCanvas></canvas>
+     
 
         </div>
       </div>

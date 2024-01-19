@@ -21,6 +21,14 @@
 .card{
     outline: none;
 }
+
+.chart-container {
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    margin-top: 100px; /* Add margin-top for spacing */
+}
+
 select {
   width: 200px;
   padding: 10px 15px;
