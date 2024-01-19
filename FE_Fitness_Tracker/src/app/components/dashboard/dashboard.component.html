@@ -1,26 +1,26 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css">
 <div class="card">
-  <div class="card-header">
-    <h2>Your Dashboard</h2>
+  <div class="card-header" style="height: 60px;">
+    <h2 style="margin-top:20px">Your Dashboard</h2>
   </div>
-  <div class="card-body">
+  <div class="card-body" style="height: 80px;">
     <div class="formGroup text-center"> 
-      <a class="btn btnPrimary btn-lg" routerLink="/new-workout">
-        Add Workout <i class="bi bi-plus bi-4x" style="font-size: 24px;"></i> 
+      <a class="btn btnPrimary" routerLink="/new-workout" style="font-size: 18px; padding: 10px 20px;">
+        Add Workout <i class="bi bi-plus" style="font-size: 18px;"></i>
       </a>
     </div>
   </div>
 </div>
 
 <div class="card">
-  <div class="card-header">
-    <h2>Your Statistics</h2>
+  <div class="card-header" style="height: 60px;">
+    <h2 tyle="margin-top:20px">Your Statistics</h2>
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-md-4"> 
+      <div class="col-md-3" style="margin-left: 100px; margin-top: 80px; margin-right: 80px;"> 
         <div class="chart-container" style="height: 400px; max-height: 400px;">
-          <!-- <canvas id="MyBarChart">{{ barChart }}</canvas> -->
+            <canvas #averageWeightProgressCanvas></canvas>
         </div>
       </div>
       <div class="col-md-4 mt-0">
@@ -42,7 +42,7 @@
         <div class="col-md-2" style="margin-left: 150px;">
           <div class="card my-4">
             <div class="card-header" style="background-color: #6a5acd; color: white;">
-              <h6>Your Workout History</h6>
+              <h6 style="margin-top: 10px">Your Workout History</h6>
             </div>
             <div class="card-body-history" style="height: 300px; overflow-y: auto;">
               <ul class="list-group list-group-flush">
@@ -75,7 +75,7 @@
 
           <div class="card my-4">
             <div class="card-header" style="background-color: #406178; color: white;">
-              <h6>Your Last Workout</h6>
+              <h6 style="margin-top: 10px">Your Last Workout</h6>
             </div>
             <div class="card-body-history" >
            
