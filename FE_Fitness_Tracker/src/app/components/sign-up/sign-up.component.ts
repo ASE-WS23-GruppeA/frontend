@@ -43,7 +43,13 @@ export class SignUpComponent implements OnInit, OnDestroy {
       })
       .catch(error => {
         this.isLoading = false;
-        this.message = error.message;
+        if (error.status === 409) {
+          // Custom message for 409 Conflict
+          this.message = 'Username or email already in use.';
+        } else {
+          // Other errors
+          this.message = error.message;
+        }
       });
   }
 
