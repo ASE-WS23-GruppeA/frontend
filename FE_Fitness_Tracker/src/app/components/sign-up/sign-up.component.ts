@@ -14,6 +14,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   isLoading = false;
   message: string = '';
   private authStatusSub!: Subscription;  // Note the '!' postfix
+  isSignUpSuccessful = false;
 
   constructor(private authService: AuthService, private messageService: MessageService, private router: Router) { }
 
@@ -37,7 +38,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.authService.createUser(form.value.username, form.value.email, form.value.password)
       .then(() => {
-        this.router.navigate(['/login']);
+        this.isLoading = false;
+        this.isSignUpSuccessful = true; // Set the flag to true on successful registration
       })
       .catch(error => {
         this.isLoading = false;

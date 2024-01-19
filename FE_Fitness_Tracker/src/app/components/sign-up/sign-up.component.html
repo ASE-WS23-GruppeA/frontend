@@ -2,7 +2,16 @@
   <div class="displayTableCell">
     <div class="authBlock">
       <h3>Sign Up</h3>
+
+      <!-- Success Message -->
+      <div *ngIf="isSignUpSuccessful" class="alert alert-success">
+        Your registration was successful. Please <a routerLink="/log-in">login</a>.
+      </div>
+
+      <!-- Error Message -->
       <p *ngIf="message" class="alert alert-warning">{{ message }}</p>
+
+      <!-- Sign Up Form -->
       <form #formSignUp="ngForm" (ngSubmit)="onSubmitSignUp(formSignUp)">
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
@@ -33,6 +42,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Sign Up</button>
       </form>
+
     </div>
     <div class="redirectToLogin">
       <span>Already have an account?<span class="redirect" routerLink="/log-in">Log In</span></span>
