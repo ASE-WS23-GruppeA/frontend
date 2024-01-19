@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 import {User} from '../_models/user.model';
 import {MessageService} from "./message.service";
 
-interface AuthResponseData {
+export interface AuthResponseData {
   id: number;
   email: string;
   jwtToken: string;
