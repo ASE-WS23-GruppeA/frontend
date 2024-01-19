@@ -1,0 +1,59 @@
+name: Frontend CI/CD Pipeline
+
+on:
+  push:
+    paths:
+      - 'frontend/FE_Fitness_Tracker/**'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'frontend/FE_Fitness_Tracker/**'
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+
+    - name: Install Dependencies
+      run: npm install
+      working-directory: frontend/FE_Fitness_Tracker
+
+    - name: Lint
+      run: npm run lint
+      working-directory: frontend/FE_Fitness_Tracker
+
+    - name: Run Tests
+      run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      working-directory: frontend/FE_Fitness_Tracker
+
+    - name: Build
+      run: npm run build -- --prod
+      working-directory: frontend/FE_Fitness_Tracker
+
+    # Add any deployment steps here, specifying the 'working-directory' if needed
+
+    # Local Deployment Steps (for documentation purposes)
+    - name: Echo Local Deployment Steps
+      run: |
+        echo "Pull the latest code:"
+        echo "git checkout main"
+        echo "git pull origin main"
+        
+        echo "Build the Angular application:"
+        echo "cd path/to/frontend/FE_Fitness_Tracker"
+        echo "npm install"
+        echo "npm run build -- --prod"
+        
+        echo "Deploy locally by copying build artifacts to your local server directory."
+        
+        echo "Start or restart your local server to serve the new version of the application."
