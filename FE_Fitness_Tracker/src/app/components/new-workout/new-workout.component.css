@@ -9,6 +9,10 @@ h3 {
   cursor: default;
 }
 
+h5 {
+  font-size: 1.05rem;
+}
+
 .row .exercise {
   min-height: 300px;
 }

@@ -50,26 +50,27 @@
     <!-- Fourth Container: Workout Cart -->
     <div class="workout-container col" *ngIf="showWorkoutContainer">
       <h3>Workout</h3>
-      <input type="text" [(ngModel)]="workout.name" placeholder="Enter workout name">
+      <input type="text" [(ngModel)]="workout.workoutName" placeholder="Enter workout name">
       <div class="saved-exercises">
         <!-- Dynamically display saved exercises -->
-        <div *ngFor="let exercise of workout.exercises; let exerciseIndex = index">
+        <div *ngFor="let workoutSet of workout.workoutSets; let exerciseIndex = index">
           <div class="exercise-item">
             <div class="exercise-details">
-              <h4>{{ exercise.exerciseName }}</h4>
+              <h5>{{ getExerciseNameById(workoutSet.exerciseID) }}</h5>
+              <ul>
+                <li>
+                  {{ workoutSet.reps }} reps - {{ workoutSet.weights }} kilos
+                </li>
+              </ul>
             </div>
             <div class="delete-button">
               <button class="btn-deleteExercise" (click)="deleteSavedExercise(exerciseIndex)">x</button>
             </div>
           </div>
-          <ul>
-            <!-- <li *ngFor="let set of exercise.sets">
-              {{ set.reps }} reps - {{ set.kilos }} kilos
-            </li> -->
-          </ul>
         </div>
       </div>
-      <!-- <button class="btn-saveWorkout" (click)="finalizeWorkout()">Save Workout</button> -->
+      <button class="btn-saveWorkout" (click)="finalizeWorkout()">Save Workout</button>
     </div>
+
   </div>
 </div>

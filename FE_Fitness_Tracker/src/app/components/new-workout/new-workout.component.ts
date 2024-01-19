@@ -11,28 +11,14 @@ import { MuscleGroup } from 'src/app/_models/muscleGroups.model';
   templateUrl: './new-workout.component.html',
   styleUrls: ['./new-workout.component.css']
 })
-export class NewWorkoutComponent {
-  // muscleGroups = [
-  //   { name: 'Legs', exercises: ['Squats', 'Lunges', 'Deadlifts', 'Leg Press', 'Leg Curls', 'Leg Extensions', 'Romanian Deadlifts', 'Step-ups', 'Stiff-legged Deadlifts', 'Sissy Squats', 'Hack Squats', 'Hamstring Curls', 'Lunges with Dumbbells', 'Box Jumps'], image: './assets/muscle_groups/legs.png' },
-  //   { name: 'Chest', exercises: ['Decline Bench Press', 'Push-ups', 'Bench Press', 'Dips', 'Incline Bench Press', 'Dumbbell Bench Press', 'Dumbbell Flyes'], image: './assets/muscle_groups/chest.png' },
-  //   { name: 'Back', exercises: ['Pull-ups', 'Dumbbell Rows', 'Barbell Rows', 'Deadlifts', 'Pull-Downs', 'Seated Rows', 'Reverse Flyes', 'Romanian Deadlifts', 'Stiff-legged Deadlifts', 'Cable Rows', 'Lat Pulldowns', 'Chin-ups', 'Kettlebell Swings'], image: './assets/muscle_groups/back.png' },
-  //   { name: 'Core', exercises: ['Sit-ups', 'Planks', 'Russian Twists', 'Hanging Leg Raise', 'Bicycle Crunches', 'Ab Wheel Rollouts', 'Flutter Kicks', 'Dragon Flags', 'Reverse Crunches', 'Leg Raises'], image: './assets/muscle_groups/core.png' },
-  //   { name: 'Triceps', exercises: ['Tricep extensions', 'Decline Bench Press', 'Skull Crushers', 'Bench Press', 'Dips', 'Shoulder Press', 'Tricep Extensions', 'Incline Bench Press', 'Close-grip Bench Press', 'Dumbbell Bench Press'], image: './assets/muscle_groups/triceps.png' },
-  //   { name: 'Calves', exercises: ['Calf Raises', 'Calf stretches'], image: './assets/muscle_groups/calves.png' },
-  //   { name: 'Shoulders', exercises: ['Lateral Raises', 'Front Raises', 'Shoulder Press', 'Reverse Flyes', 'Face Pulls', 'Dumbbell Bench Press'], image: './assets/muscle_groups/shoulders.png' },
-  //   { name: 'Biceps', exercises: ['Cable Curls', 'Hammer Curls', 'Pull-Downs', 'Bicep Curls', 'Cable Rows', 'Preacher Curls', 'Lat Pulldowns', 'Chin-ups'], image: './assets/muscle_groups/biceps.png' },
-  //   { name: 'Glutes', exercises: ['Hip Thrusts', 'Cable Pull-throughs', 'Kettlebell Swings'], image: './assets/muscle_groups/gluteus.png' },
-  //   { name: 'Obliques', exercises: ['Woodchoppers', 'Russian twist', 'Woodchoppers'], image: './assets/muscle_groups/oblique.png' },
-  //   // Add more muscle groups and exercises as needed
-  // ];
 
-  workout: Workout = { name: '', exercises: [] };
+export class NewWorkoutComponent {
+
+  workout: Workout = { userID: 0, workoutName: '', workoutSets: [] };
   selectedMuscleGroup: { name: string, exercises: string[] }  = { name: "", exercises: []};
   selectedExercise: string | null = null;
   sets: ExerciseSet[] = [];
-
   showWorkoutContainer = false;
-
   exercises: Exercise [] = [];
   muscleGroups: MuscleGroup[] = [
     { name: 'Legs', exercises: [], image: './assets/muscle_groups/legs.png' },
@@ -50,9 +36,7 @@ export class NewWorkoutComponent {
   constructor(
     private workoutService: WorkoutService,
     private exerciseService: ExerciseService
-  ) { 
-    
-  }
+  ) {}
 
   ngOnInit(): void {
     // Call the fetchExercises() method and subscribe to it
@@ -70,8 +54,6 @@ export class NewWorkoutComponent {
         console.error('Error fetching exercises', error);
       }
     );
-
-
   }
 
   createMuscleGroupsStructure(exercises: Exercise[], muscleGroups: MuscleGroup[]): MuscleGroup[] {
@@ -123,60 +105,78 @@ export class NewWorkoutComponent {
   }
   
   saveSet() {
+    console.log('saveSet called with selectedExercise:', this.selectedExercise);
+
     if (this.selectedExercise) {
-      // Find the exerciseID for the selectedExercise
       const exercise = this.exercises.find(e => e.exerciseName === this.selectedExercise);
+      console.log('Found Exercise:', exercise);
+
       if (exercise) {
-        // Prepare workoutSets
         const workoutSets = this.sets.map(set => ({
           exerciseID: exercise.exerciseID,
           reps: set.reps,
           weights: set.kilos
         }));
+        console.log('Mapped workoutSets:', workoutSets);
 
-        // Call the workout service to save workoutSets
-        this.workoutService.saveWorkoutSets(workoutSets, this.selectedExercise).subscribe(
-          response => {
-            console.log('Workout Sets saved successfully', response);
-            // Additional logic after successful save
-          },
-          error => {
-            console.error('Error saving workout sets', error);
-          }
-        );
+        // Add these workout sets to the workout object
+        this.workout.workoutSets.push(...workoutSets);
+        console.log('Updated workoutSets in workout:', this.workout.workoutSets);
+
+        // Reset the sets for the next input
+        this.sets = [{ reps: 0, kilos: 0 }, { reps: 0, kilos: 0 }, { reps: 0, kilos: 0 }];
+
+        // Make the workout container visible
+        this.showWorkoutContainer = true;
+        console.log('showWorkoutContainer set to true');
       }
+    } else {
+      console.log('No selected exercise to save sets for.');
     }
   }
-
 
   setsHasNullOrZeroOrNegativeValues(): boolean {
     return this.sets.some(set => set.reps === null || set.kilos === null || set.reps <= 0 || set.kilos <= 0);
   }
 
   deleteSavedExercise(exerciseIndex: number) {
-    if (this.workout.exercises[exerciseIndex]) {
-      this.workout.exercises.splice(exerciseIndex, 1);
+    if (this.workout.workoutSets[exerciseIndex]) {
+      this.workout.workoutSets.splice(exerciseIndex, 1);
     }
   }
 
-  // finalizeWorkout() {
-  //   if (this.workout && this.workout.name.trim() && this.workout.exercises.length) {
-  //     this.workoutService.saveWorkout(this.workout).subscribe(
-  //       response => {
-  //         console.log('Workout saved successfully', response);
-  //         this.resetWorkout();
-  //       },
-  //       error => {
-  //         console.error('Error saving workout', error);
-  //       }
-  //     );
-  //   } else {
-  //     alert('Please enter a workout name and add at least one exercise.');
-  //   }
-  // }
+  getExerciseNameById(exerciseId: number): string {
+    const exercise = this.exercises.find(e => e.exerciseID === exerciseId);
+    return exercise ? exercise.exerciseName : 'Unknown Exercise';
+  }
+
+  finalizeWorkout() {
+    if (this.workout.workoutName.trim() && this.workout.workoutSets.length) {
+      const workoutData: Workout = {
+        userID: 1, // Or retrieve the actual user ID
+        workoutName: this.workout.workoutName,
+        workoutSets: this.workout.workoutSets
+      };
+      console.log('Sending workoutData to backend:', workoutData);
+
+      this.workoutService.finalizeWorkout(workoutData).subscribe(
+        response => {
+          console.log('Workout saved successfully', response);
+          this.resetWorkout();
+        },
+        error => {
+          console.error('Error saving workout', error);
+        }
+      );
+    } else {
+      console.log('Workout name is empty or no workout groups have been added.');
+      alert('Please enter a workout name and add at least one exercise.');
+    }
+  }
+
 
   private resetWorkout() {
-    this.workout = { name: '', exercises: [] };
+    this.workout = { userID: 0, workoutName: '', workoutSets: [] };
     // any other reset logic if required
   }
 }

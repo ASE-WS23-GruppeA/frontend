@@ -1,6 +1,13 @@
 import { Exercise } from './exercise.model';
 
+export interface WorkoutSet {
+    exerciseID: number;
+    reps: number;
+    weights: number;
+}
+
 export interface Workout {
-    name: string;
-    exercises: Exercise[];
+    userID: number;
+    workoutName: string;
+    workoutSets: WorkoutSet[];
 }

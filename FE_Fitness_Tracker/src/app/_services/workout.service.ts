@@ -12,10 +12,9 @@ import { User } from 'src/app/_models/user.model';
     providedIn: 'root'
 })
 export class WorkoutService {
-    private apiUrl = 'http://localhost:3000/workouts'; // Update the URL accordingly
+    private apiUrl = 'http://localhost:3001/workouts'; // Update the URL accordingly
 
-    constructor(private http: HttpClient, private authService: AuthService) {
-            
+    constructor(private http: HttpClient, private authService: AuthService) {    
         }
 
     saveWorkoutSets(workoutSets: any, exerciseName: string): Observable<any> {
@@ -24,27 +23,20 @@ export class WorkoutService {
         return this.http.post('/api/workout', { userID, exerciseName, workoutSets });
     }
 
+    finalizeWorkout(workout: Workout): Observable<any> {
+        const workoutData = {
+            userID: this.retrieveCurrentUserId(),
+            workoutName: workout.workoutName,
+            workoutSets: workout.workoutSets
+        };
 
-    // saveWorkout(workout: Workout): Observable<any> {
-    //     const workoutData = {
-    //         userID: this.getCurrentUserId(), // Replace with actual user ID retrieval logic
-    //         workoutName: workout.name,
-    //         workoutSets: workout.exercises.flatMap((exercise: Exercise) =>
-    //             exercise.sets.map((set: ExerciseSet) => ({
-    //                 exerciseID: exercise.exerciseID, // Update this based on your Exercise interface
-    //                 reps: set.reps,
-    //                 weights: set.kilos
-    //             }))
-    //         )
-    //     };
-
-    //     return this.http.post(this.apiUrl, workoutData).pipe(
-    //         catchError((error) => {
-    //             console.error('Error saving workout', error);
-    //             throw error; // Rethrow the error to handle it further in components
-    //         })
-    //     );
-    // }
+        return this.http.post(this.apiUrl, workoutData).pipe(
+            catchError((error) => {
+                console.error('Error saving workout', error);
+                throw error;
+            })
+        );
+    }
 
     private retrieveCurrentUserId(): number {
         let currentUserId: number | null = null;

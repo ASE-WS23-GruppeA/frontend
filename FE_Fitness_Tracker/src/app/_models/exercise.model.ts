@@ -6,4 +6,3 @@ export interface Exercise {
     muscleGroup: string;
     // Add other properties as per your backend response
 }
-
