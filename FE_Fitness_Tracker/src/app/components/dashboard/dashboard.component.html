@@ -46,9 +46,23 @@
             <div class="card-body-history" style="height: 300px; overflow-y: auto;">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let workout of workouts">
+                  <details>
+                    <summary>
+                      <div class="summary-container">
+                        <div class="summary-content">
                   <h6>{{ workout.workoutName }}</h6>
                   <p>{{ workout.createdDate | date }}</p>
-                  <!-- TODO: add more details -->
+                
+                </div>
+              </div>
+                </summary>
+                  <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let set of workout.workout_sets">
+                      <p style="margin-top: 0px; margin-bottom: 0px;">Reps: {{ set.reps }}</p>
+                      <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p>
+                    </li>
+                  </ul>
+                </details>
                 </li>
               </ul>
             </div>
@@ -60,9 +74,24 @@
             </div>
             <div class="card-body-history" >
            
-              <h6 style="margin-left: 10px; margin-top: 10px;">{{ lastWorkout.workoutName }}</h6>
-              <p style="margin-left: 10px; ">{{ lastWorkout.createdDate | date }}</p>
-              <!-- TODO add more details -->
+              <details>
+                <summary>
+                  <div class="summary-container">
+                    <div class="summary-content">
+                      <h6 style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.workoutName }}</h6>
+                      <p style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.createdDate | date }}</p>
+                    
+                    </div>
+                  </div>
+                </summary>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let set of lastWorkout.workout_sets">
+                    <p style="margin-top: 0px; margin-bottom: 0px;">Reps: {{ set.reps }}</p>
+                    <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p>
+                  </li>
+                </ul>
+              </details>
+           
           
           </div>
 
