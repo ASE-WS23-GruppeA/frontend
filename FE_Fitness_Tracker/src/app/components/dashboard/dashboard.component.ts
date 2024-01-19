@@ -59,26 +59,55 @@ export class DashboardComponent implements OnInit {
     if (this.weightProgressForExerciseschart) {
       this.weightProgressForExerciseschart.destroy();
     }
+  
     this.weightProgressForExerciseschart = new Chart(this.chartCanvas!.nativeElement, {
       type: 'line',
       data: {
-        labels: Object.keys(data),
+        labels: Object.keys(data), // time x axis
         datasets: [{
           label: this.selectedExercise,
           data: Object.values(data),
           borderColor: 'rgb(106, 90, 205)',
-          tension: 0.1
+          tension: 0.1,
+          fill: false,
         }]
       },
       options: {
+        animation: {
+          duration: 1000, // time for animation
+          easing: 'easeOutQuad', //animation type
+        },
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Weight (kg)', 
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Date', 
+            },
+            ticks: {
+              maxRotation: 90,
+              minRotation: 90
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+          },
+          tooltip: {
+            enabled: true,
           }
         }
       }
     });
   }
+  
 
 
   getWeightProgressDataExample() {
