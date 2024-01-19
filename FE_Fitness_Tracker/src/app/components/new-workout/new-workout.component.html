@@ -12,7 +12,7 @@
   <div class="row exercise">
     <!-- Second Container: Exercise List -->
     <div class="exercise-list-container col" *ngIf="selectedMuscleGroup">
-      <h3>{{ selectedMuscleGroup.name }} Exercises</h3>
+      <h3>{{ selectedMuscleGroup.name }}</h3>
       <ul>
         <li *ngFor="let exercise of selectedMuscleGroup.exercises; let j = index" (click)="showSets(j)">
           {{ exercise }}
@@ -56,20 +56,20 @@
         <div *ngFor="let exercise of workout.exercises; let exerciseIndex = index">
           <div class="exercise-item">
             <div class="exercise-details">
-              <h4>{{ exercise.name }}</h4>
+              <h4>{{ exercise.exerciseName }}</h4>
             </div>
             <div class="delete-button">
               <button class="btn-deleteExercise" (click)="deleteSavedExercise(exerciseIndex)">x</button>
             </div>
           </div>
           <ul>
-            <li *ngFor="let set of exercise.sets">
+            <!-- <li *ngFor="let set of exercise.sets">
               {{ set.reps }} reps - {{ set.kilos }} kilos
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
-      <button class="btn-saveWorkout" (click)="finalizeWorkout()">Save Workout</button>
+      <!-- <button class="btn-saveWorkout" (click)="finalizeWorkout()">Save Workout</button> -->
     </div>
   </div>
 </div>

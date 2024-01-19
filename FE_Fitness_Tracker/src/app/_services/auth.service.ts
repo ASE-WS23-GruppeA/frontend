@@ -115,8 +115,6 @@ export class AuthService {
     });
   }
 
-
-
   getAuthStatusListener(): Observable<User | null> {
     return this.AuthenticatedUser$.asObservable();
   }

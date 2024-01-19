@@ -85,7 +85,7 @@ tr {
 
 li {
   list-style: none;
-  font-size: 22px;
+  font-size: 18px;
   font-family: inherit;
 }
 
@@ -197,6 +197,7 @@ td {
   align-items: center;
   min-height: 300px;
 }
+
 
 .exercise-sets-container {
   display: flex;
