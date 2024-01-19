@@ -41,16 +41,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.isSignUpSuccessful = true; // Set the flag to true on successful registration
       })
-      .catch(error => {
-        this.isLoading = false;
-        if (error.status === 409) {
-          // Custom message for 409 Conflict
-          this.message = 'Username or email already in use.';
-        } else {
-          // Other errors
-          this.message = error.message;
-        }
-      });
+    .catch(error => {
+      this.isLoading = false;
+        // Other errors
+        this.message = error.message;
+    }
+    )
   }
-
 }
+
