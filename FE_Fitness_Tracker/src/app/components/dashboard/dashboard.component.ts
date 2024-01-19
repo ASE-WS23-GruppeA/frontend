@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors } from 'chart.js/auto';
 import { ArcElement } from 'chart.js/auto';
 import { AnalyticsService } from 'src/app/_services/analytics.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -9,11 +10,17 @@ import { AnalyticsService } from 'src/app/_services/analytics.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild('chartCanvas') chartCanvas?: ElementRef;
 
+  
   totalVolume: any;
   weightProgress: any;
   averageWeightProgress: any;
- 
+  public weightProgressForExerciseschart: any;
+  exercises = ['Legs', 'BenchPress'];
+  selectedExercise: string = 'Legs';
+  startDate = '';
+  endDate: string = '';
   //public barChart: any;
   //public donutChart: any;
 
@@ -21,13 +28,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
    
-    //this.getTotalVolume();
-    //this.getweightProgress();
-   // this.getaverageWeightProgress();
     this.getWeightProgressDataExample();
-    
+    this.selectedExercise = this.exercises[0];
 
-   /* Chart.register(LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors, ArcElement);
+    //this.createChart();
+   /*Chart.register(LinearScale, BarController, BarElement, Title, Tooltip, CategoryScale, Colors, ArcElement);
     this.createBarChart();
     this.createDonutChart();
     Chart.defaults.backgroundColor = '#000000';
@@ -36,17 +41,43 @@ export class DashboardComponent implements OnInit {
   }
 
 
- getTotalVolume() {
+  getWeightProgressForExercises(): void {
+    //TODO CHANGE HARDCODED USERID
+    if (this.selectedExercise && this.startDate && this.endDate) {
 
-    const userId = 123; // TODO get actual userId
+      this.analyticsService.getWeightProgress(123, this.selectedExercise, this.startDate, this.endDate)
+          .subscribe(data => {
+              this.updateWeightProgressForExercises(data);
+          }, error => {
 
-    this.analyticsService.getTotalVolume(userId).subscribe(
-      data => {
-        this.totalVolume = data;
-        this.drawTotalVolumeChart();
+              console.error('Error', error);
+
+          });
+    }
+  }
+  private updateWeightProgressForExercises(data: any): void {
+    if (this.weightProgressForExerciseschart) {
+      this.weightProgressForExerciseschart.destroy();
+    }
+    this.weightProgressForExerciseschart = new Chart(this.chartCanvas!.nativeElement, {
+      type: 'line',
+      data: {
+        labels: Object.keys(data),
+        datasets: [{
+          label: this.selectedExercise,
+          data: Object.values(data),
+          borderColor: 'rgb(106, 90, 205)',
+          tension: 0.1
+        }]
       },
-      error => console.error('Fehler beim Abrufen des Gesamtvolumens', error)
-    );
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
 
 
