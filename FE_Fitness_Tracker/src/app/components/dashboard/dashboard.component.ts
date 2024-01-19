@@ -96,12 +96,18 @@ export class DashboardComponent implements OnInit {
             title: {
               display: true,
               text: 'Weight (kg)', 
+              font: {
+                size: 16
+              }
             }
           },
           x: {
             title: {
               display: true,
               text: 'Date', 
+              font: {
+                size: 16
+              }
             },
             ticks: {
               display: false, // Versteckt alle Ticks (Datenpunkte) auf der X-Achse
@@ -114,6 +120,12 @@ export class DashboardComponent implements OnInit {
         plugins: {
           legend: {
             display: true,
+            labels: {
+              font: {
+                size: 18,
+              }
+            }
+            
           },
           tooltip: {
             enabled: true,
