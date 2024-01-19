@@ -118,6 +118,13 @@ export class DashboardComponent implements OnInit {
           }
         },
         plugins: {
+          title: {
+            display: true,
+            text: 'Your Weight Progress',
+            font: {
+              size: 20,
+            }
+          }, 
           legend: {
             display: true,
             labels: {
