@@ -7,7 +7,7 @@ import { Exercise } from 'src/app/_models/exercise.model';
     providedIn: 'root'
 })
 export class ExerciseService {
-    private apiUrl = 'http://localhost:8443/exercises'; // Update the URL accordingly
+    private apiUrl = 'http://localhost:8843/exercises'; // Update the URL accordingly
 
     constructor(private http: HttpClient) { }
 
@@ -20,8 +20,14 @@ export class ExerciseService {
         return this.http.get<Exercise[]>(`${this.apiUrl}?muscleGroup=${muscleGroup}`);
     }
 
-    //For analytics: get exercises by ID
+    //For analytics:
+    // get exercises by ID
     getExerciseById(id: number): Observable<Exercise> {
         return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
       }
+
+     //get All exercises
+     getAllExercises(): Observable<Exercise[]> {
+        return this.http.get<Exercise[]>(this.apiUrl);
+    }
 }

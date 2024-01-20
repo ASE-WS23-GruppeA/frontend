@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   totalVolume: any;
   weightProgress: any;
   public weightProgressForExerciseschart: any;
-  exercises = ['Legs', 'Push-ups', 'Pull-ups'];
+  exercises: string[] = [];
   selectedExercise: string = 'Legs';
   startDate = '';
   endDate: string = '';
@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit {
 
       this.loadWorkouts();
       this.loadLastWorkout(userId);
+      this.loadExercises();
   }
   getAverageWeightProgressForMuscleGroup(): void {
     const userId = 2; //TODO
@@ -120,6 +121,17 @@ export class DashboardComponent implements OnInit {
       }, error => {
         console.error('Error loading workouts', error);
       });
+  }
+
+  loadExercises(): void {
+    this.ExerciseService.fetchExercises().subscribe(
+      (exerciseData: Exercise[]) => {
+        this.exercises = exerciseData.map(exercise => exercise.exerciseName);
+      },
+      error => {
+        console.error('Error loading exercises', error);
+      }
+    );
   }
   
   
