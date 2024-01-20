@@ -20,15 +20,13 @@ export class DashboardComponent implements OnInit {
   averageWeightProgressChart: Chart | undefined;
 
   
-  totalVolume: any;
-  weightProgress: any;
-  public weightProgressForExerciseschart: any;
-  exercises: string[] = [];
-  selectedExercise: string = '';
-  startDate = '';
-  endDate: string = '';
-  //public barChart: any;
-  //public donutChart: any;
+    totalVolume: any;
+    weightProgress: any;
+    public weightProgressForExerciseschart: any;
+    exercises: string[] = [];
+    selectedExercise: string = '';
+    startDate = '';
+    endDate: string = '';
     defaultExercise = 'Choose Exercise';
     defaultStartDate = '2022-01-01';
     defaultEndDate = '2024-12-31';
@@ -36,7 +34,7 @@ export class DashboardComponent implements OnInit {
     workouts: any[] = [];
     lastWorkout: any;
 
-   //for list for exercises
+    //for list for exercises
     exerciseDetails: { [id: number]: Exercise } = {};
 
 
@@ -46,62 +44,14 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
       const userId = 1; // TODO
       this.loadLastWorkout(userId);
-   
-      // Setzen Sie den Standardwert für das ausgewählte Training
-      this.selectedExercise = this.defaultExercise;  // Korrigiert ohne Anführungszeichen
+      this.selectedExercise = this.defaultExercise; 
       this.startDate = this.defaultStartDate;
       this.endDate = this.defaultEndDate;
       this.getWeightProgressForExercises();
       this.getAverageWeightProgressForMuscleGroup();
-  
       this.loadWorkouts();
       this.loadLastWorkout(userId);
       this.loadExercises();
-  }
-  getAverageWeightProgressForMuscleGroup(): void {
-    const userId = 2; //TODO
-    this.analyticsService.getAverageWeightProgress(userId, this.selectedMuscleGroup, this.startDate, this.endDate)
-      .subscribe(data => {
-        this.updateAverageWeightProgressChart(data);
-      }, error => {
-        console.error('Error fetching average weight progress', error);
-      });
-  }
- 
-  private updateAverageWeightProgressChart(data: any): void {
-    if (this.averageWeightProgressChart) {
-      this.averageWeightProgressChart.destroy();
-    }
-
-    this.averageWeightProgressChart = new Chart(this.averageWeightProgressCanvas!.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: Object.keys(data),
-        datasets: [{
-          label: 'Average Weight Progress (kg)',
-          data: Object.values(data),
-          backgroundColor: 'rgba(0, 153, 153, 0.2)',
-          borderColor: 'rgba( 0,153, 153, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Your Average Weight Progress', 
-            font: {
-              size: 18
-            }
-          }
-        }
-      }
-    });
   }
 
   loadWorkouts(): void {
@@ -110,14 +60,10 @@ export class DashboardComponent implements OnInit {
         console.log('Response from getAllWorkouts:', data);  
   
         this.workouts = data;
-  
-       
         const exerciseIds = data.flatMap(workout => 
           workout.workout_sets.map((set: { exerciseID: any; }) => set.exerciseID)
         );
         const uniqueExerciseIds = [...new Set(exerciseIds)];
-  
-       
         this.getExerciseDetails(uniqueExerciseIds);
       }, error => {
         console.error('Error loading workouts', error);
@@ -137,14 +83,13 @@ export class DashboardComponent implements OnInit {
             this.selectedExercise = this.exercises[0];
         }
         this.getWeightProgressForExercises();
-        this.getAverageWeightProgressForMuscleGroup();
       },
       error => {
         console.error('Error loading exercises', error);
       }
     );
 }
-  
+
   getExerciseDetails(exerciseIds: number[]): void {
     exerciseIds.forEach(id => {
       this.ExerciseService.getExerciseById(id).subscribe(exercise => {
@@ -197,9 +142,7 @@ export class DashboardComponent implements OnInit {
           .subscribe(data => {
               this.updateWeightProgressForExercises(data);
           }, error => {
-
               console.error('Error', error);
-
           });
     }
   }
@@ -208,22 +151,89 @@ export class DashboardComponent implements OnInit {
     this.selectedExercise = newExercise;
     this.getWeightProgressForExercises(); 
   }
+
    onDateRangeChange(newStartDate: string, newEndDate: string): void {
     this.startDate = newStartDate;
     this.endDate = newEndDate;
     this.getWeightProgressForExercises(); 
   }
 
+  getAverageWeightProgressForMuscleGroup(): void {
+    const userId = 1; // TODO
+    this.analyticsService.getAverageWeightProgress(userId, this.selectedMuscleGroup, this.startDate, this.endDate)
+    .subscribe(data => {
+        console.log('Average Weight Progress Data:', data);
+        this.updateAverageWeightProgressChart(data);
+    }, error => {
+        console.error('Error', error);
+    });
+  }
+  
+  private updateAverageWeightProgressChart(data: any): void {
+    if (this.averageWeightProgressChart) {
+      this.averageWeightProgressChart.destroy();
+    }
+   
+    this.averageWeightProgressChart = new Chart(this.averageWeightProgressCanvas!.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: [data.MuscleGroup], // X
+        datasets: [{
+          label: 'Average Weight Progress',
+          data: [data.averageWeightProgress], // Y
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Average Weight (kg)',
+              font: {
+                size: 16
+              }
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Muscle Group',
+              font: {
+                size: 16
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              font: {
+                size: 14,
+              }
+            }
+          },
+          tooltip: {
+            enabled: true,
+          }
+        }
+      }
+    });
+  }
+  
   private updateWeightProgressForExercises(data: any): void {
     if (this.weightProgressForExerciseschart) {
       this.weightProgressForExerciseschart.destroy();
     }
-    
   
     this.weightProgressForExerciseschart = new Chart(this.chartCanvas!.nativeElement, {
       type: 'line',
       data: {
-        labels: Object.keys(data), // time x axis
+        labels: Object.keys(data), 
         datasets: [{
           label: this.selectedExercise,
           data: Object.values(data),
@@ -244,7 +254,7 @@ export class DashboardComponent implements OnInit {
               display: true,
               text: 'Weight (kg)', 
               font: {
-                size: 16
+                size: 14
               }
             }
           },
@@ -253,11 +263,11 @@ export class DashboardComponent implements OnInit {
               display: true,
               text: 'Date', 
               font: {
-                size: 16
+                size: 14
               }
             },
             ticks: {
-              display: false, // Versteckt alle Ticks (Datenpunkte) auf der X-Achse
+              display: false, 
               autoSkip: true,
               maxRotation: 0,
               minRotation: 0
@@ -269,14 +279,14 @@ export class DashboardComponent implements OnInit {
             display: true,
             text: 'Your Weight Progress',
             font: {
-              size: 20,
+              size: 15,
             }
           }, 
           legend: {
             display: true,
             labels: {
               font: {
-                size: 18,
+                size: 15,
               }
             }
             
@@ -289,8 +299,6 @@ export class DashboardComponent implements OnInit {
     });
   }
   
-
-
   getWeightProgressDataExample() {
     const userId = 2; 
     const exerciseName = 'BenchPress'; 
@@ -304,107 +312,4 @@ export class DashboardComponent implements OnInit {
             console.error('Fehler beim Abrufen der Daten', error);
         });
   }
-
-  drawTotalVolumeChart() {
-    //TODO implement
-    throw new Error('Method not implemented.');
-  }
-
-  getweightProgress(){
-
-   
-  }
-
-  getaverageWeightProgress(){
-
-  }
-
-  /*createBarChart() {
-    this.barChart = new Chart('MyBarChart', {
-      type: 'bar',
-      data: {
-        labels: ['2023-10-10', '2023-10-11', '2023-10-12', '2023-10-13',
-          '2023-10-14', '2023-10-15', '2023-10-16', '2023-10-17'],
-        datasets: [
-          {
-            label: 'ExampleLabelA',
-            data: [143, 453, 354, 354, 92, 753, 563, 333],
-            backgroundColor: '#037272',
-          },
-          {
-            label: 'ExampleLabelB',
-            data: [467, 144, 536, 523, 14, 0.00, 538, 541],
-            backgroundColor: '#8bd463',
-          }
-        ]
-      },
-      options: {
-        aspectRatio: 2.5,
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Y-Axis Label',
-              color: 'black'
-            },
-            ticks: {
-              color: 'black'
-            },
-            grid: {
-              color: 'grey'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'X-Axis Label',
-              color: 'black'
-            },
-            ticks: {
-              color: 'black'
-            },
-            grid: {
-              color: 'grey'
-            }
-          }
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Example Bar Chart',
-            color: 'black',
-            font: {
-              size: 20
-            }
-          }
-        }
-      }
-    });
-  }
-
-  createDonutChart() {
-    this.donutChart = new Chart('DonutChart', {
-      type: 'doughnut',
-      data: {
-        labels: ['Legs', 'Shoulder', 'Arms', 'Back'],
-        datasets: [{
-          data: [30, 50, 10, 10], 
-          backgroundColor: ['#053B50', '#8e3ef7', '#f723df', '#306df0'], 
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Workout ',
-            font: {
-              size: 20,
-            },
-          },
-        },
-      },
-    });
-  }
-  */
 }
