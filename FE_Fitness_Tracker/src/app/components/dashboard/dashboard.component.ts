@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
   }
 
   confirmDelete(workoutID: number) {
-    if (confirm('Möchten Sie dieses Workout wirklich löschen?')) {
+    if (confirm('Do you really want to delete this workout?')) {
       this.deleteWorkout(workoutID);
     }
   }

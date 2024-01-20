@@ -83,37 +83,47 @@
               </ul>
             </div>
           </div>
-        <!--Your Last Workout-->
-          <div class="card my-4 last-workout-card">
-            <div class="card-header" style="background-color: #406178; color: white;">
-              <h6 style="margin-top: 10px">Your Last Workout</h6>
-            </div>
-            <div class="card-body-history" >
-              <details *ngIf="lastWorkout">
-                <summary>
-                  <div class="summary-container">
-                    <div class="summary-content">
-                      <h6 style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.workoutName }}</h6>
-                      <p style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.createdDate | date }}</p>
-                    </div>
-                    <div class="summary-icon" *ngIf="lastWorkout.workout_sets.length > 0">
-                      <i class="bi bi-chevron-down"></i> 
-                    </div>
-                  </div>
-                </summary>
-                <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let set of lastWorkout.workout_sets">
-                    <p style="margin-top: 0px; margin-bottom: 0px;">Exercise: {{ exerciseDetails[set.exerciseID]?.exerciseName }}</p>
-                    <p style="margin-top: 0px; margin-bottom: 0px;">Reps: {{ set.reps }}</p>
-                    <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p> 
-                  </li>
-                </ul>
-              </details>
-          
-          </div>
+        
 
     </div> 
   </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card my-4 last-workout-card">
+          <div class="card-header" style="background-color: #406178; color: white;">
+            <h6 style="margin-top: 10px">Your Last Workout</h6>
+          </div>
+          <div class="card-body-history" >
+            <details *ngIf="lastWorkout">
+              <summary>
+                <div class="summary-container">
+                  <div class="summary-content">
+                    <h6 style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.workoutName }}</h6>
+                    <p style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.createdDate | date }}</p>
+                  </div>
+                  <div class="summary-icon" *ngIf="lastWorkout.workout_sets.length > 0">
+                    <i class="bi bi-chevron-down"></i> 
+                  </div>
+                </div>
+              </summary>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let set of lastWorkout.workout_sets">
+                  <p style="margin-top: 0px; margin-bottom: 0px;">Exercise: {{ exerciseDetails[set.exerciseID]?.exerciseName }}</p>
+                  <p style="margin-top: 0px; margin-bottom: 0px;">Reps: {{ set.reps }}</p>
+                  <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p> 
+                </li>
+              </ul>
+            </details>
+        
+        </div>
+
+  </div> 
+      </div>
+      <div class="col-md-4">
+       <p>new row</p>
+      </div>
+    </div>
+
 </div> 
 </div>
 </div>

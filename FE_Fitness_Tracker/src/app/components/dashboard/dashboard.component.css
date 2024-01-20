@@ -155,3 +155,16 @@ select:hover {
 .summary-container .summary-icon {
   margin-left: 10px; 
 }
+
+
+
+/* to see rows
+.row{
+  background-color:beige;
+}
+
+.page-container {
+  overflow-y: auto;
+  height: 100vh; 
+}
+*/
