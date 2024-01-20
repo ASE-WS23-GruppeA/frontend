@@ -5,15 +5,32 @@
     margin-right: 10px; 
     margin-left: 20px;
   }
+  
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+  
+    .site-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+  
+    .content-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      /* This will make the content expand to fill available space */
+    }
 
   .footer {
     background-color: #777777;
     color: white;
     text-align: right;
-    padding: 20px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    padding: 10px 20px;
 }
 
   #title {
