@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('averageWeightProgressCanvas') averageWeightProgressCanvas?: ElementRef;
   
 
-  selectedMuscleGroup: string = 'Legs';
+  //selectedMuscleGroup: string = 'Legs';
   averageWeightProgressChart: Chart | undefined;
 
   
@@ -34,9 +34,11 @@ export class DashboardComponent implements OnInit {
     workouts: any[] = [];
     lastWorkout: any;
 
-    //for list for exercises
+    //list for exercises
     exerciseDetails: { [id: number]: Exercise } = {};
-
+    //list for muscles groups
+    muscleGroups: string[] = ['Legs', 'Data2']; 
+    selectedMuscleGroup: string = this.muscleGroups[0]; 
 
     constructor( private analyticsService: AnalyticsService,
     private workoutHistoryService: WorkoutHistoryService, private ExerciseService: ExerciseService) { }

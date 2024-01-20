@@ -21,10 +21,16 @@
       <div class="col-md-3" style="margin-left: 100px; margin-top: 80px; margin-right: 80px;"> 
         <div class="chart-container" style="height: 400px; max-height: 400px;">
             <canvas #averageWeightProgressCanvas></canvas>
+            <select [(ngModel)]="selectedMuscleGroup" (change)="getAverageWeightProgressForMuscleGroup()" style="margin-top: 50px; margin-right: 20px;">
+              <option *ngFor="let muscleGroup of muscleGroups" [value]="muscleGroup">{{muscleGroup}}</option>
+            </select>
+            <input type="date" [(ngModel)]="startDate" (change)="getAverageWeightProgressForMuscleGroup()" style="margin-right: 20px;">
+            <input type="date" [(ngModel)]="endDate" (change)="getAverageWeightProgressForMuscleGroup()">
+      
         </div>
       </div>
       <div class="col-md-4 mt-0">
-        <div class="chart-container" style="height: 400px; max-height: 400px; flex-direction: column; align-items: center; text-align: center">
+        <div class="chart-container" style="height: 400px; max-height: 400px; ">
           <div>
             <canvas #chartCanvas></canvas>
             <select [(ngModel)]="selectedExercise" (change)="getWeightProgressForExercises()" style="margin-top: 50px; margin-right: 20px;">
