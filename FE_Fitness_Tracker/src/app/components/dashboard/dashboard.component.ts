@@ -12,11 +12,15 @@ import { WorkoutHistoryService } from 'src/app/_services/workout-history.service
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('chartCanvas') chartCanvas?: ElementRef;
+  @ViewChild('averageWeightProgressCanvas') averageWeightProgressCanvas?: ElementRef;
+  
+
+  selectedMuscleGroup: string = 'Legs';
+  averageWeightProgressChart: Chart | undefined;
 
   
   totalVolume: any;
   weightProgress: any;
-  averageWeightProgress: any;
   public weightProgressForExerciseschart: any;
   exercises = ['Legs', 'BenchPress'];
   selectedExercise: string = 'Legs';
@@ -40,12 +44,56 @@ export class DashboardComponent implements OnInit {
       this.selectedExercise = this.defaultExercise;
       this.startDate = this.defaultStartDate;
       this.endDate = this.defaultEndDate;
-  
-      // Das Diagramm beim Initialisieren mit den Standardwerten erstellen
       this.getWeightProgressForExercises();
+      this.getAverageWeightProgressForMuscleGroup();
 
       this.loadWorkouts();
       this.loadLastWorkout();
+  }
+  getAverageWeightProgressForMuscleGroup(): void {
+    const userId = 123; //TODO
+    this.analyticsService.getAverageWeightProgress(userId, this.selectedMuscleGroup, this.startDate, this.endDate)
+      .subscribe(data => {
+        this.updateAverageWeightProgressChart(data);
+      }, error => {
+        console.error('Error fetching average weight progress', error);
+      });
+  }
+ 
+  private updateAverageWeightProgressChart(data: any): void {
+    if (this.averageWeightProgressChart) {
+      this.averageWeightProgressChart.destroy();
+    }
+
+    this.averageWeightProgressChart = new Chart(this.averageWeightProgressCanvas!.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(data),
+        datasets: [{
+          label: 'Average Weight Progress (kg)',
+          data: Object.values(data),
+          backgroundColor: 'rgba(0, 153, 153, 0.2)',
+          borderColor: 'rgba( 0,153, 153, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Your Average Weight Progress', 
+            font: {
+              size: 18
+            }
+          }
+        }
+      }
+    });
   }
 
   loadWorkouts(): void {
@@ -65,6 +113,8 @@ export class DashboardComponent implements OnInit {
         console.error('Error loading last workout', error);
       });
   }
+
+
   getWeightProgressForExercises(): void {
     //TODO CHANGE HARDCODED USERID
     if (this.selectedExercise && this.startDate && this.endDate) {
@@ -82,12 +132,12 @@ export class DashboardComponent implements OnInit {
 
   onExerciseChange(newExercise: string): void {
     this.selectedExercise = newExercise;
-    this.getWeightProgressForExercises(); // Aktualisieren des Diagramms
+    this.getWeightProgressForExercises(); 
   }
    onDateRangeChange(newStartDate: string, newEndDate: string): void {
     this.startDate = newStartDate;
     this.endDate = newEndDate;
-    this.getWeightProgressForExercises(); // Aktualisieren des Diagramms
+    this.getWeightProgressForExercises(); 
   }
 
   private updateWeightProgressForExercises(data: any): void {
