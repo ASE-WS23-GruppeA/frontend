@@ -148,6 +148,18 @@ export class DashboardComponent implements OnInit {
       });
   }
   
+  deleteWorkout(workoutID: number) {
+    console.log('Attempting to delete workout with ID:', workoutID);
+    this.workoutHistoryService.deleteWorkout(workoutID).subscribe(
+      response => {
+      
+        this.workouts = this.workouts.filter(w => w.workoutID !== workoutID);
+      },
+      error => {
+        console.error('Error deleting workout', error);
+      }
+    );
+  }
 
   getWeightProgressForExercises(): void {
     //TODO CHANGE HARDCODED USERID

@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class WorkoutHistoryService {
 
-  private url = 'http://localhost:8443/workouts'; //old port: 3001
+  private url = 'http://localhost:8843/workouts'; //old port: 3001 //new 8843
   constructor(private http: HttpClient) { }
  
   getAllWorkouts(userId: number): Observable<any[]> {
@@ -18,5 +18,10 @@ export class WorkoutHistoryService {
     return this.http.get<any>(`${this.url}/last/${userId}`);
   }
   
+  deleteWorkout(workoutID: number): Observable<any> {
+    return this.http.delete(`${this.url}/${workoutID}`);
+  }
+  
+ 
 
 }

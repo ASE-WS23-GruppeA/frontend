@@ -56,17 +56,18 @@
                 </div>
                 <ng-container *ngIf="workout.workout_sets.length > 0">
                   <div class="summary-icon">
-                    <i class="bi bi-chevron-down"></i> <!-- Bootstrap Icon für den Pfeil -->
+                    <i class="bi bi-chevron-down"></i> 
                   </div>
                 </ng-container>
               </div>
+              <button (click)="deleteWorkout(workout.workoutID)">Delete</button>
                 </summary>
                   <ul class="list-group">
                     <li class="list-group-item" *ngFor="let set of workout.workout_sets">
-                      <!--<p style="margin-top: 0px; margin-bottom: 0px;">Exercise: {{ exerciseDetails[set.exerciseID]?.exerciseName }}</p>-->
                       <p style="margin-top: 0px; margin-bottom: 0px;">Exercise: {{ exerciseDetails[set.exerciseID]?.exerciseName }}</p>
                       <p style="margin-top: 0px; margin-bottom: 0px;">Reps: {{ set.reps }}</p>
                       <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p>
+                     
                     </li>
                   </ul>
                 </details>
