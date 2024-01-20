@@ -15,7 +15,7 @@ export class WorkoutHistoryService {
   }
   
   getLastWorkout(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.url}/user/${userId}/last`);
+    return this.http.get<any>(`${this.url}/last/${userId}`);
   }
   
 

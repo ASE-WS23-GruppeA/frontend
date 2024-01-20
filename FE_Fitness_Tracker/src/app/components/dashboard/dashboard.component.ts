@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
     defaultEndDate = '2024-12-31';
 
     workouts: any[] = [];
-  
+    lastWorkout: any;
 
    //for list for exercises
     exerciseDetails: { [id: number]: Exercise } = {};
@@ -44,7 +44,8 @@ export class DashboardComponent implements OnInit {
     private workoutHistoryService: WorkoutHistoryService, private ExerciseService: ExerciseService) { }
 
   ngOnInit() {
-
+    const userId = 1; // TODO
+    this.loadLastWorkout(userId);
  
       this.selectedExercise = this.defaultExercise;
       this.startDate = this.defaultStartDate;
@@ -53,7 +54,7 @@ export class DashboardComponent implements OnInit {
       this.getAverageWeightProgressForMuscleGroup();
 
       this.loadWorkouts();
-      //this.loadLastWorkout();
+      this.loadLastWorkout(userId);
   }
   getAverageWeightProgressForMuscleGroup(): void {
     const userId = 2; //TODO
@@ -130,17 +131,23 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  
-  /*
-  loadLastWorkout(): void {
-    this.workoutHistoryService.getLastWorkout(1) //TODO
+  loadLastWorkout(userId: number): void {
+    this.workoutHistoryService.getLastWorkout(userId)
       .subscribe(data => {
+        console.log('Response from getLastWorkout:', data);  
         this.lastWorkout = data;
+        
+        if (data && data.workout_sets) {
+          const exerciseIds: number[] = data.workout_sets.map((set: { exerciseID: number }) => set.exerciseID);
+          const uniqueExerciseIds = [...new Set(exerciseIds)];
+  
+          this.getExerciseDetails(uniqueExerciseIds);
+        }
       }, error => {
         console.error('Error loading last workout', error);
       });
   }
-*/
+  
 
   getWeightProgressForExercises(): void {
     //TODO CHANGE HARDCODED USERID
