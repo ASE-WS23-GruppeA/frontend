@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   endDate: string = '';
   //public barChart: any;
   //public donutChart: any;
-    defaultExercise = 'Legs';
+    defaultExercise = 'Choose Exercise';
     defaultStartDate = '2022-01-01';
     defaultEndDate = '2024-12-31';
 
@@ -126,14 +126,15 @@ export class DashboardComponent implements OnInit {
   loadExercises(): void {
     this.ExerciseService.fetchExercises().subscribe(
       (exerciseData: Exercise[]) => {
-        this.exercises = exerciseData.map(exercise => exercise.exerciseName);
+        const exerciseNames = exerciseData.map(exercise => exercise.exerciseName);
+        const uniqueExercises = new Set(exerciseNames); 
+        this.exercises = Array.from(uniqueExercises).sort((a, b) => a.localeCompare(b));
       },
       error => {
         console.error('Error loading exercises', error);
       }
     );
   }
-  
   
   getExerciseDetails(exerciseIds: number[]): void {
     exerciseIds.forEach(id => {
