@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   totalVolume: any;
   weightProgress: any;
   public weightProgressForExerciseschart: any;
-  exercises = ['Legs', 'BenchPress'];
+  exercises = ['Legs', 'Push-ups', 'Pull-ups'];
   selectedExercise: string = 'Legs';
   startDate = '';
   endDate: string = '';
@@ -31,10 +31,10 @@ export class DashboardComponent implements OnInit {
   //public donutChart: any;
     defaultExercise = 'Legs';
     defaultStartDate = '2022-01-01';
-    defaultEndDate = '2022-01-31';
+    defaultEndDate = '2024-12-31';
 
     workouts: any[] = [];
-    lastWorkout: any;
+  
 
    //for list for exercises
     exerciseDetails: { [id: number]: Exercise } = {};
@@ -53,10 +53,10 @@ export class DashboardComponent implements OnInit {
       this.getAverageWeightProgressForMuscleGroup();
 
       this.loadWorkouts();
-      this.loadLastWorkout();
+      //this.loadLastWorkout();
   }
   getAverageWeightProgressForMuscleGroup(): void {
-    const userId = 123; //TODO
+    const userId = 2; //TODO
     this.analyticsService.getAverageWeightProgress(userId, this.selectedMuscleGroup, this.startDate, this.endDate)
       .subscribe(data => {
         this.updateAverageWeightProgressChart(data);
@@ -104,18 +104,23 @@ export class DashboardComponent implements OnInit {
   loadWorkouts(): void {
     this.workoutHistoryService.getAllWorkouts(1) //TODO
       .subscribe(data => {
+        console.log('Response from getAllWorkouts:', data);  
+  
         this.workouts = data;
-        
-        // get Exercise IDs
-        const exerciseIds = data.flatMap(workout => workout.workout_sets.map((set: { exerciseID: any; }) => set.exerciseID));
+  
+       
+        const exerciseIds = data.flatMap(workout => 
+          workout.workout_sets.map((set: { exerciseID: any; }) => set.exerciseID)
+        );
         const uniqueExerciseIds = [...new Set(exerciseIds)];
   
-        // details for id
+       
         this.getExerciseDetails(uniqueExerciseIds);
       }, error => {
         console.error('Error loading workouts', error);
       });
   }
+  
   
   getExerciseDetails(exerciseIds: number[]): void {
     exerciseIds.forEach(id => {
@@ -126,7 +131,7 @@ export class DashboardComponent implements OnInit {
   }
 
   
-  
+  /*
   loadLastWorkout(): void {
     this.workoutHistoryService.getLastWorkout(1) //TODO
       .subscribe(data => {
@@ -135,13 +140,13 @@ export class DashboardComponent implements OnInit {
         console.error('Error loading last workout', error);
       });
   }
-
+*/
 
   getWeightProgressForExercises(): void {
     //TODO CHANGE HARDCODED USERID
     if (this.selectedExercise && this.startDate && this.endDate) {
 
-      this.analyticsService.getWeightProgress(123, this.selectedExercise, this.startDate, this.endDate)
+      this.analyticsService.getWeightProgress(2, this.selectedExercise, this.startDate, this.endDate)
           .subscribe(data => {
               this.updateWeightProgressForExercises(data);
           }, error => {
@@ -240,7 +245,7 @@ export class DashboardComponent implements OnInit {
 
 
   getWeightProgressDataExample() {
-    const userId = 123; 
+    const userId = 2; 
     const exerciseName = 'BenchPress'; 
     const startDate = '2022-01-01'; 
     const endDate = '2022-01-31'; 

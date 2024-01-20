@@ -10,6 +10,7 @@
 
 .card-body{
     background-color:white;
+    width: 100%;
 }
 
 #DonutChart, #MyBarChart{
@@ -20,6 +21,7 @@
 
 .card{
     outline: none;
+    width: 100%;
 }
 
 .chart-container {
@@ -84,8 +86,6 @@ select:hover {
     background: #f0f0f0;
     color: #333;
     cursor: pointer;
-    outline: none;
-    margin-right: 10px; 
   }
   
   input[type="date"]:hover {

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.min.css">
+<div class="page-container">
 <div class="card">
   <div class="card-header" style="height: 60px;">
     <h2 style="margin-top:20px">Your Dashboard</h2>
@@ -63,6 +63,7 @@
                 </summary>
                   <ul class="list-group">
                     <li class="list-group-item" *ngFor="let set of workout.workout_sets">
+                      <!--<p style="margin-top: 0px; margin-bottom: 0px;">Exercise: {{ exerciseDetails[set.exerciseID]?.exerciseName }}</p>-->
                       <p style="margin-top: 0px; margin-bottom: 0px;">Exercise: {{ exerciseDetails[set.exerciseID]?.exerciseName }}</p>
                       <p style="margin-top: 0px; margin-bottom: 0px;">Reps: {{ set.reps }}</p>
                       <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p>
@@ -84,22 +85,22 @@
                 <summary>
                   <div class="summary-container">
                     <div class="summary-content">
-                      <h6 style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.workoutName }}</h6>
-                      <p style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.createdDate | date }}</p>
+                     <!-- <h6 style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.workoutName }}</h6>
+                      <p style="margin-top: 10px; margin-left: 10px;">{{ lastWorkout.createdDate | date }}</p>-->
                     
                     </div>
-                    <ng-container *ngIf="lastWorkout.workout_sets.length > 0">
+                   <!-- <ng-container *ngIf="lastWorkout.workout_sets.length > 0">
                       <div class="summary-icon">
                         <i class="bi bi-chevron-down"></i> 
                       </div>
-                    </ng-container>
+                    </ng-container> -->
                   </div>
                 </summary>
                 <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let set of lastWorkout.workout_sets">
+                  <!-- <li class="list-group-item" *ngFor="let set of lastWorkout.workout_sets">
                     <p style="margin-top: 0px; margin-bottom: 0px;">Reps: {{ set.reps }}</p>
-                    <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p>
-                  </li>
+                    <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p> 
+                  </li>-->
                 </ul>
               </details>
            
@@ -109,4 +110,5 @@
     </div> 
   </div>
 </div> 
+</div>
 </div>
