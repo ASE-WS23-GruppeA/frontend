@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   weightProgress: any;
   public weightProgressForExerciseschart: any;
   exercises: string[] = [];
-  selectedExercise: string = 'Legs';
+  selectedExercise: string = '';
   startDate = '';
   endDate: string = '';
   //public barChart: any;
@@ -43,16 +43,17 @@ export class DashboardComponent implements OnInit {
     constructor( private analyticsService: AnalyticsService,
     private workoutHistoryService: WorkoutHistoryService, private ExerciseService: ExerciseService) { }
 
-  ngOnInit() {
-    const userId = 1; // TODO
-    this.loadLastWorkout(userId);
- 
-      this.selectedExercise = this.defaultExercise;
+    ngOnInit() {
+      const userId = 1; // TODO
+      this.loadLastWorkout(userId);
+   
+      // Setzen Sie den Standardwert für das ausgewählte Training
+      this.selectedExercise = this.defaultExercise;  // Korrigiert ohne Anführungszeichen
       this.startDate = this.defaultStartDate;
       this.endDate = this.defaultEndDate;
       this.getWeightProgressForExercises();
       this.getAverageWeightProgressForMuscleGroup();
-
+  
       this.loadWorkouts();
       this.loadLastWorkout(userId);
       this.loadExercises();
@@ -129,12 +130,20 @@ export class DashboardComponent implements OnInit {
         const exerciseNames = exerciseData.map(exercise => exercise.exerciseName);
         const uniqueExercises = new Set(exerciseNames); 
         this.exercises = Array.from(uniqueExercises).sort((a, b) => a.localeCompare(b));
+
+        if (this.exercises.includes(this.defaultExercise)) {
+            this.selectedExercise = this.defaultExercise;
+        } else {
+            this.selectedExercise = this.exercises[0];
+        }
+        this.getWeightProgressForExercises();
+        this.getAverageWeightProgressForMuscleGroup();
       },
       error => {
         console.error('Error loading exercises', error);
       }
     );
-  }
+}
   
   getExerciseDetails(exerciseIds: number[]): void {
     exerciseIds.forEach(id => {
