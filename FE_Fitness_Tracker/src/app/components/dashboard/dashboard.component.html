@@ -20,25 +20,28 @@
     <div class="row">
       <div class="col-md-3" style="margin-left: 100px; margin-top: 80px; margin-right: 80px;"> 
         <div class="chart-container" style="height: 400px; max-height: 400px;">
-            <canvas #averageWeightProgressCanvas></canvas>
-            <select [(ngModel)]="selectedMuscleGroup" (change)="getAverageWeightProgressForMuscleGroup()" style="margin-top: 50px; margin-right: 20px;">
+            <canvas #averageWeightProgressCanvas style="margin-bottom: 30px;"></canvas>
+            <input type="date" [(ngModel)]="startDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 150px;font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px;">
+            <input type="date" [(ngModel)]="endDate" (change)="getAverageWeightProgressForMuscleGroup()" style=" width: 150px;font-size: 14px; padding: 5px 10px; height: 30px;">
+      
+            <select [(ngModel)]="selectedMuscleGroup" (change)="getAverageWeightProgressForMuscleGroup()"  style="font-size: 14px; padding: 5px 10px; height: 30px; margin-top: 10px;">
               <option *ngFor="let muscleGroup of muscleGroups" [value]="muscleGroup">{{muscleGroup}}</option>
             </select>
-            <input type="date" [(ngModel)]="startDate" (change)="getAverageWeightProgressForMuscleGroup()" style="margin-right: 20px;">
-            <input type="date" [(ngModel)]="endDate" (change)="getAverageWeightProgressForMuscleGroup()">
-      
+           
         </div>
       </div>
       <div class="col-md-4 mt-0">
         <div class="chart-container" style="height: 400px; max-height: 400px; ">
           <div>
-            <canvas #chartCanvas></canvas>
-            <select [(ngModel)]="selectedExercise" (change)="getWeightProgressForExercises()" style="margin-top: 50px; margin-right: 20px;">
+            <canvas #chartCanvas style="margin-bottom: 30px;"></canvas>
+            <input type="date" [(ngModel)]="startDateChart2" (change)="getWeightProgressForExercises()"style=" font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px">
+            <input type="date" [(ngModel)]="endDateChart2" (change)="getWeightProgressForExercises()" style="font-size: 14px; padding: 5px 10px; height: 30px;">
+
+            <select [(ngModel)]="selectedExercise" (change)="getWeightProgressForExercises()" style="font-size: 14px; padding: 5px 10px; height: 30px; margin-top: 10px;">
               <option *ngFor="let exercise of exercises" [value]="exercise">{{exercise}}</option>
             </select>
           
-            <input type="date" [(ngModel)]="startDateChart2" (change)="getWeightProgressForExercises()" style="margin-right: 20px;">
-            <input type="date" [(ngModel)]="endDateChart2" (change)="getWeightProgressForExercises()">
+            
           </div>
         </div>
       </div>
@@ -89,7 +92,7 @@
   </div>
     <div class="row">
       <div class="col-md-4">
-        <div class="card my-4 last-workout-card">
+        <div class="card my-4 last-workout-card" style="margin-left: 20px;">
           <div class="card-header" style="background-color: #406178; color: white;">
             <h6 style="margin-top: 10px">Your Last Workout</h6>
           </div>
