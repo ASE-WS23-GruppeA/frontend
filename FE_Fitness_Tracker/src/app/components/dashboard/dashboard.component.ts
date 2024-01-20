@@ -161,6 +161,12 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  confirmDelete(workoutID: number) {
+    if (confirm('Möchten Sie dieses Workout wirklich löschen?')) {
+      this.deleteWorkout(workoutID);
+    }
+  }
+
   getWeightProgressForExercises(): void {
     //TODO CHANGE HARDCODED USERID
     if (this.selectedExercise && this.startDate && this.endDate) {
