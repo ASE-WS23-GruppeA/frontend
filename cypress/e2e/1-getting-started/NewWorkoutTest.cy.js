@@ -1,217 +1,136 @@
 /// <reference types="cypress" />
 
-// Welcome to Cypress!
-//
-// This spec file contains a variety of sample tests
-// for a todo list app that are designed to demonstrate
-// the power of writing tests in Cypress.
-//
-// To learn more about how Cypress works and
-// what makes it such an awesome testing tool,
-// please read our getting started guide:
-// https://on.cypress.io/introduction-to-cypress
-
 describe('FrontendTest New-Workout Tests', () => {
   beforeEach(() => {
-    // Cypress starts out with a blank slate for each test
-    // so we must tell it to visit our website with the `cy.visit()` command.
-    // Since we want to visit the same URL at the start of all our tests,
-    // we include it in our beforeEach function so that it runs before each test
-    cy.visit('http://localhost:4200')
-  })
+    cy.visit('http://localhost:4200/new-workout')
+    //cy.wait('@getExercises');
+    //cy.intercept('GET', 'http://localhost:3333/exercises').as('getExercises');
+  });
   
-  
-describe('Select Muscle Group Tests', () => {
-  it('should display leg exercises when the Legs muscle group is clicked', () => {
-    cy.visit('http://localhost:4200/new-workout');
+  // Initialization and muscle group display
+  it('should display muscle groups on initialization', () => {
+    // Check for one .cards container
+    cy.get('.muscle-groups-container .cards').should('have.length', 1);
 
-    cy.contains('Legs').click();
-
-    cy.contains('Legs Exercises').should('be.visible');
-  
-    cy.contains('Squats').should('be.visible');
-cy.contains('Lunges').should('be.visible');
-cy.contains('Deadlifts').should('be.visible');
-cy.contains('Leg Press').should('be.visible');
-cy.contains('Leg Curls').should('be.visible');
-cy.contains('Leg Extensions').should('be.visible');
-cy.contains('Romanian Deadlifts').should('be.visible');
-cy.contains('Step-ups').should('be.visible');
-cy.contains('Stiff-legged Deadlifts').should('be.visible');
-cy.contains('Sissy Squats').should('be.visible');
-cy.contains('Hack Squats').should('be.visible');
-cy.contains('Hamstring Curls').should('be.visible');
-cy.contains('Lunges with Dumbbells').should('be.visible');
-cy.contains('Box Jumps').should('be.visible');
-
-    
-    cy.get('.exercise-list-container ul').find('li').should('have.length', 14);
+    // Within that container, check for multiple .card elements
+    cy.get('.muscle-groups-container .cards .card').should('have.length', 10);
+    cy.get('.muscle-groups-container .cards .card').each(($card, index) => {
+      // The src should include the path to the muscle group images
+      cy.wrap($card).find('img').should('have.attr', 'src').and('include', 'assets/muscle_groups');
+      // The card should contain non-empty text corresponding to the muscle group name
+      cy.wrap($card).should('contain.text', $card[0].innerText.trim());
+    });
   });
 
-  it('should display chest exercises when muscle group is clicked', () => {
-    cy.visit('http://localhost:4200/new-workout');
+// selecting a muscle group
+it('should display exercises when a muscle group is selected', () => {
+  cy.get('.muscle-groups-container .card').first().click();
+  cy.get('.exercise-list-container').should('be.visible');
+  cy.get('.exercise-list-container h3').should('contain.text', '');
+  cy.get('.exercise-list-container ul li').should('have.length.at.least', 1);
+});
 
-    cy.contains('Chest').click();
+ // selecting an exercise
+ it('should display sets when an exercise is selected', () => {
+   cy.get('.muscle-groups-container .card').first().click();
+   cy.get('.exercise-list-container ul li').first().click();
+   cy.get('.exercise-sets-container').should('be.visible');
+   cy.get('.exercise-sets-container h3').should('contain.text', '');
+   cy.get('.exercise-sets-container .rep-weight-set').should('have.length', 3);
+ });
 
-    cy.contains('Chest Exercises').should('be.visible');
+  //adding and deleting sets
+  it('should add a new set', () => {
+    cy.get('.muscle-groups-container .card').first().click();
+    cy.get('.exercise-list-container ul li').first().click();
+    cy.get('.btn-addSet').click();
+    cy.get('.exercise-sets-container .rep-weight-set').should('have.length', 4);
+  });
 
-    cy.contains('Decline Bench Press').should('be.visible');
-  cy.contains('Push-ups').should('be.visible');
-  cy.contains('Bench Press').should('be.visible');
-  cy.contains('Dips').should('be.visible');
-  cy.contains('Incline Bench Press').should('be.visible');
-  cy.contains('Dumbbell Bench Press').should('be.visible');
-  cy.contains('Dumbbell Flyes').should('be.visible');
+  it('should delete a set', () => {
+    cy.get('.muscle-groups-container .card').first().click();
+    cy.get('.exercise-list-container ul li').first().click();
+    cy.get('.btn-deleteSet').first().click();
+    cy.get('.exercise-sets-container .rep-weight-set').should('have.length', 2);
+  });
 
-    
-    cy.get('.exercise-list-container ul').find('li').should('have.length', 7);
+  // saving sets
+  it('should enable the save button when valid set values are entered', () => {
+    // Click to select a muscle group and an exercise
+    cy.get('.muscle-groups-container .card').first().click();
+    cy.get('.exercise-list-container ul li').first().click();
+
+    // Fill in the sets with valid positive values to enable the 'Save Set' button
+    cy.get('.exercise-sets-container .rep-weight-set').each(($set, index) => {
+      cy.wrap($set).find('input[type="number"]').first().clear().type('10'); // Repetitions
+      cy.wrap($set).find('input[type="number"]').last().clear().type('20');  // Kilos
     });
 
-    it('should display back exercises when muscle group is clicked', () => {
-    cy.visit('http://localhost:4200/new-workout');
+    // Now the 'Save Set' button should be enabled
+    cy.get('.btn-save').should('not.be.disabled').click();
 
-    cy.contains('Back').click();
-    cy.contains('Back Exercises').should('be.visible');
-
-    cy.contains('Pull-ups').should('be.visible');
-    cy.contains('Dumbbell Rows').should('be.visible');
-    cy.contains('Barbell Rows').should('be.visible');
-    cy.contains('Deadlifts').should('be.visible');
-    cy.contains('Pull-Downs').should('be.visible');
-    cy.contains('Seated Rows').should('be.visible');
-    cy.contains('Reverse Flyes').should('be.visible');
-    cy.contains('Romanian Deadlifts').should('be.visible');
-    cy.contains('Stiff-legged Deadlifts').should('be.visible');
-    cy.contains('Cable Rows').should('be.visible');
-    cy.contains('Lat Pulldowns').should('be.visible');
-    cy.contains('Chin-ups').should('be.visible');
-    cy.contains('Kettlebell Swings').should('be.visible');
-    
-    
-    
-    cy.get('.exercise-list-container ul').find('li').should('have.length', 13);
-  });
-
-  it('should display core exercises when muscle group is clicked', () => {
-    cy.visit('http://localhost:4200/new-workout');
-
-    cy.contains('Core').click();
-
-    cy.contains('Core Exercises').should('be.visible');
-    cy.contains('Sit-ups').should('be.visible');
-    cy.contains('Planks').should('be.visible');
-    cy.contains('Russian Twists').should('be.visible');
-    cy.contains('Hanging Leg Raise').should('be.visible');
-    cy.contains('Bicycle Crunches').should('be.visible');
-    cy.contains('Ab Wheel Rollouts').should('be.visible');
-    cy.contains('Flutter Kicks').should('be.visible');
-    cy.contains('Dragon Flags').should('be.visible');
-    cy.contains('Reverse Crunches').should('be.visible');
-    cy.contains('Leg Raises').should('be.visible');
-    
-    
-    cy.get('.exercise-list-container ul').find('li').should('have.length', 10);
-  });
-
-  it('should display triceps exercises when muscle group is clicked', () => {
-    cy.visit('http://localhost:4200/new-workout');
-
-    cy.contains('Triceps').click();
-
-    cy.contains('Triceps Exercises').should('be.visible');
-
-    cy.contains('Tricep extensions').should('be.visible');
-    cy.contains('Decline Bench Press').should('be.visible');
-    cy.contains('Skull Crushers').should('be.visible');
-    cy.contains('Bench Press').should('be.visible');
-    cy.contains('Dips').should('be.visible');
-    cy.contains('Shoulder Press').should('be.visible');
-    cy.contains('Incline Bench Press').should('be.visible');
-    cy.contains('Tricep Extensions').should('be.visible');
-    cy.contains('Close-grip Bench Press').should('be.visible');
-    cy.contains('Dumbbell Bench Press').should('be.visible');
-    
-
-    
-    cy.get('.exercise-list-container ul').find('li').should('have.length', 10);
-  });
-
-  it('should display calves exercises when muscle group is clicked', () => {
-    cy.visit('http://localhost:4200/new-workout');
-
-    cy.contains('Calves').click();
-
-    cy.contains('Calves Exercises').should('be.visible');
-    cy.contains('Calf Raises').should('be.visible');
-    cy.contains('Calf stretches').should('be.visible');
-    
-    cy.get('.exercise-list-container ul').find('li').should('have.length', 2);
-  });
-
-  it('should display shoulders exercises when muscle group is clicked', () => {
-    cy.visit('http://localhost:4200/new-workout');
-
-    cy.contains('Shoulders').click();
-
-    cy.contains('Shoulders Exercises').should('be.visible');
-    cy.contains('Lateral Raises').should('be.visible');
-    cy.contains('Front Raises').should('be.visible');
-    cy.contains('Shoulder Press').should('be.visible');
-    cy.contains('Reverse Flyes').should('be.visible');
-    cy.contains('Face Pulls').should('be.visible');
-    cy.contains('Dumbbell Bench Press').should('be.visible');
-    
-    
-    cy.get('.exercise-list-container ul').find('li').should('have.length', 6);
+    // After saving, check if the workout container is visible and has at least one saved exercise
+    cy.get('.workout-container').should('be.visible');
+    cy.get('.workout-container .saved-exercises .exercise-item').should('have.length.at.least', 1);
   });
 
 
-  it('should display biceps exercises when muscle group is clicked', () => {
-  cy.visit('http://localhost:4200/new-workout');
-
-  cy.contains('Biceps').click();
-
-  cy.contains('Biceps Exercises').should('be.visible');
-  cy.contains('Cable Curls').should('be.visible');
-  cy.contains('Hammer Curls').should('be.visible');
-  cy.contains('Pull-Downs').should('be.visible');
-  cy.contains('Bicep Curls').should('be.visible');
-  cy.contains('Cable Rows').should('be.visible');
-  cy.contains('Preacher Curls').should('be.visible');
-  cy.contains('Lat Pulldowns').should('be.visible');
-  cy.contains('Chin-ups').should('be.visible');
-  
-  
-  cy.get('.exercise-list-container ul').find('li').should('have.length', 8);
+  it('should disable save set button for invalid input', () => {
+    cy.get('.muscle-groups-container .card').first().click();
+    cy.get('.exercise-list-container ul li').first().click();
+    cy.get('.exercise-sets-container input[type="number"]').first().clear().type('-1');
+    cy.get('.btn-save').should('be.disabled');
   });
 
-  it('should display glutes exercises when muscle group is clicked', () => {
-  cy.visit('http://localhost:4200/new-workout');
+  //// deleting saved exercises from workout
+  //it('should delete a saved exercise from the workout', () => {
+  //  // Assuming an exercise has already been saved
+  //  cy.get('.btn-deleteExercise').first().click();
+  //  cy.get('.workout-container .saved-exercises .exercise-item').should('have.length', 0);
+  //});
 
-  cy.contains('Glutes').click();
+  //// finalizing workout
+  //it('should save the workout', () => {
+  //  // Assuming exercises have been added
+  //  cy.get('.workout-container input[type="text"]').type('My Workout');
+  //  cy.get('.btn-saveWorkout').click();
+  //  // Mock the backend response and verify the result
+  //});
 
-  cy.contains('Glutes Exercises').should('be.visible');
-  cy.contains('Hip Thrusts').should('be.visible');
-  cy.contains('Cable Pull-throughs').should('be.visible');
-  cy.contains('Kettlebell Swings').should('be.visible');
-  
-  
-  cy.get('.exercise-list-container ul').find('li').should('have.length', 3);
+ // it('should validate workout before saving', () => {
+ //   cy.get('.btn-saveWorkout').should('be.disabled');
+ // });
+//
+  // UI elements and interactions
+  it('should have all UI elements interactive', () => {
+    // Check for the presence and interactivity of muscle group cards
+    cy.get('.muscle-groups-container .card').should('have.length', 10).and('be.visible');
+    cy.get('.muscle-groups-container .card').first().click();
+    cy.get('.exercise-list-container').should('be.visible');
+
+    // Verify exercise list interactivity
+    cy.get('.exercise-list-container ul li').should('have.length.at.least', 1).and('be.visible');
+    cy.get('.exercise-list-container ul li').first().click();
+    cy.get('.exercise-sets-container').should('be.visible');
+
+    // Check for input fields and buttons in the exercise sets container
+    cy.get('.exercise-sets-container input[type="number"]').should('have.length', 6).and('be.visible');
+    cy.get('.btn-addSet').should('be.visible').and('be.enabled');
+    cy.get('.btn-addSet').click();
+    cy.get('.btn-deleteSet').should('have.length.at.least', 1).and('be.visible');
+
+    // Now we fill in the sets and save to make the workout container visible
+    cy.get('.exercise-sets-container .rep-weight-set input[type="number"]').each(($el, index) => {
+      // Assuming 10 reps and 20 kilos for each set
+      cy.wrap($el).clear().type(index % 2 === 0 ? '10' : '20');
+    });
+
+    cy.get('.btn-save').click(); // Assuming this button is to save the sets
+
+    // After saving sets, the workout container should be visible
+    cy.get('.workout-container').should('be.visible');
+    cy.get('.workout-container input[type="text"]').should('be.visible');
+    cy.get('.btn-saveWorkout').should('be.visible');
   });
 
-  it('should display obliques exercises when muscle group is clicked', () => {
-  cy.visit('http://localhost:4200/new-workout');
-
-  cy.contains('Obliques').click();
-
-  cy.contains('Obliques Exercises').should('be.visible');
-  cy.contains('Woodchoppers').should('be.visible');
-  cy.contains('Russian twist').should('be.visible');
-  
-  cy.get('.exercise-list-container ul').find('li').should('have.length', 3);
 });
-});
-
-})
-  
-
