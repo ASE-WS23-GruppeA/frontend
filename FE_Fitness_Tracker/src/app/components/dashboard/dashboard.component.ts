@@ -25,8 +25,15 @@ export class DashboardComponent implements OnInit {
     public weightProgressForExerciseschart: any;
     exercises: string[] = [];
     selectedExercise: string = '';
+
+    //for chart 1
     startDate = '';
     endDate: string = '';
+
+    //for chart 2
+    startDateChart2 = '';
+    endDateChart2: string = '';  
+
     defaultExercise = 'Choose Exercise';
     defaultStartDate = '2022-01-01';
     defaultEndDate = '2024-12-31';
@@ -49,6 +56,8 @@ export class DashboardComponent implements OnInit {
       this.selectedExercise = this.defaultExercise; 
       this.startDate = this.defaultStartDate;
       this.endDate = this.defaultEndDate;
+      this.startDateChart2 = this.defaultStartDate;
+      this.endDateChart2 = this.defaultEndDate;
       this.getWeightProgressForExercises();
       this.getAverageWeightProgressForMuscleGroup();
       this.loadWorkouts();
@@ -137,10 +146,9 @@ export class DashboardComponent implements OnInit {
   }
 
   getWeightProgressForExercises(): void {
-    //TODO CHANGE HARDCODED USERID
-    if (this.selectedExercise && this.startDate && this.endDate) {
-
-      this.analyticsService.getWeightProgress(2, this.selectedExercise, this.startDate, this.endDate)
+    // Stellen Sie sicher, dass Sie die neuen Datumsvariablen verwenden
+    if (this.selectedExercise && this.startDateChart2 && this.endDateChart2) {
+      this.analyticsService.getWeightProgress(2, this.selectedExercise, this.startDateChart2, this.endDateChart2)
           .subscribe(data => {
               this.updateWeightProgressForExercises(data);
           }, error => {

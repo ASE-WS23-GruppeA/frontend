@@ -37,8 +37,8 @@
               <option *ngFor="let exercise of exercises" [value]="exercise">{{exercise}}</option>
             </select>
           
-            <input type="date" [(ngModel)]="startDate" (change)="getWeightProgressForExercises()" style="margin-right: 20px;">
-            <input type="date" [(ngModel)]="endDate" (change)="getWeightProgressForExercises()">
+            <input type="date" [(ngModel)]="startDateChart2" (change)="getWeightProgressForExercises()" style="margin-right: 20px;">
+            <input type="date" [(ngModel)]="endDateChart2" (change)="getWeightProgressForExercises()">
           </div>
         </div>
       </div>
