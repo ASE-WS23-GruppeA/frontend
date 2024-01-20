@@ -19,4 +19,9 @@ export class ExerciseService {
     getExercisesByMuscleGroup(muscleGroup: string): Observable<Exercise[]> {
         return this.http.get<Exercise[]>(`${this.apiUrl}?muscleGroup=${muscleGroup}`);
     }
+
+    //For analytics: get exercises by ID
+    getExerciseById(id: number): Observable<Exercise> {
+        return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
+      }
 }

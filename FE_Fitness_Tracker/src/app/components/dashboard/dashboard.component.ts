@@ -3,7 +3,8 @@ import { Chart, LinearScale, BarController, BarElement, Title, Tooltip, Category
 import { ArcElement } from 'chart.js/auto';
 import { AnalyticsService } from 'src/app/_services/analytics.service';
 import { WorkoutHistoryService } from 'src/app/_services/workout-history.service';
-
+import { ExerciseService } from 'src/app/_services/exercise.service';
+import { Exercise } from 'src/app/_models/exercise.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,8 +36,12 @@ export class DashboardComponent implements OnInit {
     workouts: any[] = [];
     lastWorkout: any;
 
+   //for list for exercises
+    exerciseDetails: { [id: number]: Exercise } = {};
+
+
     constructor( private analyticsService: AnalyticsService,
-    private workoutHistoryService: WorkoutHistoryService) { }
+    private workoutHistoryService: WorkoutHistoryService, private ExerciseService: ExerciseService) { }
 
   ngOnInit() {
 
@@ -100,10 +105,27 @@ export class DashboardComponent implements OnInit {
     this.workoutHistoryService.getAllWorkouts(1) //TODO
       .subscribe(data => {
         this.workouts = data;
+        
+        // get Exercise IDs
+        const exerciseIds = data.flatMap(workout => workout.workout_sets.map((set: { exerciseID: any; }) => set.exerciseID));
+        const uniqueExerciseIds = [...new Set(exerciseIds)];
+  
+        // details for id
+        this.getExerciseDetails(uniqueExerciseIds);
       }, error => {
         console.error('Error loading workouts', error);
       });
   }
+  
+  getExerciseDetails(exerciseIds: number[]): void {
+    exerciseIds.forEach(id => {
+      this.ExerciseService.getExerciseById(id).subscribe(exercise => {
+        this.exerciseDetails[id] = exercise;
+      });
+    });
+  }
+
+  
   
   loadLastWorkout(): void {
     this.workoutHistoryService.getLastWorkout(1) //TODO

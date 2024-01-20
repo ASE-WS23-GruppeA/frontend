@@ -85,6 +85,7 @@ select:hover {
     color: #333;
     cursor: pointer;
     outline: none;
+    margin-right: 10px; 
   }
   
   input[type="date"]:hover {

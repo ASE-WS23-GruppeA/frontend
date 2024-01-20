@@ -63,6 +63,7 @@
                 </summary>
                   <ul class="list-group">
                     <li class="list-group-item" *ngFor="let set of workout.workout_sets">
+                      <p style="margin-top: 0px; margin-bottom: 0px;">Exercise: {{ exerciseDetails[set.exerciseID]?.exerciseName }}</p>
                       <p style="margin-top: 0px; margin-bottom: 0px;">Reps: {{ set.reps }}</p>
                       <p style="margin-top: 0px; margin-bottom: 0px;">Weight: {{ set.weights }} kg</p>
                     </li>
