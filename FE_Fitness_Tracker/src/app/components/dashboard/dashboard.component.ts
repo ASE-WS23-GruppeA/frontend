@@ -146,7 +146,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getWeightProgressForExercises(): void {
-    // Stellen Sie sicher, dass Sie die neuen Datumsvariablen verwenden
     if (this.selectedExercise && this.startDateChart2 && this.endDateChart2) {
       this.analyticsService.getWeightProgress(2, this.selectedExercise, this.startDateChart2, this.endDateChart2)
           .subscribe(data => {
@@ -189,7 +188,7 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: [data.MuscleGroup], // X
         datasets: [{
-          label: 'Average Weight Progress',
+          label: this.selectedMuscleGroup,
           data: [data.averageWeightProgress], // Y
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgba(54, 162, 235, 1)',
@@ -204,7 +203,7 @@ export class DashboardComponent implements OnInit {
               display: true,
               text: 'Average Weight (kg)',
               font: {
-                size: 16
+                size: 14
               }
             }
           },
@@ -213,7 +212,7 @@ export class DashboardComponent implements OnInit {
               display: true,
               text: 'Muscle Group',
               font: {
-                size: 16
+                size: 14
               }
             }
           }
@@ -225,6 +224,13 @@ export class DashboardComponent implements OnInit {
               font: {
                 size: 14,
               }
+            }
+          },
+          title: {
+            display: true,
+            text: 'Your Average Weight Progress',
+            font: {
+              size: 14
             }
           },
           tooltip: {

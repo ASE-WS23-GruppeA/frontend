@@ -14,11 +14,11 @@
 
 <div class="card">
   <div class="card-header" style="height: 40px;">
-    <h4 tyle="margin-top:10px">Your Statistics</h4>
+    <h4 style="margin-top:10px">Your Statistics</h4>
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-md-3" style="margin-left: 100px; margin-top: 80px; margin-right: 80px;"> 
+      <div class="col-md-3" style="margin-left: 100px; margin-top: 110px; margin-right: 80px;"> 
         <div class="chart-container" style="height: 400px; max-height: 400px;">
             <canvas #averageWeightProgressCanvas style="margin-bottom: 30px;"></canvas>
             <input type="date" [(ngModel)]="startDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 150px;font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px;">
@@ -30,8 +30,8 @@
            
         </div>
       </div>
-      <div class="col-md-4 mt-0">
-        <div class="chart-container" style="height: 400px; max-height: 400px; ">
+      <div class="col-md-4 mt-0" >
+        <div class="chart-container" style="height: 400px; max-height: 400px; margin-top: 50px;" >
           <div>
             <canvas #chartCanvas style="margin-bottom: 30px;"></canvas>
             <input type="date" [(ngModel)]="startDateChart2" (change)="getWeightProgressForExercises()"style=" font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px">
@@ -48,7 +48,7 @@
 
    
         <!-- Card for workout-history -->
-        <div class="col-md-3" style="margin-left: 50px;">
+        <div class="col-md-3" style="margin-left: 50px; margin-top: 50px;">
           <div class="card my-4">
             <div class="card-header" style="background-color: #6a5acd; color: white;">
               <h6 style="margin-top: 10px">Your Workout History</h6>
