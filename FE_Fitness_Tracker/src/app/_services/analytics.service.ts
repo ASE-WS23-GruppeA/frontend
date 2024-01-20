@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AnalyticsService {
 
-  private url = 'http://localhost:8081/analytics';
+  private url = 'http://localhost:8443/analytics';
   constructor(private http: HttpClient) { }
  
   getUserProgress(userId: number): Observable<any> {

@@ -12,7 +12,7 @@ import { User } from 'src/app/_models/user.model';
     providedIn: 'root'
 })
 export class WorkoutService {
-    private apiUrl = 'http://localhost:3001/workouts'; // Update the URL accordingly
+    private apiUrl = 'http://localhost:8443/workouts'; // Update the URL accordingly
 
     constructor(private http: HttpClient, private authService: AuthService) {    
         }

@@ -7,7 +7,7 @@ import { Exercise } from 'src/app/_models/exercise.model';
     providedIn: 'root'
 })
 export class ExerciseService {
-    private apiUrl = 'http://localhost:3333/exercises'; // Update the URL accordingly
+    private apiUrl = 'http://localhost:8443/exercises'; // Update the URL accordingly
 
     constructor(private http: HttpClient) { }
 

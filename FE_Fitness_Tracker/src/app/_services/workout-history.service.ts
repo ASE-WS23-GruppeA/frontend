@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class WorkoutHistoryService {
 
-  private url = 'http://localhost:3001/analytics';
+  private url = 'http://localhost:8443/analytics';
   constructor(private http: HttpClient) { }
  
 
