@@ -1,7 +1,7 @@
 <div class="page-container">
 <div class="card">
-  <div class="card-header" style="height: 60px;">
-    <h2 style="margin-top:20px">Your Dashboard</h2>
+  <div class="card-header" style="height: 40px;">
+    <h4 style="margin-top:10px">Your Dashboard</h4>
   </div>
   <div class="card-body" style="height: 80px;">
     <div class="formGroup text-center"> 
@@ -13,8 +13,8 @@
 </div>
 
 <div class="card">
-  <div class="card-header" style="height: 60px;">
-    <h2 tyle="margin-top:20px">Your Statistics</h2>
+  <div class="card-header" style="height: 40px;">
+    <h4 tyle="margin-top:10px">Your Statistics</h4>
   </div>
   <div class="card-body">
     <div class="row">
@@ -39,12 +39,12 @@
 
    
         <!-- Card for workout-history -->
-        <div class="col-md-2" style="margin-left: 150px;">
+        <div class="col-md-3" style="margin-left: 50px;">
           <div class="card my-4">
             <div class="card-header" style="background-color: #6a5acd; color: white;">
               <h6 style="margin-top: 10px">Your Workout History</h6>
             </div>
-            <div class="card-body-history" style="height: 300px; overflow-y: auto;">
+            <div class="card-body-history" style="height: 250px; overflow-y: auto;">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let workout of workouts">
                   <details>
@@ -74,8 +74,8 @@
               </ul>
             </div>
           </div>
-
-          <div class="card my-4">
+        <!--Your Last Workout-->
+          <div class="card my-4 last-workout-card">
             <div class="card-header" style="background-color: #406178; color: white;">
               <h6 style="margin-top: 10px">Your Last Workout</h6>
             </div>

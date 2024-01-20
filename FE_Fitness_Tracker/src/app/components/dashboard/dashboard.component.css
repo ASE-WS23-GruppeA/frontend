@@ -141,3 +141,13 @@ select:hover {
     transform: rotate(180deg); 
   }
 
+  .last-workout-card {
+    height: 200px; 
+    overflow-y: auto; 
+}
+
+
+.last-workout-card .card-body-history {
+    max-height: 100%; 
+    overflow-y: auto; 
+}
