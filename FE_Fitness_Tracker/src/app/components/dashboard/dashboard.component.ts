@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
     //list for exercises
     exerciseDetails: { [id: number]: Exercise } = {};
     //list for muscles groups
-    muscleGroups: string[] = ['Legs', 'Data2']; 
+    muscleGroups: string[] = ['Legs', 'Chest', 'Back', 'Core', 'Triceps', 'Calves', 'Shoulders', 'Biceps', 'Glutes', 'Obliques']; 
     selectedMuscleGroup: string = this.muscleGroups[0]; 
 
     constructor( private analyticsService: AnalyticsService,
