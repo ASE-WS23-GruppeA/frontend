@@ -27,19 +27,6 @@ export class HttpInterceptor implements AngularHttpInterceptor {
                                 case 403:
                                     this.router.navigate(['forbidden']);
                                     break;
-                                case 401:
-                                    return this.authService.refreshToken().pipe(
-                                        switchMap(() => next.handle(request)),
-                                        catchError(err => {
-                                            if (err.status === 403) {
-                                                this.authService.logout();
-                                            }
-                                            return throwError(() => err);
-                                        })
-                                    );
-                                case 409:
-                                    this.messageService.changeMessage('Username or email already in use.');
-                                    break;
                                 default:
                                     // Handle other errors
                                     break;

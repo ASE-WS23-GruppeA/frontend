@@ -83,10 +83,6 @@ export class AuthService {
     this.messageService.clearMessage();
   }
 
-  refreshToken() {
-    return this.http.post('http://localhost:8443/api/auth/refresh-token-cookie', {}, {withCredentials: true});
-  }
-
   createUser(username: string, email: string, password: string): Promise<AuthResponseData> {
     return new Promise((resolve, reject) => {
       this.http.post<AuthResponseData>('http://localhost:8443/api/auth/register', {
@@ -97,10 +93,13 @@ export class AuthService {
         .pipe(
           catchError(err => {
             let errorMessage = 'An error occurred during sign up.';
-            if (err.error && err.error.message) {
-              errorMessage = err.error.message;
+
+            if (err.status === 409) {
+              errorMessage = 'Username or email already in use.';
+
+              this.messageService.changeMessage(errorMessage); // Use MessageService to set the error message
             }
-            this.messageService.changeMessage(errorMessage);
+
             return throwError(() => new Error(errorMessage));
           })
         )
