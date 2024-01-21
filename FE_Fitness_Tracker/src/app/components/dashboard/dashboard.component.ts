@@ -132,7 +132,6 @@ loadUserTrainingInfo(): void {
       console.error('Error', error);
     });
 }
-
 createTrainingInfoChart(trainingData: any): void {
   const dates = Object.keys(trainingData);
   const exercises = new Set<string>();
@@ -182,6 +181,26 @@ createTrainingInfoChart(trainingData: any): void {
           text: 'Your Average Weight Progress',
           font: {
             size: 14
+          }
+        },
+        tooltip: {
+          enabled: true,
+          mode: 'index',
+          intersect: false,
+          callbacks: {
+            label: function(context: any) {
+              const dataIndex = context.dataIndex;
+              const datasetIndex = context.datasetIndex;
+              const exerciseLabel = datasets[datasetIndex].label;
+              const dateLabel = dates[dataIndex];
+              const trainingInfo = trainingData[dateLabel].find((e: any) => e.exercise === exerciseLabel);
+
+              if (trainingInfo) {
+                return `Reps: ${trainingInfo.reps}, Sets: ${trainingInfo.sets}`;
+              } else {
+                return '';
+              }
+            }
           }
         }
       }
