@@ -18,12 +18,14 @@ export class DashboardComponent implements OnInit {
   @ViewChild('chartCanvas') chartCanvas?: ElementRef;
   @ViewChild('averageWeightProgressCanvas') averageWeightProgressCanvas?: ElementRef;
   @ViewChild('trainingInfoCanvas') trainingInfoCanvas?: ElementRef;
-  
-  
+  @ViewChild('gymVisitsCanvas') gymVisitsCanvas?: ElementRef;
 
-  //selectedMuscleGroup: string = 'Legs';
+
+//charts
   averageWeightProgressChart: Chart | undefined;
   trainingInfoChart: Chart | undefined;
+  gymVisitsChart: Chart | undefined;
+
   
     totalVolume: any;
     weightProgress: any;
@@ -75,6 +77,7 @@ export class DashboardComponent implements OnInit {
       this.loadExercises();
       this.loadUserTrainingInfo();
       this.getTrainingInfoData();
+      this.loadGymVisitsData();
   }
 
   loadWorkouts(): void {
@@ -132,6 +135,62 @@ loadUserTrainingInfo(): void {
       console.error('Error', error);
     });
 }
+
+loadGymVisitsData(): void {
+  const userId = 1; // TODO
+  this.analyticsService.getUserTrainingInfo(userId, '2023-01-01', '2025-12-31')
+    .subscribe(data => {
+      this.createGymVisitsChart(data.gymVisits);
+    }, error => {
+      console.error('Error', error);
+    });
+}
+
+createGymVisitsChart(gymVisits: number): void {
+  if (this.gymVisitsChart) {
+    this.gymVisitsChart.destroy();
+  }
+
+  this.gymVisitsChart = new Chart(this.gymVisitsCanvas!.nativeElement, {
+    type: 'bar',
+    data: {
+      labels: ['Gym Visits'],
+      datasets: [{
+        label: 'Number of Visits',
+        data: [gymVisits],
+        backgroundColor: 'rgba(102,102,255, 0.2)',
+        borderColor: 'rgba(102,102,255, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1
+          }
+        }
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true
+        },
+        title: {
+          display: true,
+          text: 'Your Gym Visits',
+          font: {
+            size: 14
+          }
+        }
+      }
+    }
+  });
+}
+
+
+
 createTrainingInfoChart(trainingData: any): void {
   const startDate = new Date(this.startDateTrainingInfo);
   const endDate = new Date(this.endDateTrainingInfo);
