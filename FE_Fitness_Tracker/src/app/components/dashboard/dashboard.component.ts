@@ -283,7 +283,7 @@ export class DashboardComponent implements OnInit {
               }
             },
             ticks: {
-              display: false, 
+              display: true, 
               autoSkip: true,
               maxRotation: 0,
               minRotation: 0
