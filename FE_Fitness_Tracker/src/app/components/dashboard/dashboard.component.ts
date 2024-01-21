@@ -84,21 +84,23 @@ export class DashboardComponent implements OnInit {
       this.loadGymVisitsData();
   }
 
-  loadWorkouts(): void {
-    this.workoutHistoryService.getAllWorkouts(1) //TODO
-      .subscribe(data => {
-        console.log('Response from getAllWorkouts:', data);  
-  
-        this.workouts = data;
-        const exerciseIds = data.flatMap(workout => 
-          workout.workout_sets.map((set: { exerciseID: any; }) => set.exerciseID)
-        );
-        const uniqueExerciseIds = [...new Set(exerciseIds)];
-        this.getExerciseDetails(uniqueExerciseIds);
-      }, error => {
-        console.error('Error loading workouts', error);
-      });
-  }
+    loadWorkouts(): void {
+      this.workoutHistoryService.getAllWorkouts(1) //TODO
+        .subscribe(data => {
+          console.log('Response from getAllWorkouts:', data);  
+      
+         
+          this.workouts = data.reverse();
+          
+          const exerciseIds = data.flatMap(workout => 
+            workout.workout_sets.map((set: { exerciseID: any; }) => set.exerciseID)
+          );
+          const uniqueExerciseIds = [...new Set(exerciseIds)];
+          this.getExerciseDetails(uniqueExerciseIds);
+        }, error => {
+          console.error('Error loading workouts', error);
+        });
+    }
 
   loadExercises(): void {
     this.ExerciseService.fetchExercises().subscribe(
