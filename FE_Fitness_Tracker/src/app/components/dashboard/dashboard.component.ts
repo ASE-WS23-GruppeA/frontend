@@ -40,8 +40,8 @@ export class DashboardComponent implements OnInit {
     endDateChart2: string = '';  
 
     //for chart 3
-    startDateTrainingInfo = '2022-01-01';
-    endDateTrainingInfo: string = '2024-12-31';
+    startDateTrainingInfo = '2023-01-01';
+    endDateTrainingInfo: string = '2023-01-07';
 
     defaultExercise = 'Choose Exercise';
     defaultStartDate = '2022-01-01';
@@ -133,29 +133,47 @@ loadUserTrainingInfo(): void {
     });
 }
 createTrainingInfoChart(trainingData: any): void {
-  const dates = Object.keys(trainingData);
+  const startDate = new Date(this.startDateTrainingInfo);
+  const endDate = new Date(this.endDateTrainingInfo);
+  const dates: string[] = [];
   const exercises = new Set<string>();
+
+  let currentDate = new Date(startDate);
+
+  while (currentDate <= endDate) {
+    dates.push(currentDate.toISOString().split('T')[0]);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
 
   if (this.trainingInfoChart) {
     this.trainingInfoChart.destroy();
     this.trainingInfoChart = undefined;
   }
 
+  const dataMap = new Map<string, { [exercise: string]: { sets: number, reps: number } }>();
+
   dates.forEach(date => {
-    trainingData[date].forEach((exercise: any) => {
-      exercises.add(exercise.exercise);
+    trainingData[date]?.forEach((exerciseData: any) => {
+      exercises.add(exerciseData.exercise);
+      if (!dataMap.has(date)) {
+        dataMap.set(date, {});
+      }
+      dataMap.get(date)![exerciseData.exercise] = {
+        sets: exerciseData.sets,
+        reps: exerciseData.reps
+      };
     });
   });
 
   const datasets = Array.from(exercises).map(exercise => {
     const data = dates.map(date => {
-      return trainingData[date].some((e: any) => e.exercise === exercise) ? 1 : 0;
+      return dataMap.has(date) && dataMap.get(date)![exercise] ? 1 : 0;
     });
 
     return {
       label: exercise,
       data: data,
-      backgroundColor: EXERCISE_COLORS[exercise], //get colors
+      backgroundColor: EXERCISE_COLORS[exercise] || this.getRandomColor(),
     };
   });
 
@@ -178,7 +196,7 @@ createTrainingInfoChart(trainingData: any): void {
       plugins: {
         title: {
           display: true,
-          text: 'Your Average Weight Progress',
+          text: 'Your Training Info',
           font: {
             size: 14
           }
@@ -193,12 +211,13 @@ createTrainingInfoChart(trainingData: any): void {
               const datasetIndex = context.datasetIndex;
               const exerciseLabel = datasets[datasetIndex].label;
               const dateLabel = dates[dataIndex];
-              const trainingInfo = trainingData[dateLabel].find((e: any) => e.exercise === exerciseLabel);
 
-              if (trainingInfo) {
-                return `Reps: ${trainingInfo.reps}, Sets: ${trainingInfo.sets}`;
+              if (dataMap.has(dateLabel) && dataMap.get(dateLabel)![exerciseLabel]) {
+                const sets = dataMap.get(dateLabel)![exerciseLabel].sets;
+                const reps = dataMap.get(dateLabel)![exerciseLabel].reps;
+                return `Sets: ${sets}, Reps: ${reps}`;
               } else {
-                return '';
+                return 'No Entry';
               }
             }
           }
@@ -206,7 +225,6 @@ createTrainingInfoChart(trainingData: any): void {
       }
     }
   });
-  
 }
 
 getRandomColor() {
