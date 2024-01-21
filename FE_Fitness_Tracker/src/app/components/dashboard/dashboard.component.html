@@ -21,17 +21,18 @@
       <div class="col-md-3" style="margin-left: 100px; margin-top: 110px; margin-right: 80px;"> 
         <div class="chart-container" style="height: 400px; max-height: 400px;">
             <canvas #averageWeightProgressCanvas style="margin-bottom: 30px;"></canvas>
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-                <div style="display: flex; align-items: center;">
-                    <label for="startDate" style="margin-right: 5px;">From:</label>
-                    <input type="date" id="startDate" [(ngModel)]="startDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 120px; font-size: 14px; padding: 5px 10px; height: 30px;">
-                </div>
-                <div style="display: flex; align-items: center;">
-                    <label for="endDate" style="margin-right: 5px;">To:</label>
-                    <input type="date" id="endDate" [(ngModel)]="endDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 120px; font-size: 14px; padding: 5px 10px; height: 30px;">
-                </div>
-            </div>
           
+               
+            <div style="display: flex; align-items: center; margin-top: 10px;">
+              <label style="margin-right: 5px;">From:</label>
+              <input type="date" id="startDate" [(ngModel)]="startDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 120px; font-size: 14px; padding: 5px 10px; height: 30px;">
+            </div>
+            
+            <div style="display: flex; align-items: center; margin-top: 10px; ">
+              <label style="margin-right: 20px;">To:</label>
+              <input type="date" id="endDate" [(ngModel)]="endDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 120px; font-size: 14px; padding: 5px 10px; height: 30px;">
+            </div>
+      
             <div style="display: flex; align-items: center;">
               <label for="selectedMuscleGroup" style="margin-right: 5px; margin-top: 10px;">Select Muscle Group:</label>
               <select id="selectedMuscleGroup" [(ngModel)]="selectedMuscleGroup" (change)="getAverageWeightProgressForMuscleGroup()" style="font-size: 14px; width: 100px; padding: 5px 10px; height: 30px; margin-top: 10px;">
@@ -45,6 +46,7 @@
         <div class="chart-container" style="height: 400px; max-height: 400px; margin-top: 50px;" >
           <div>
             <canvas #chartCanvas style="margin-bottom: 30px;"></canvas>
+            
             <input type="date" [(ngModel)]="startDateChart2" (change)="getWeightProgressForExercises()"style=" font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px">
             <input type="date" [(ngModel)]="endDateChart2" (change)="getWeightProgressForExercises()" style="font-size: 14px; padding: 5px 10px; height: 30px;">
 
@@ -136,18 +138,28 @@
       <div class="col-md-4">
         <div class="chart-container" style="height: 400px; max-height: 400px; ">
           <canvas #trainingInfoCanvas style="margin-bottom: 30px; "></canvas>
-          <input type="date" [(ngModel)]="startDateTrainingInfo" (change)="getTrainingInfoData()" style="width: 150px; font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px;">
-          <input type="date" [(ngModel)]="endDateTrainingInfo" (change)="getTrainingInfoData()" style="width: 150px; font-size: 14px; padding: 5px 10px; height: 30px;">
-        
+          <div style="display: flex; align-items: center;">
+            <label style="margin-right: 5px;">From:</label>
+            <input type="date" [(ngModel)]="startDateTrainingInfo" (change)="getTrainingInfoData()" style="width: 150px; font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px;">
+          </div>
+          <div style="display: flex; align-items: center; margin-top: 10px;">
+            <label style="margin-right: 20px;">To:</label>
+            <input type="date" [(ngModel)]="endDateTrainingInfo" (change)="getTrainingInfoData()" style="width: 150px; font-size: 14px; padding: 5px 10px; height: 30px;">
+          </div>
         </div>
       </div>
 
       <div class="col-md-4 ">
         <div class="chart-container" style="height: 400px; max-height: 400px; margin-left: 60px">
           <canvas #gymVisitsCanvas style="margin-bottom: 30px;"></canvas>
-          <input type="date" [(ngModel)]="startDateGymVisits" (change)="loadGymVisitsData()" style="width: 150px; font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px;">
-          <input type="date" [(ngModel)]="endDateGymVisits" (change)="loadGymVisitsData()" style="width: 150px; font-size: 14px; padding: 5px 10px; height: 30px;">
-       
+          <div style="display: flex; align-items: center; margin-top: 50px;">
+            <label style="margin-right: 5px;">From:</label>
+            <input type="date" [(ngModel)]="startDateGymVisits" (change)="loadGymVisitsData()" style="width: 150px; font-size: 14px; padding: 5px 10px; height: 30px; margin-right: 10px;">
+          </div>
+          <div style="display: flex; align-items: center; margin-top: 10px;">
+            <label style="margin-right: 20px;">To:</label>
+            <input type="date" [(ngModel)]="endDateGymVisits" (change)="loadGymVisitsData()" style="width: 150px; font-size: 14px; padding: 5px 10px; height: 30px;">
+          </div>
         </div>
       </div>
     </div>
