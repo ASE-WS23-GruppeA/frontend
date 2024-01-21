@@ -437,6 +437,10 @@ getRandomColor() {
           tooltip: {
             enabled: true,
           }
+        },
+        animation: {
+          duration:1000,
+          easing: 'easeOutQuart',
         }
       }
     });
