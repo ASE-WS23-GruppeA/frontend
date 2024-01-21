@@ -5,6 +5,9 @@ import { AnalyticsService } from 'src/app/_services/analytics.service';
 import { WorkoutHistoryService } from 'src/app/_services/workout-history.service';
 import { ExerciseService } from 'src/app/_services/exercise.service';
 import { Exercise } from 'src/app/_models/exercise.model';
+import { EXERCISE_COLORS } from 'src/app/constants/exercise-colors.constants';
+
+
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +24,6 @@ export class DashboardComponent implements OnInit {
   //selectedMuscleGroup: string = 'Legs';
   averageWeightProgressChart: Chart | undefined;
   trainingInfoChart: Chart | undefined;
-
   
     totalVolume: any;
     weightProgress: any;
@@ -50,6 +52,7 @@ export class DashboardComponent implements OnInit {
     muscleGroups: string[] = ['Legs', 'Chest', 'Back', 'Core', 'Triceps', 'Calves', 'Shoulders', 'Biceps', 'Glutes', 'Obliques']; 
     selectedMuscleGroup: string = this.muscleGroups[0]; 
 
+  
     constructor( private analyticsService: AnalyticsService,
     private workoutHistoryService: WorkoutHistoryService, private ExerciseService: ExerciseService) { }
 
@@ -136,7 +139,7 @@ createTrainingInfoChart(trainingData: any): void {
     return {
       label: exercise,
       data: data,
-      backgroundColor: this.getRandomColor(), //get colors
+      backgroundColor: EXERCISE_COLORS[exercise], //get colors
     
     };
   });
