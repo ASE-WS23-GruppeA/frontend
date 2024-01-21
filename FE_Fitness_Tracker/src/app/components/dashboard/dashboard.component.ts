@@ -45,6 +45,10 @@ export class DashboardComponent implements OnInit {
     startDateTrainingInfo = '2023-01-01';
     endDateTrainingInfo: string = '2023-01-07';
 
+    //for chart 4
+    startDateGymVisits =  '2023-01-01';
+    endDateGymVisits = '2023-01-07';
+
     defaultExercise = 'Choose Exercise';
     defaultStartDate = '2022-01-01';
     defaultEndDate = '2024-12-31';
@@ -138,7 +142,7 @@ loadUserTrainingInfo(): void {
 
 loadGymVisitsData(): void {
   const userId = 1; // TODO
-  this.analyticsService.getUserTrainingInfo(userId, '2023-01-01', '2025-12-31')
+  this.analyticsService.getUserTrainingInfo(userId, this.startDateGymVisits, this.endDateGymVisits)
     .subscribe(data => {
       this.createGymVisitsChart(data.gymVisits);
     }, error => {
