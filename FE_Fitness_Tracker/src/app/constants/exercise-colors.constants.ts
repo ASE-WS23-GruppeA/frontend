@@ -4,7 +4,7 @@ export const EXERCISE_COLORS: { [key: string]: string } = {
     'Lunges': '#33FF57',
     'Deadlifts': '#3357FF',
     'Leg Press': '#FF33F6',
-    'Leg Curls': '#33FFF6',
+    'Leg Curls': '#f24879',
     'Leg Extensions': '#FFC300',
     'Romanian Deadlifts': '#DAF7A6',
     'Step-ups': '#C70039',
@@ -18,7 +18,7 @@ export const EXERCISE_COLORS: { [key: string]: string } = {
     // Chest
     'Decline Bench Press': '#0000FF',
     'Push-ups': '#008000',
-    'Bench Press': '#800000',
+    'Bench Press': '#19bf8d',
     'Dips': '#808000',
     'Incline Bench Press': '#FF00FF',
     'Dumbbell Bench Press': '#FF4500',
@@ -66,7 +66,7 @@ export const EXERCISE_COLORS: { [key: string]: string } = {
     // Biceps
     'Cable Curls': '#B22222',
     'Hammer Curls': '#FF00FF',
-    'Bicep Curls': '#FFD700',
+    'Bicep Curls': '#97c7d7',
     'Preacher Curls': '#ADFF2F',
   
     // Glutes

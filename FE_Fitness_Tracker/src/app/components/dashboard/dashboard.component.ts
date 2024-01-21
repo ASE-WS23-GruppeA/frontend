@@ -171,14 +171,23 @@ createTrainingInfoChart(trainingData: any): void {
         y: {
           beginAtZero: true,
           ticks: {
-            stepSize: 1, 
-    
+            stepSize: 1
           }
         }
       },
       responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Your Average Weight Progress',
+          font: {
+            size: 14
+          }
+        }
+      }
     }
   });
+  
 }
 
 getRandomColor() {
@@ -385,7 +394,7 @@ getRandomColor() {
             display: true,
             text: 'Your Weight Progress',
             font: {
-              size: 15,
+              size: 14,
             }
           }, 
           legend: {
