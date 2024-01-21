@@ -50,12 +50,12 @@ select:hover {
   background-color: #e0e0e0; 
 }
 
-/* Allgemeiner Stil für Formularelemente (Dropdowns, Inputs) */
+
 .form-element {
-    margin-bottom: 10px; /* Abstand zwischen den Elementen */
+    margin-bottom: 10px; 
   }
   
-  /* Stil für Dropdown-Menüs */
+  
   select {
     width: 180px;
     padding: 10px 15px;
