@@ -14,10 +14,13 @@ import { Exercise } from 'src/app/_models/exercise.model';
 export class DashboardComponent implements OnInit {
   @ViewChild('chartCanvas') chartCanvas?: ElementRef;
   @ViewChild('averageWeightProgressCanvas') averageWeightProgressCanvas?: ElementRef;
+  @ViewChild('trainingInfoCanvas') trainingInfoCanvas?: ElementRef;
+  
   
 
   //selectedMuscleGroup: string = 'Legs';
   averageWeightProgressChart: Chart | undefined;
+  trainingInfoChart: Chart | undefined;
 
   
     totalVolume: any;
@@ -63,6 +66,7 @@ export class DashboardComponent implements OnInit {
       this.loadWorkouts();
       this.loadLastWorkout(userId);
       this.loadExercises();
+      this.loadUserTrainingInfo();
   }
 
   loadWorkouts(): void {
@@ -100,6 +104,73 @@ export class DashboardComponent implements OnInit {
       }
     );
 }
+
+loadUserTrainingInfo(): void {
+  const userId = 1; // TODO
+  this.analyticsService.getUserTrainingInfo(userId, '2023-01-01', '2025-12-31')
+    .subscribe(data => {
+      this.createTrainingInfoChart(data.trainingInfo);
+    }, error => {
+      console.error('Fehler beim Laden der Trainingsdaten', error);
+    });
+}
+
+createTrainingInfoChart(trainingData: any): void {
+  const dates = Object.keys(trainingData);
+  const exercises = new Set<string>();
+  
+  //get exercises
+  dates.forEach(date => {
+    trainingData[date].forEach((exercise: any) => {
+      exercises.add(exercise.exercise);
+    });
+  });
+
+  const datasets = Array.from(exercises).map(exercise => {
+    const data = dates.map(date => {
+     
+      return trainingData[date].some((e: any) => e.exercise === exercise) ? 1 : 0;
+    });
+
+
+    return {
+      label: exercise,
+      data: data,
+      backgroundColor: this.getRandomColor(), //get colors
+    
+    };
+  });
+
+  this.trainingInfoChart = new Chart(this.trainingInfoCanvas!.nativeElement, {
+    type: 'bar',
+    data: {
+      labels: dates,
+      datasets: datasets
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1, 
+    
+          }
+        }
+      },
+      responsive: true,
+    }
+  });
+}
+
+getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 
   getExerciseDetails(exerciseIds: number[]): void {
     exerciseIds.forEach(id => {
