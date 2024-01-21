@@ -39,6 +39,10 @@ export class DashboardComponent implements OnInit {
     startDateChart2 = '';
     endDateChart2: string = '';  
 
+    //for chart 3
+    startDateTrainingInfo = '2022-01-01';
+    endDateTrainingInfo: string = '2024-12-31';
+
     defaultExercise = 'Choose Exercise';
     defaultStartDate = '2022-01-01';
     defaultEndDate = '2024-12-31';
@@ -70,6 +74,7 @@ export class DashboardComponent implements OnInit {
       this.loadLastWorkout(userId);
       this.loadExercises();
       this.loadUserTrainingInfo();
+      this.getTrainingInfoData();
   }
 
   loadWorkouts(): void {
@@ -108,9 +113,9 @@ export class DashboardComponent implements OnInit {
     );
 }
 
-loadUserTrainingInfo(): void {
-  const userId = 1; // TODO
-  this.analyticsService.getUserTrainingInfo(userId, '2023-01-01', '2025-12-31')
+getTrainingInfoData(): void {
+  const userId = 1; // TODO:
+  this.analyticsService.getUserTrainingInfo(userId, this.startDateTrainingInfo, this.endDateTrainingInfo)
     .subscribe(data => {
       this.createTrainingInfoChart(data.trainingInfo);
     }, error => {
@@ -118,11 +123,25 @@ loadUserTrainingInfo(): void {
     });
 }
 
+loadUserTrainingInfo(): void {
+  const userId = 1; // TODO
+  this.analyticsService.getUserTrainingInfo(userId, '2023-01-01', '2025-12-31')
+    .subscribe(data => {
+      this.createTrainingInfoChart(data.trainingInfo);
+    }, error => {
+      console.error('Error', error);
+    });
+}
+
 createTrainingInfoChart(trainingData: any): void {
   const dates = Object.keys(trainingData);
   const exercises = new Set<string>();
-  
-  //get exercises
+
+  if (this.trainingInfoChart) {
+    this.trainingInfoChart.destroy();
+    this.trainingInfoChart = undefined;
+  }
+
   dates.forEach(date => {
     trainingData[date].forEach((exercise: any) => {
       exercises.add(exercise.exercise);
@@ -131,16 +150,13 @@ createTrainingInfoChart(trainingData: any): void {
 
   const datasets = Array.from(exercises).map(exercise => {
     const data = dates.map(date => {
-     
       return trainingData[date].some((e: any) => e.exercise === exercise) ? 1 : 0;
     });
-
 
     return {
       label: exercise,
       data: data,
       backgroundColor: EXERCISE_COLORS[exercise], //get colors
-    
     };
   });
 
