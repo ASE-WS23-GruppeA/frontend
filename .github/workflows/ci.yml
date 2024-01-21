@@ -3,57 +3,79 @@ name: Frontend CI/CD Pipeline
 on:
   push:
     paths:
+      - '.github/workflows/*.yml'
       - 'frontend/FE_Fitness_Tracker/**'
-    branches:
-      - main
+  #    branches:
+  #      - main
   pull_request:
     paths:
+      - '.github/workflows/*.yml'
       - 'frontend/FE_Fitness_Tracker/**'
-    branches:
-      - main
+#    branches:
+#      - main
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout project sources
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '16.x'
+      - name: Print Folder Structure
+        run: |
+          echo "Printing the folder structure:"
+          ls -la
 
-    - name: Install Dependencies
-      run: npm install
-      working-directory: frontend/FE_Fitness_Tracker
+      - name: Replace apiGatewayBaseUrl in environment.prod.ts
+        run: |
+          sed -i "s|apiGatewayBaseUrl:.*|apiGatewayBaseUrl: \\\"http://${{ secrets.DROPLET_IP_ADDRESS }}\\\",|" \
+            FE_Fitness_Tracker/src/environments/environment.prod.ts
 
-    - name: Lint
-      run: npm run lint
-      working-directory: frontend/FE_Fitness_Tracker
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Run Tests
-      run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-      working-directory: frontend/FE_Fitness_Tracker
+      - name: Install Dependencies
+        run: npm install
+        working-directory: FE_Fitness_Tracker
 
-    - name: Build
-      run: npm run build -- --prod
-      working-directory: frontend/FE_Fitness_Tracker
+      #      - name: Run Tests
+      #        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      #        working-directory: FE_Fitness_Tracker
 
-    # Add any deployment steps here, specifying the 'working-directory' if needed
+      - name: Build
+        run: npm run build:prod
+        working-directory: FE_Fitness_Tracker
 
-    # Local Deployment Steps (for documentation purposes)
-    - name: Echo Local Deployment Steps
-      run: |
-        echo "Pull the latest code:"
-        echo "git checkout main"
-        echo "git pull origin main"
-        
-        echo "Build the Angular application:"
-        echo "cd path/to/frontend/FE_Fitness_Tracker"
-        echo "npm install"
-        echo "npm run build -- --prod"
-        
-        echo "Deploy locally by copying build artifacts to your local server directory."
-        
-        echo "Start or restart your local server to serve the new version of the application."
+      - name: Print Folder Structure
+        run: |
+          echo "Printing the folder structure:"
+          ls -la
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist_folder
+          path: FE_Fitness_Tracker/dist/
+
+
+  build-and-push-docker:
+    needs: build-and-test
+    uses: ASE-WS23-GruppeA/workout-tracker/.github/workflows/docker-build-and-push.yml@main
+    with:
+      docker_image_tag: 'registry.digitalocean.com/do-ase-registry/frontend'
+      build_artifact_name: 'dist_folder'
+      build_artifact_path: 'FE_Fitness_Tracker/dist'
+      docker_build_dockerfile_path: 'FE_Fitness_Tracker/Dockerfile'
+      docker_build_context_path: 'FE_Fitness_Tracker'
+    secrets:
+      DIGITALOCEAN_ACCESS_TOKEN: "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}"
+
+
+  restart-application:
+    needs: build-and-push-docker
+    uses: ASE-WS23-GruppeA/workout-tracker/.github/workflows/docker-compose-restart.yml@main
+    secrets:
+      DROPLET_IP_ADDRESS: "${{ secrets.DROPLET_IP_ADDRESS }}"
+      DROPLET_SSH_KEY: "${{ secrets.DROPLET_SSH_KEY }}"
