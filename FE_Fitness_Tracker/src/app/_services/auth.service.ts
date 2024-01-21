@@ -7,6 +7,7 @@ import {StorageService} from './storage.service';
 import {Router} from '@angular/router';
 import {User} from '../_models/user.model';
 import {MessageService} from "./message.service";
+import {environment} from "../../environments/environment";
 
 export interface AuthResponseData {
   id: number;
@@ -20,6 +21,7 @@ export interface AuthResponseData {
 export class AuthService {
   private jwtToken = new BehaviorSubject<string | null>(null);
   AuthenticatedUser$ = new BehaviorSubject<User | null>(null);
+  private apiGatewayBaseUrl = environment.apiGatewayBaseUrl;
 
   constructor(
     private http: HttpClient,
@@ -39,7 +41,7 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<AuthResponseData>('http://localhost:8443/api/auth/login', {
+    return this.http.post<AuthResponseData>(`${this.apiGatewayBaseUrl}/api/auth/login`, {
       username,
       password
     }, {withCredentials: true})
@@ -85,7 +87,7 @@ export class AuthService {
 
   createUser(username: string, email: string, password: string): Promise<AuthResponseData> {
     return new Promise((resolve, reject) => {
-      this.http.post<AuthResponseData>('http://localhost:8443/api/auth/register', {
+      this.http.post<AuthResponseData>(`${this.apiGatewayBaseUrl}/api/auth/register`, {
         username,
         email,
         password

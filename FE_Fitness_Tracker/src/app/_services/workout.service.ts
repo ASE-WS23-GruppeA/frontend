@@ -3,18 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Workout } from 'src/app/_models/workout.model';
-import { Exercise } from 'src/app/_models/exercise.model';
-import { ExerciseSet } from 'src/app/_models/exercise-set.model';
 import { AuthService } from 'src/app/_services/auth.service';
 import { User } from 'src/app/_models/user.model';
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class WorkoutService {
-    private apiUrl = 'http://localhost:8443/workouts'; // Update the URL accordingly
+  private workoutServiceBaseUrl = `${environment.apiGatewayBaseUrl}/workouts`;
 
-    constructor(private http: HttpClient, private authService: AuthService) {    
+  constructor(private http: HttpClient, private authService: AuthService) {
         }
 
     saveWorkoutSets(workoutSets: any, exerciseName: string): Observable<any> {
@@ -30,7 +29,7 @@ export class WorkoutService {
             workoutSets: workout.workoutSets
         };
 
-        return this.http.post(this.apiUrl, workoutData).pipe(
+        return this.http.post(this.workoutServiceBaseUrl, workoutData).pipe(
             catchError((error) => {
                 console.error('Error saving workout', error);
                 throw error;
