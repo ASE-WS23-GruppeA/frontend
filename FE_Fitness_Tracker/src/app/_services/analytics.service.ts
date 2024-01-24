@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {AuthService} from "./auth.service";
+import {StorageService} from "./storage.service";
 
 
 @Injectable({
@@ -12,10 +13,19 @@ export class AnalyticsService {
 
   private analyticsServiceBaseUrl = `${environment.apiGatewayBaseUrl}/analytics`;
   private currentJwtToken: string | null = null;
+  private currentUserId: number | null = null;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private storageService: StorageService
+  ) {
     this.authService.getJwtToken().subscribe(token => {
       this.currentJwtToken = token;
+    });
+
+    this.storageService.userChanges.subscribe(user => {
+      this.currentUserId = user?.id || null;
     });
   }
 

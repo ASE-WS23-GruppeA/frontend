@@ -43,7 +43,7 @@ export class WorkoutService {
       workoutSets: workout.workoutSets
     };
 
-    return this.http.post(this.workoutServiceBaseUrl, workoutData, {headers: this.getHeaders()}).pipe(
+    return this.http.post(`${this.workoutServiceBaseUrl}/create`, workoutData, {headers: this.getHeaders()}).pipe(
       catchError((error) => {
         console.error('Error saving workout', error);
         throw error;

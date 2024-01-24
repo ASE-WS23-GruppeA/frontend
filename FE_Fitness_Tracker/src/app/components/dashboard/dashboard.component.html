@@ -25,12 +25,12 @@
                
             <div style="display: flex; align-items: center; margin-top: 10px;">
               <label style="margin-right: 5px;">From:</label>
-              <input type="date"  [(ngModel)]="startDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 120px; font-size: 14px; padding: 5px 10px; height: 30px;">
+              <input type="date"  [(ngModel)]="startDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 140px; font-size: 14px; padding: 5px 10px; height: 30px;">
             </div>
             
             <div style="display: flex; align-items: center; margin-top: 10px; ">
               <label style="margin-right: 20px;">To:</label>
-              <input type="date"  [(ngModel)]="endDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 120px; font-size: 14px; padding: 5px 10px; height: 30px;">
+              <input type="date"  [(ngModel)]="endDate" (change)="getAverageWeightProgressForMuscleGroup()" style="width: 140px; font-size: 14px; padding: 5px 10px; height: 30px;">
             </div>
       
             <div style="display: flex; align-items: center;">
@@ -48,13 +48,13 @@
             <canvas #chartCanvas style="margin-bottom: 10px;"></canvas>
           
             <span style="font-size: 13px; line-height: 30px; margin-right: 10px; vertical-align: middle; margin-left: 40px;">From:</span>
-            <input type="date" [(ngModel)]="startDateChart2" (change)="getWeightProgressForExercises()" style="font-size: 14px; padding: 5px 10px; height: 30px;  width: 120px;">
+            <input type="date" [(ngModel)]="startDateChart2" (change)="getWeightProgressForExercises()" style="font-size: 14px; padding: 5px 10px; height: 30px;  width: 140px;">
             <select disabled  class="select2" style="font-size: 14px; visibility: hidden; padding: 5px 10px; height: 30px; margin-top: 10px; color: white; background-color:white; ">
              
             </select>
             
             <span style="font-size: 13px; line-height: 30px; margin-right: 19px; vertical-align: middle; margin-left: 40px;">To:</span>
-            <input type="date" [(ngModel)]="endDateChart2" (change)="getWeightProgressForExercises()" style="font-size: 14px; padding: 5px 10px; height: 30px; margin-top: 10px; width: 120px; ">
+            <input type="date" [(ngModel)]="endDateChart2" (change)="getWeightProgressForExercises()" style="font-size: 14px; padding: 5px 10px; height: 30px; margin-top: 10px; width: 140px; ">
             </div>
             <span style="font-size: 13px; line-height: 30px; margin-right: 10px; vertical-align: middle; margin-left: 40px;">Select Exercise:</span>
             <select [(ngModel)]="selectedExercise" (change)="getWeightProgressForExercises()" style="font-size: 14px; padding: 5px 10px; height: 30px; margin-top: 10px; width: 250px; ">
