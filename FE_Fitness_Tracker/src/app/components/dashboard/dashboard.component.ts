@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
     private workoutHistoryService: WorkoutHistoryService, private ExerciseService: ExerciseService) { }
 
     ngOnInit() {
-      const userId = 1; // TODO
+      const userId = 100; // TODO
       this.loadLastWorkout(userId);
       this.selectedExercise = this.defaultExercise; 
       this.startDate = this.defaultStartDate;
@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
   }
 
     loadWorkouts(): void {
-      this.workoutHistoryService.getAllWorkouts(1) //TODO
+      this.workoutHistoryService.getAllWorkouts(100) //TODO
         .subscribe(data => {
           console.log('Response from getAllWorkouts:', data);  
       
@@ -123,7 +123,7 @@ export class DashboardComponent implements OnInit {
 }
 
 getTrainingInfoData(): void {
-  const userId = 1; // TODO:
+  const userId = 100; // TODO:
   this.analyticsService.getUserTrainingInfo(userId, this.startDateTrainingInfo, this.endDateTrainingInfo)
     .subscribe(data => {
       this.createTrainingInfoChart(data.trainingInfo);
@@ -133,7 +133,7 @@ getTrainingInfoData(): void {
 }
 
 loadUserTrainingInfo(): void {
-  const userId = 1; // TODO
+  const userId = 100; // TODO
   this.analyticsService.getUserTrainingInfo(userId, '2023-01-01', '2025-12-31')
     .subscribe(data => {
       this.createTrainingInfoChart(data.trainingInfo);
@@ -143,7 +143,7 @@ loadUserTrainingInfo(): void {
 }
 
 loadGymVisitsData(): void {
-  const userId = 1; // TODO
+  const userId = 100; // TODO
   this.analyticsService.getUserTrainingInfo(userId, this.startDateGymVisits, this.endDateGymVisits)
     .subscribe(data => {
       this.createGymVisitsChart(data.gymVisits);
@@ -215,7 +215,7 @@ createTrainingInfoChart(trainingData: any): void {
     this.trainingInfoChart = undefined;
   }
 
-  const dataMap = new Map<string, { [exercise: string]: { sets: number, reps: number } }>();
+  const dataMap = new Map<string, { [exercise: string]: { weights: number, reps: number } }>();
 
   dates.forEach(date => {
     trainingData[date]?.forEach((exerciseData: any) => {
@@ -224,7 +224,7 @@ createTrainingInfoChart(trainingData: any): void {
         dataMap.set(date, {});
       }
       dataMap.get(date)![exerciseData.exercise] = {
-        sets: exerciseData.sets,
+        weights: exerciseData.weights,
         reps: exerciseData.reps
       };
     });
@@ -266,27 +266,7 @@ createTrainingInfoChart(trainingData: any): void {
             size: 14
           }
         },
-        tooltip: {
-          enabled: true,
-          mode: 'index',
-          intersect: false,
-          callbacks: {
-            label: function(context: any) {
-              const dataIndex = context.dataIndex;
-              const datasetIndex = context.datasetIndex;
-              const exerciseLabel = datasets[datasetIndex].label;
-              const dateLabel = dates[dataIndex];
-
-              if (dataMap.has(dateLabel) && dataMap.get(dateLabel)![exerciseLabel]) {
-                const sets = dataMap.get(dateLabel)![exerciseLabel].sets;
-                const reps = dataMap.get(dateLabel)![exerciseLabel].reps;
-                return `Sets: ${sets}, Reps: ${reps}`;
-              } else {
-                return 'No Entry';
-              }
-            }
-          }
-        }
+       
       }
     }
   });
@@ -369,7 +349,7 @@ getRandomColor() {
   }
 
   getAverageWeightProgressForMuscleGroup(): void {
-    const userId = 1; // TODO
+    const userId = 100; // TODO
     this.analyticsService.getAverageWeightProgress(userId, this.selectedMuscleGroup, this.startDate, this.endDate)
     .subscribe(data => {
         console.log('Average Weight Progress Data:', data);
