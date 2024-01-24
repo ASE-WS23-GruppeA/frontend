@@ -2,17 +2,7 @@ name: Frontend CI/CD Pipeline
 
 on:
   push:
-    paths:
-      - '.github/workflows/*.yml'
-      - 'frontend/FE_Fitness_Tracker/**'
-  #    branches:
-  #      - main
   pull_request:
-    paths:
-      - '.github/workflows/*.yml'
-      - 'frontend/FE_Fitness_Tracker/**'
-#    branches:
-#      - main
 
 jobs:
   build-and-test:
@@ -39,10 +29,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
         working-directory: FE_Fitness_Tracker
-
-      #      - name: Run Tests
-      #        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-      #        working-directory: FE_Fitness_Tracker
 
       - name: Build
         run: npm run build:prod
