@@ -34,24 +34,24 @@ export class DashboardComponent implements OnInit {
     selectedExercise: string = '';
 
     //for chart 1
-    startDate = '';
-    endDate: string = '';
+    startDate = '2023-03-01';
+    endDate: string = '2023-03-07';
 
     //for chart 2
-    startDateChart2 = '';
-    endDateChart2: string = '';  
+    startDateChart2 = '2023-03-01';
+    endDateChart2: string = '2023-03-07';  
 
     //for chart 3
-    startDateTrainingInfo = '2023-01-01';
-    endDateTrainingInfo: string = '2023-01-07';
+    startDateTrainingInfo = '2023-03-01';
+    endDateTrainingInfo: string = '2023-03-07';
 
     //for chart 4
-    startDateGymVisits =  '2023-01-01';
-    endDateGymVisits = '2023-01-07';
+    startDateGymVisits =  '2023-03-01';
+    endDateGymVisits = '2023-03-10';
 
     defaultExercise = 'Choose Exercise';
-    defaultStartDate = '2022-01-01';
-    defaultEndDate = '2024-12-31';
+    defaultStartDate = '2023-03-01';
+    defaultEndDate = '2023-03-31';
 
     workouts: any[] = [];
     lastWorkout: any;
