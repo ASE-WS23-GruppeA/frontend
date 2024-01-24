@@ -47,7 +47,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ### Running acceptance tests
 
-Run `ngx cypress run` to execute the acceptance tests. For our acceptance tests, we use cypress. 
+Run `npx cypress run` to execute the acceptance tests. For our acceptance tests, we use cypress. 
 
 ### Further help
 
