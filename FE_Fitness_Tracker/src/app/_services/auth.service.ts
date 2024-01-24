@@ -1,7 +1,7 @@
 // auth.service.ts
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {StorageService} from './storage.service';
 import {Router} from '@angular/router';
@@ -91,7 +91,7 @@ export class AuthService {
         username,
         email,
         password
-      }, { withCredentials: true })
+      }, {withCredentials: true})
         .pipe(
           catchError(err => {
             let errorMessage = 'An error occurred during sign up.';
