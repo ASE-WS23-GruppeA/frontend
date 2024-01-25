@@ -439,13 +439,15 @@ export class DashboardComponent implements OnInit {
       this.weightProgressForExerciseschart.destroy();
     }
 
+    const dates = Object.keys(data).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
     this.weightProgressForExerciseschart = new Chart(this.chartCanvas!.nativeElement, {
       type: 'line',
       data: {
-        labels: Object.keys(data),
+        labels: dates,
         datasets: [{
           label: this.selectedExercise,
-          data: Object.values(data),
+          data: dates.map(date => data[date]),
           borderColor: 'rgb(106, 90, 205)',
           tension: 0.1,
           fill: false,
