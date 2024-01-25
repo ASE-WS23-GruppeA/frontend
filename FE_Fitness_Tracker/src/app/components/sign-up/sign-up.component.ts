@@ -32,6 +32,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   onSubmitSignUp(form: NgForm) {
+    this.messageService.clearMessage();
     if (form.invalid) {
       return;
     }
